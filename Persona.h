@@ -6,7 +6,7 @@ struct registro_persona{
     char telefono[50];
     char mail[50];
     char direccion[50];
-    int dni[50];
+    char dni[10];
 }
 
 /// Definición de la clase Persona
@@ -17,7 +17,7 @@ private:
     int dni;
     string mail;
     int telefono;
-    int fechaDeNacimiento;
+    int fechaDeNacimiento; // Formato AAAAMMDD
 public:
     string getNombreyApellido();
     void setNombreyApellido(string nombreyApellido);
