@@ -19,11 +19,16 @@ private:
     int telefono;
     int fechaDeNacimiento; // Formato AAAAMMDD
 public:
-    string getNombreyApellido();
-    void setNombreyApellido(string nombreyApellido);
+    void setNombre(string nombreyApellido);
+    string getNombre();
+    void setApellido(string apellido);
+    string getApellido();
     int getDni();
     void setDni(int dni);
-    
+    void setMail(string mail);
+    string getMail();
+    void setTelefono(int telefono);
+    int getTelefono();
 };
 
 
