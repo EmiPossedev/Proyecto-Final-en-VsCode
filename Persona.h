@@ -1,4 +1,3 @@
-
 /// Necesitamos una manera de transformar los datos de las personas en registros para guardarlos en archivos binarios
 struct registro_persona{
     char nombre[50];
@@ -29,7 +28,10 @@ public:
     string getMail();
     void setTelefono(int telefono);
     int getTelefono();
-};
+    string ValidarDatos();
+    void setFechaDeNacimiento(int fechaDeNacimiento);
+    int getFechaDeNacimiento();
+}
 
 
 

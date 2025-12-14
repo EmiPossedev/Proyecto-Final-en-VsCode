@@ -1,4 +1,7 @@
+/// Includes necesarios para la implementación de la clase Persona
 #include "Persona.h"
+#include <string>
+
 /// Implementación de los métodos de la clase Persona
 
 // Métodos para el nombre
