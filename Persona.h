@@ -1,12 +1,15 @@
+#include <string>
+using namespace std;
+
 /// Necesitamos una manera de transformar los datos de las personas en registros para guardarlos en archivos binarios
-struct registro_persona{
+struct registro_persona {
     char nombre[50];
     char apellido[50];
     char telefono[50];
     char mail[50];
     char direccion[50];
     char dni[10];
-}
+};
 
 /// Definición de la clase Persona
 class Persona{
@@ -31,7 +34,7 @@ public:
     string ValidarDatos();
     void setFechaDeNacimiento(int fechaDeNacimiento);
     int getFechaDeNacimiento();
-}
+};
 
 
 

@@ -45,9 +45,9 @@ int Persona::getTelefono(){
 }
 
 // Métodos para la fecha de nacimiento
-void setFechaDeNacimiento(int nuevaFecha){
+void Persona::setFechaDeNacimiento(int nuevaFecha){
     fechaDeNacimiento = nuevaFecha;
 }
-int getFechaDeNacimiento(){
+int Persona::getFechaDeNacimiento(){
     return fechaDeNacimiento;
 }
