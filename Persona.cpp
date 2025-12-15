@@ -5,10 +5,10 @@
 /// Implementación de los métodos de la clase Persona
 
 // Métodos para el nombre
-void Persona::setNombre(string nuevoNombre){
+void Persona::setNombre(string nuevoNombre) {
     nombre = nuevoNombre;
 }
-string Persona::getNombre(){
+string Persona::getNombre() {
     return nombre;
 }
 
@@ -32,22 +32,22 @@ int Persona::getDni(){
 void Persona::setMail(string nuevoMail){
     mail = nuevoMail;
 }
-string Persona::getMail(){
+string Persona::getMail() {
     return mail;
 }
 
 // Métodos para el teléfono
-void Persona::setTelefono(int nuevoTelefono){
+void Persona::setTelefono(int nuevoTelefono) {
     telefono = nuevoTelefono;
 }
-int Persona::getTelefono(){
+int Persona::getTelefono() {
     return telefono;
 }
 
 // Métodos para la fecha de nacimiento
-void Persona::setFechaDeNacimiento(int nuevaFecha){
+void Persona::setFechaDeNacimiento(int nuevaFecha) {
     fechaDeNacimiento = nuevaFecha;
 }
-int Persona::getFechaDeNacimiento(){
+int Persona::getFechaDeNacimiento() {
     return fechaDeNacimiento;
 }

@@ -11,8 +11,8 @@ struct registro_persona {
     char dni[10];
 };
 
-/// Definición de la clase Persona
-class Persona{
+/// Definición de la cl se Persona
+class Persona {
 private:
     string nombre;
     string apellido;
@@ -35,6 +35,3 @@ public:
     void setFechaDeNacimiento(int fechaDeNacimiento);
     int getFechaDeNacimiento();
 };
-
-
-

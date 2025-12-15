@@ -1,5 +1,5 @@
 #include <iostream>
-#include "clases.h"
+#include "Consultorio.h"
 
 int main(){
 
