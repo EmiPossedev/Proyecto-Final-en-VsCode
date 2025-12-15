@@ -7,19 +7,7 @@
 #include <fstream>
 using namespace std;
 
-// Este struct turno me deja trabajar los datos en memoria
-struct Turno
-{
-    int codigoTurno;
-    int dniPaciente;
-    int dniKinesiologo;
-    string fecha;          // Formato DD/MM/AAAA
-    string hora;           // Formato HH:MM
-    string estadoDelTurno; // Programado, Cancelado, Completado
-    string observaciones;
-};
-
-// Y este para guardar en archivo binario (usando char)
+// Este struct sirve para guardar en archivo binario (usando char)
 struct RegistroTurno
 {
     int codigoTurno;
@@ -29,6 +17,18 @@ struct RegistroTurno
     char hora[10];           // Formato HH:MM
     char estadoDelTurno[20]; // Programado, Cancelado, Completado
     char observaciones[200];
+};
+
+// Y este struct turno me deja trabajar los datos en memoria
+struct Turno
+{
+    int codigoTurno;
+    int dniPaciente;
+    int dniKinesiologo;
+    string fecha;          // Formato DD/MM/AAAA
+    string hora;           // Formato HH:MM
+    string estadoDelTurno; // Programado, Cancelado, Completado
+    string observaciones;
 };
 
 /// Definición de la clase Consultorio

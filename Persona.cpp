@@ -33,5 +33,3 @@ int Persona::getTelefono()
 {
     return telefono;
 }
-
-+

@@ -23,7 +23,7 @@ private:
     int cantidadPacientesAtendidos;
 public:
     string getEspecialidad() const;
-    void modificarEspecialidad(string modificacion);
+    void modificarEspecialidad(const string &modificacion);
     int getCantidadPacientesAtendidos() const;
-    void modificarCantPacientesAtendidos int getHoraInicioJornada() const;
+    void modificarCantPacientesAtendidos(const int &cant);
 };

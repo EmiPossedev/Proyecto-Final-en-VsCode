@@ -2,10 +2,10 @@
 
 string Kinesiologo::getEspecialidad() const
 {
-    return string();
+    return especialidad;
 }
 
 int Kinesiologo::getCantidadPacientesAtendidos() const
 {
-    return 0;
+    return cantidadPacientesAtendidos;
 }

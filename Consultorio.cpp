@@ -5,7 +5,7 @@
 #include <fstream>
 #include <cstring>
 
-// ========== MÉTODOS BÁSICOS ==========
+// Métodos Básicos
 
 void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
@@ -37,19 +37,7 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-// ========== MÉTODOS DE BÚSQUEDA ==========
-
-Paciente *Consultorio::buscarPacientePorDni(int dni)
-{
-    for (size_t i = 0; i < pacientes.size(); i++)
-    {
-        if (pacientes[i]->getDni() == dni)
-        {
-            return pacientes[i];
-        }
-    }
-    return nullptr;
-}
+// Métodos de Búsqueda
 
 Paciente *Consultorio::buscarPacientePorNombre(const string &nombre)
 {
@@ -75,7 +63,7 @@ Paciente *Consultorio::buscarPacientePorApellido(const string &apellido)
     return nullptr;
 }
 
-// ========== MÉTODOS DE ELIMINACIÓN ==========
+// Métodos de eliminación
 
 void Consultorio::eliminarPacientePorDni(int dni)
 {
@@ -103,7 +91,7 @@ void Consultorio::eliminarKinesiologoPorDni(int dni)
     }
 }
 
-// ========== GUARDAR EN ARCHIVOS BINARIOS ==========
+// Métodos para guardar los datos en archivos binarios
 
 void Consultorio::guardarPacientes(const string &nombreArchivo)
 {
