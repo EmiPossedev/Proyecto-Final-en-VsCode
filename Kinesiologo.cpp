@@ -1,9 +1,11 @@
 #include "Kinesiologo.h"
 
-string Kinesiologo::getEspecialidad() const {
+string Kinesiologo::getEspecialidad() const
+{
     return string();
 }
 
-int Kinesiologo::getCantidadPacientesAtendidos() const {
+int Kinesiologo::getCantidadPacientesAtendidos() const
+{
     return 0;
 }
