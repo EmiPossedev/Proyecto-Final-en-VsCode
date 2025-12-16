@@ -91,4 +91,3 @@ void Paciente::reintegrarSesionRealizada()
 {
     cantSesionesRealizadas = cantSesionesRealizadas + 1;
 }
-hola posse
