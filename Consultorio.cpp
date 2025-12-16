@@ -19,7 +19,8 @@ Consultorio::~Consultorio()
     }
 }
 
-// Métodos Básicos para agregar/modificar datos
+/// Métodos Básicos para agregar/modificar datos
+
 // Métodos básicos para kinesiólogos
 void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
@@ -46,14 +47,16 @@ vector<Paciente *> Consultorio::getPacientes() const
 }
 
 // Métodos para turnos
-void Consultorio::agregarTurno(const Turno &turno)
-{
-    turnos.push_back(turno);
-}
 vector<Turno> Consultorio::getTurnos() const
 {
     return turnos;
 }
+
+void Consultorio::agregarTurno(const Turno &turno)
+{
+    turnos.push_back(turno);
+}
+
 void Consultorio::cancelarTurno(const string &nombrePaciente, const string &fecha, const string &hora)
 {
 for (size_t i = 0; i < turnos.size(); i++) 
