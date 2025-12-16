@@ -16,7 +16,8 @@ struct RegistroPaciente
     int fechaDeInicio;
     char diagnostico[100];
     char obraSocial[50];
-    int cantidadSesionesRealizadas;
+    int cantSesionesTotales;
+    int cantSesionesRealizadas;
     char observaciones[200];
     bool sesionesPagas;
 };
@@ -33,22 +34,31 @@ private:
     bool sesionesPagas;
 
 public:
-    // Métodos para obtener los datos del paciente
+    // Métodos para obtener y modificar los datos del paciente(en inglés es más corto)
+    // Obtener y modificar la fecha de inicio del paciente
     int getFechaDeInicio() const;
+    void setFechaDeInicio(const int &nuevaFechaInicio);
+    // Obtener y modificar el diágnostico del paciente
     string getDiagnostico() const;
+    void setDiagnostico(const string nuevoDiagnostico); 
+    // Obtener y modificar la obra social del paciente
     string getObraSocial() const;
+    void setObraSocial(const string &nuevaObraSocial);
+    // Obtener y modificar las sesiones totales que le corresponden al paciente
+    int getCantSesionesTotales() const;
+    void setCantSesionesTotales(const int &nuevaCant);
+    // Solo un método para saber las sesiones realizadas y no para modificarlas porque
+    // esa lógica la manejan otros métodos, si alguien las modifica podría romper la lógica del sistema
     int getCantidadSesionesRealizadas() const;
+    // Obtener y modificar las observaciones del paciente
     string getObservaciones() const;
+    void agregarObservaciones(const string &nuevaObservacion);
+    void borrarObservaciones();
+    // Métodos para las sesiones pagas y pendientes
     bool getSesionesPagas() const;
-
-    // Métodos para modificar los datos del paciente
-    void setFechaDeInicio(int fecha);
-    void setDiagnostico(const string &diag);
-    void setObraSocial(const string &obra);
-    void setCantidadSesionesRealizadas(const int &cantidad);
-    void setObservaciones(const string &obs);
-    void setSesionesPagas(bool pagas);
-
+    void marcarComoPendiente();
+    void MarcarComoPago();
+    
     // Métodos para las cancelación de turnos de los pacientes
     void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
     void reintegrarSesionRealizada(); // reintegrar la sesion si se canceló el turno
