@@ -1,3 +1,6 @@
+#ifndef PERSONA_H
+#define PERSONA_H
+
 #include <string>
 using namespace std;
 
@@ -25,3 +28,5 @@ public:
     void setTelefono(int telefono);
     int getTelefono();
 };
+
+#endif

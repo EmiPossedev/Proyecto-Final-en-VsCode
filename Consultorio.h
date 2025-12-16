@@ -1,3 +1,6 @@
+#ifndef CONSULTORIO_H
+#define CONSULTORIO_H
+
 #include "Persona.h"
 #include "Kinesiologo.h"
 #include "Paciente.h"
@@ -96,3 +99,5 @@ public:
     void guardarTodosDatos();
     void cargarTodosDatos();
 };
+
+#endif

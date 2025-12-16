@@ -1,3 +1,6 @@
+#ifndef PACIENTE_H
+#define PACIENTE_H
+
 #include "Persona.h"
 #include <string>
 using namespace std;
@@ -50,3 +53,5 @@ public:
     void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
     void reintegrarSesionRealizada(); // reintegrar la sesion si se canceló el turno
 };
+
+#endif

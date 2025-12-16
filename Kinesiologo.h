@@ -1,3 +1,6 @@
+#ifndef KINESIOLOGO_H
+#define KINESIOLOGO_H
+
 /// Includes necesarios para la definición de la clase Kinesiologo
 #include "Persona.h"
 #include <string>
@@ -32,3 +35,5 @@ public:
     int getMatricula() const;
     void modificarMatricula(int n);
 };
+
+#endif
