@@ -29,7 +29,7 @@ private:
     bool sesionesPagas;
 
 public:
-    // Getters
+    // Métodos para obtener los datos del paciente
     int getFechaDeInicio() const;
     string getDiagnostico() const;
     string getObraSocial() const;
@@ -37,11 +37,11 @@ public:
     string getObservaciones() const;
     bool getSesionesPagas() const;
 
-    // Setters
+    // Métodos para modificar los datos del paciente
     void setFechaDeInicio(int fecha);
     void setDiagnostico(const string &diag);
     void setObraSocial(const string &obra);
-    void setCantidadSesionesRealizadas(int cantidad);
+    void setCantidadSesionesRealizadas(const int &cantidad);
     void setObservaciones(const string &obs);
     void setSesionesPagas(bool pagas);
 };

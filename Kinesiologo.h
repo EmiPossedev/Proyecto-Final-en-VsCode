@@ -10,7 +10,7 @@ struct RegistroKinesiologo
     char nombre[50];
     char apellido[50];
     int telefono;
-    // Datos propios del kinesiologo
+    // Datos de la clase kinesiologo
     char especialidad[50];
     int cantidadPacientesAtendidos;
 };
@@ -19,6 +19,7 @@ struct RegistroKinesiologo
 class Kinesiologo : public Persona
 {
 private:
+    int matricula;
     string especialidad;
     int cantidadPacientesAtendidos;
 public:
