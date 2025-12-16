@@ -63,6 +63,7 @@ public:
     void agregarTurno(const Turno &turno);
     void cancelarTurno(const string &nombrePaciente, const string &fecha, const string &hora);
     void reprogramarTurno(const string &nombrePaciente, const string &fechaVieja, const string &horaVieja, const string &fechaNueva, const string &horaNueva);
+    void ordenarTurnos(); // Para ordenar, necesitamos sobrecargar los operadores de comparación
     vector<Turno> getTurnosPorFecha(const string &fecha);
     vector<Turno> getTurnosPorHora(const string &hora);
     vector<Turno> getTurnosDeKinesiologo(const string &nombreKinesio);
