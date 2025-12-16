@@ -12,6 +12,7 @@ struct RegistroKinesiologo
     int telefono;
     // Datos de la clase kinesiologo
     char especialidad[50];
+    int matricula;
     int cantidadPacientesAtendidos;
 };
 
@@ -23,8 +24,11 @@ private:
     string especialidad;
     int cantidadPacientesAtendidos;
 public:
+    // Métodos para obtener los datos del kinesiologo y/o modificarlos
     string getEspecialidad() const;
     void modificarEspecialidad(const string &modificacion);
     int getCantidadPacientesAtendidos() const;
     void modificarCantPacientesAtendidos(const int &cant);
+    int getMatricula() const;
+    void modificarMatricula(int n);
 };

@@ -24,7 +24,8 @@ private:
     int fechaDeInicio;
     string diagnostico;
     string obraSocial; // mencionar si tiene o viene en forma particular
-    int cantidadSesionesRealizadas;
+    int cantSesionesTotales; // la cantidad de sesiones totales asignadas para el tratamiento
+    int cantSesionesRealizadas; // las que se vayan realizando, se van a ir descontando de las totales
     string observaciones;
     bool sesionesPagas;
 
@@ -44,4 +45,8 @@ public:
     void setCantidadSesionesRealizadas(const int &cantidad);
     void setObservaciones(const string &obs);
     void setSesionesPagas(bool pagas);
+
+    // Métodos para las cancelación de turnos de los pacientes
+    void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
+    void reintegrarSesionRealizada(); // reintegrar la sesion si se canceló el turno
 };
