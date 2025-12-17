@@ -57,13 +57,17 @@ void Consultorio::agregarTurno(const Turno &turno)
     turnos.push_back(turno);
 }
 
-void Consultorio::cancelarTurno(const string &nombrePaciente, const string &fecha, const string &hora)
+void Consultorio::cancelarTurno(const stringPaciente &nombrePacienteBuscado, const string &fecha, const string &hora)
 {
-for (size_t i = 0; i < turnos.size(); i++) 
+for (auto i = turnos.begin(); i != turnos.end(); i++) 
     {
-        if (turnos[i].getNombrePaciente() == nombrePaciente && turnos[i].getFecha() == fecha && turnos[i].getHora() == hora)
+        if (it->nombrePaciente == nombrePacienteBuscado && 
+            it->Fecha == fecha && 
+            it->Hora == hora)
         {
-            turnos.erase(turnos.begin() + i);
+            turnos.erase(it);
+            return; // el return solo sale de las funciones void :)
+            // Lástima que lo aprendí tarde, así me ahorraba iteraciones innecesarias jajaj
         }
     }  
 }
