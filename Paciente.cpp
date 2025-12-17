@@ -60,7 +60,7 @@ void Paciente::agregarObservaciones(const string &nuevaObservacion)
         observaciones += '\n' + nuevaObservacion; // \n es el caracter que indica salto de línea
     }
 }
-void borrarObservaciones()
+void Paciente::borrarObservaciones() //faltaba "Paciente::" ;)
 {
     observaciones = ""; // vacío las observaciones
 }
