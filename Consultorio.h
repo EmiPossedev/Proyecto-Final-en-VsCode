@@ -74,14 +74,12 @@ public:
     // Antes: const string &fecha -> Ahora: const Fecha &fecha
     void cancelarTurno(const string &nombrePaciente, const Fecha &fecha, const string &hora);
     
-    // Aquí cambiamos fechaVieja y fechaNueva a tipo Fecha
+    // Aquí cambiamos fechaVieja y fechaNueva a tipo Fecha(del archivo Fecha.h)
     void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
-    
     void ordenarTurnos(); 
     
     // Búsqueda por fecha ahora recibe un objeto Fecha
     vector<Turno> getTurnosPorFecha(const Fecha &fecha);
-    
     vector<Turno> getTurnosPorHora(const string &hora);
     vector<Turno> getTurnosDeKinesiologo(const string &nombreKinesio);
 
@@ -94,8 +92,8 @@ public:
     Paciente *buscarPacientePorApellido(const string &apellido);
 
     // Métodos de eliminación
-    void eliminarPacientePorDni(int dni);
-    void eliminarKinesiologoPorDni(int dni);
+    void eliminarPacientePorNombre(int dni);
+    void eliminarKinesiologoPorNombre(int dni);
 
     // Método de alerta al kinesiologo de que le tienen que pagar
     vector<Paciente*> getPacientesConPagoPendiente() const;
