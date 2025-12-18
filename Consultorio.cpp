@@ -5,7 +5,8 @@
 #include <fstream>
 #include <cstring>
 #include <iostream> 
-#include <algorithm> // para que funcione sort
+#include <algorithm> // para que funcione el sort
+
 // Método Destructor
 Consultorio::~Consultorio()
 {

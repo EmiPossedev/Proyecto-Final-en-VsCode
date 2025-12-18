@@ -23,7 +23,7 @@ struct RegistroTurno
     char observaciones[200];
 };
 
-// Y este struct turno me deja trabajar los datos en memoria
+// Y este struct Turno me deja trabajar los datos en memoria
 struct Turno
 {
     string nombreKinesiologo;
@@ -35,13 +35,13 @@ struct Turno
     string estadoDelTurno; // Programado, Cancelado, Completado
     string observaciones;
 
-    // Necesitamos esto para que ordenarTurnos() sepa qué hacer.
-    // Como ahora 'fecha' ya sabe compararse sola.
-    bool operator<(const Turno &b) const {
-        if (fecha != b.fecha) {
-            return fecha < b.fecha; // Usa la lógica de tu Fecha.h
+    // Necesitamos esto para que ordenarTurnos() pueda hacer la comparacion
+    // Como ahora fecha ya sabe compararse sola
+    bool operator<(const Turno &Turno) const {
+        if (fecha != Turno.fecha) {
+            return fecha < Turno.fecha; // Usa la lógica de tu Fecha.h
         }
-        return hora < b.hora; // Si es el mismo día, desempata por hora
+        return hora < Turno.hora; // Si es el mismo día, desempata por hora
     }
 
 };
