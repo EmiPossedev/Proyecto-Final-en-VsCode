@@ -53,6 +53,54 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
+//  MÉTODOS DE BÚSQUEDA DE TURNOS 
+
+// Busca todos los turnos de una fecha específica
+vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
+{
+    vector<Turno> encontrados;
+
+    for (const auto &turno : turnos)
+    {
+        // operator== en Fecha.h
+        if (turno.fecha == fecha)
+        {
+            encontrados.push_back(turno);
+        }
+    }
+    return encontrados;
+}
+
+// Busca todos los turnos de una hora específica
+vector<Turno> Consultorio::getTurnosPorHora(const string &hora)
+{
+    vector<Turno> encontrados;
+
+    for (const auto &turno : turnos)
+    {
+        if (turno.hora == hora)
+        {
+            encontrados.push_back(turno);
+        }
+    }
+    return encontrados;
+}
+
+// Busca todos los turnos de un kinesiólogo específico
+vector<Turno> Consultorio::getTurnosDeKinesiologo(const string &nombreKinesio)
+{
+    vector<Turno> encontrados;
+
+    for (const auto &turno : turnos)
+    {
+        if (turno.nombreKinesiologo == nombreKinesio)
+        {
+            encontrados.push_back(turno);
+        }
+    }
+    return encontrados;
+}
+
 void Consultorio::agregarTurno(const Turno &turno)
 {
     turnos.push_back(turno);
@@ -186,10 +234,8 @@ void Consultorio::reprogramarTurno(const string &nombrePaciente, const Fecha &fe
     cout << "Error: No se encontro el turno original para reprogramar." << endl;
 }
 
-// ¡FALTABA ESTE! Agregalo para que funcione el ordenamiento
+
 void Consultorio::ordenarTurnos()
 {
-    // Como definimos el operator< dentro del struct Turno (en el .h)
-    // sort ya sabe qué hacer mágicamente.
     sort(turnos.begin(), turnos.end());
 }
