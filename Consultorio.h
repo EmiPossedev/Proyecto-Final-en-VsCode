@@ -1,6 +1,6 @@
 #ifndef CONSULTORIO_H
 #define CONSULTORIO_H
-
+#include "Fecha.h"
 #include "Persona.h"
 #include "Kinesiologo.h"
 #include "Paciente.h"
@@ -15,7 +15,7 @@ struct RegistroTurno
 {
     char nombreKinesio[50];
     char nombrePaciente[50];
-    char fecha[15];          // Formato DD/MM/AAAA
+    Fecha fecha;          // Usamos el struct Fecha definido en Fecha.h
     char hora[10];           // Formato HH:MM
     char estadoDelTurno[20]; // Programado, Cancelado, Completado
     bool requiereCamilla;
@@ -28,12 +28,22 @@ struct Turno
 {
     string nombreKinesiologo;
     string nombrePaciente;
-    string fecha; // Formato DD/MM/AAAA
+    Fecha fecha; 
     string hora;  // Formato HH:MM
     bool requiereCamilla;
     bool requiereGimnasio;
     string estadoDelTurno; // Programado, Cancelado, Completado
     string observaciones;
+
+    // Necesitamos esto para que ordenarTurnos() sepa qué hacer.
+    // Como ahora 'fecha' ya sabe compararse sola.
+    bool operator<(const Turno &b) const {
+        if (fecha != b.fecha) {
+            return fecha < b.fecha; // Usa la lógica de tu Fecha.h
+        }
+        return hora < b.hora; // Si es el mismo día, desempata por hora
+    }
+
 };
 
 /// Definición de la clase Consultorio
@@ -61,18 +71,24 @@ public:
     // Métodos para la gestión de los turnos
     vector<Turno> getTurnos() const;
     void agregarTurno(const Turno &turno);
-    void cancelarTurno(const string &nombrePaciente, const string &fecha, const string &hora);
-    void reprogramarTurno(const string &nombrePaciente, const string &fechaVieja, const string &horaVieja, const string &fechaNueva, const string &horaNueva);
-    void ordenarTurnos(); // Para ordenar, necesitamos sobrecargar los operadores de comparación
-    vector<Turno> getTurnosPorFecha(const string &fecha);
+    // Antes: const string &fecha -> Ahora: const Fecha &fecha
+    void cancelarTurno(const string &nombrePaciente, const Fecha &fecha, const string &hora);
+    
+    // Aquí cambiamos fechaVieja y fechaNueva a tipo Fecha
+    void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
+    
+    void ordenarTurnos(); 
+    
+    // Búsqueda por fecha ahora recibe un objeto Fecha
+    vector<Turno> getTurnosPorFecha(const Fecha &fecha);
+    
     vector<Turno> getTurnosPorHora(const string &hora);
     vector<Turno> getTurnosDeKinesiologo(const string &nombreKinesio);
 
-    // Métodos para verificar la disponibilidad de los recursos para poder agendar el turno
-    bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const string &fecha, const string &hora);
-    bool verificarDisponibilidadCamilla(const string &fecha, const string &hora);
-    bool verificarDisponibilidadGimnasio(const string &fecha, const string &hora);
-
+    // Métodos de verificación (También actualizados a Fecha)
+    bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const Fecha &fecha, const string &hora);
+    bool verificarDisponibilidadCamilla(const Fecha &fecha, const string &hora);
+    bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &ho
     // Métodos de búsqueda de pacientes
     Paciente *buscarPacientePorNombre(const string &nombre);
     Paciente *buscarPacientePorApellido(const string &apellido);
