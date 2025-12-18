@@ -59,7 +59,7 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-//  Métodos de búsqueda de turnos
+// Métodos de búsqueda de turnos
 // Busca todos los turnos de una fecha específica
 vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
 {
@@ -100,13 +100,10 @@ void Consultorio::agregarTurno(const Turno &turno){
     turnos.push_back(turno);
 }
 
-// Fíjate que el parámetro ahora es 'const Fecha &fecha'
 void Consultorio::cancelarTurno(const string &nombrePacienteBuscado, const Fecha &fecha, const string &hora){
     for (auto it = turnos.begin(); it != turnos.end(); it++){
         //sobrecargamos el operator==
-        if (it->nombrePaciente == nombrePacienteBuscado &&
-            it->fecha == fecha &&
-            it->hora == hora)
+        if (it->nombrePaciente == nombrePacienteBuscado && it->fecha == fecha &&  it->hora == hora)
         {
             turnos.erase(it);
             return;
@@ -115,15 +112,10 @@ void Consultorio::cancelarTurno(const string &nombrePacienteBuscado, const Fecha
 }
 
 // Disponibilidad del Kinesiólogo
-// Cambio: parámetro fecha ahora es tipo Fecha
-bool Consultorio::verificarDisponibilidadKinesiologo(const string &nombreKinesio, const Fecha &fecha, const string &hora)
-{
-    for (const auto &turno : turnos)
-    {
-        if (turno.nombreKinesiologo == nombreKinesio && turno.fecha == fecha && turno.hora == hora)
-        {
-            if (turno.estadoDelTurno != "Cancelado")
-            {
+bool Consultorio::verificarDisponibilidadKinesiologo(const string &nombreKinesio, const Fecha &fecha, const string &hora){
+    for (const auto &turno : turnos){
+        if (turno.nombreKinesiologo == nombreKinesio && turno.fecha == fecha && turno.hora == hora){
+            if (turno.estadoDelTurno != "Cancelado"){
                 return false;
             }
         }
@@ -147,86 +139,78 @@ bool Consultorio::verificarDisponibilidadCamilla(const Fecha &fecha, const strin
     }
 }
 
-Paciente *Consultorio::buscarPacientePorApellido(const string &apellido)
+// Métodos de búsqueda por nombre y apellido
+Paciente *Consultorio::buscarPacientePorApellido(const string &apellido){
+    for(Paciente* p : pacientes){
+        if(p->getApellido() == apellido){
+            return p;
+        }
+    }
+    return nullptr; //No existe
+}
+Paciente *Consultorio::buscarPacientePorNombre(const string &nombre)
 {
-    for
-
-
+    for(Paciente* p : pacientes){
+        if(p->getNombre() == nombre){
+            return p;
+        }
+    }
     return nullptr;
 }
 
-// Verificación 3: Disponibilidad del Gimnasio
+
+//Disponibilidad del Gimnasio
 bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora)
 {
     int gimnasioOcupado = 0;
 
-    for (const auto &turno : turnos)
-    {
-        if (turno.fecha == fecha && turno.hora == hora && turno.requiereGimnasio && turno.estadoDelTurno != "Cancelado")
-        {
+    for (const auto &turno : turnos){
+        if (turno.fecha == fecha && turno.hora == hora && turno.requiereGimnasio && turno.estadoDelTurno != "Cancelado"){
             gimnasioOcupado++;
         }
     }
 
-    if (gimnasioOcupado < capacidadGimnasio)
-    {
+    if (gimnasioOcupado < capacidadGimnasio){
         return true;
-    }
-    else
-    {
+    }else{
         return false;
     }
 }
 
-
-
-// Cambio: fechaVieja y fechaNueva ahora son tipo Fecha
 void Consultorio::reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva)
 {
-    for (auto &turno : turnos)
-    {
-        // Buscar el turno original (Compara fechas usando Fecha.h)
-        if (turno.nombrePaciente == nombrePaciente &&
-            turno.fecha == fechaVieja &&
-            turno.hora == horaVieja)
-        {
-
-            // Verificaciones (pasamos los objetos Fecha a las funciones)
-            if (!verificarDisponibilidadKinesiologo(turno.nombreKinesiologo, fechaNueva, horaNueva))
-            {
+    for (auto &turno : turnos) {
+        // Buscar el turno original
+        if (turno.nombrePaciente == nombrePaciente && turno.fecha == fechaVieja && turno.hora == horaVieja){
+            if (!verificarDisponibilidadKinesiologo(turno.nombreKinesiologo, fechaNueva, horaNueva)){
                 cout << "Error: El kinesiologo " << turno.nombreKinesiologo << " ya tiene un turno a esa hora nueva." << endl;
                 return;
             }
 
-            if (turno.requiereCamilla)
-            {
-                if (!verificarDisponibilidadCamilla(fechaNueva, horaNueva))
-                {
+            if (turno.requiereCamilla){
+                if (!verificarDisponibilidadCamilla(fechaNueva, horaNueva)) {
                     cout << "Error: No hay camillas disponibles en el nuevo horario." << endl;
                     return;
                 }
             }
-
-            if (turno.requiereGimnasio)
-            {
-                if (!verificarDisponibilidadGimnasio(fechaNueva, horaNueva))
-                {
+            if (turno.requiereGimnasio){
+                if (!verificarDisponibilidadGimnasio(fechaNueva, horaNueva)) {
                     cout << "Error: El gimnasio esta lleno en el nuevo horario." << endl;
                     return;
                 }
             }
 
             // Actualización de datos
-            turno.fecha = fechaNueva; // Copia los 3 ints (día, mes, año)
+            turno.fecha = fechaNueva; 
             turno.hora = horaNueva;
             turno.estadoDelTurno = "Reprogramado";
 
-            cout << "El turno ha sido reprogramado correctamente." << endl;
+            cout << "El turno se logro reprogramar" << endl;
             return;
         }
     }
 
-    cout << "Error: No se encontro el turno original para reprogramar." << endl;
+    cout << "Error" << endl;
 }
 
 void Consultorio::ordenarTurnos()
