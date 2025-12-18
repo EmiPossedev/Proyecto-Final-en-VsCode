@@ -71,29 +71,26 @@ public:
     // Métodos para la gestión de los turnos
     vector<Turno> getTurnos() const;
     void agregarTurno(const Turno &turno);
-    // Antes: const string &fecha -> Ahora: const Fecha &fecha
     void cancelarTurno(const string &nombrePaciente, const Fecha &fecha, const string &hora);
-    
-    // Aquí cambiamos fechaVieja y fechaNueva a tipo Fecha(del archivo Fecha.h)
     void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
     void ordenarTurnos(); 
     
-    // Búsqueda por fecha ahora recibe un objeto Fecha
+    // Búsqueda por fecha 
     vector<Turno> getTurnosPorFecha(const Fecha &fecha);
     vector<Turno> getTurnosPorHora(const string &hora);
     vector<Turno> getTurnosDeKinesiologo(const string &nombreKinesio);
 
-    // Métodos de verificación (También actualizados a Fecha)
+    // Métodos de verificación 
     bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadCamilla(const Fecha &fecha, const string &hora);
-    bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &ho
+    bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora);
     // Métodos de búsqueda de pacientes
     Paciente *buscarPacientePorNombre(const string &nombre);
     Paciente *buscarPacientePorApellido(const string &apellido);
 
     // Métodos de eliminación
-    void eliminarPacientePorNombre(int dni);
-    void eliminarKinesiologoPorNombre(int dni);
+    void eliminarPacientePorNombre(const string &nombrePaciente);
+    void eliminarKinesiologoPorNombre(const string &nombreKinesio);
 
     // Método de alerta al kinesiologo de que le tienen que pagar
     vector<Paciente*> getPacientesConPagoPendiente() const;
