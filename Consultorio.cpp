@@ -12,7 +12,7 @@
 #include <iostream>
 #include <algorithm> // para que funcione el sort
 
-// Método Destructor
+// MÉTODO DESTRUCTOR
 Consultorio::~Consultorio()
 {
     for (size_t i = 0; i < kinesiologos.size(); i++)
@@ -26,9 +26,9 @@ Consultorio::~Consultorio()
     }
 }
 
-/// Métodos Básicos para agregar/modificar datos
+/// MÉTODOS BÁSICOS PARA AGREGAR/MODIFICAR DATOS
 
-// Métodos básicos para kinesiólogos
+// Métodos BÁSICOS para KINESIÓLOGOS
 void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
     kinesiologos.push_back(kinesiologo);
@@ -42,7 +42,7 @@ vector<Kinesiologo *> Consultorio::getKinesiologos() const
     return kinesiologos;
 }
 
-// Métodos para pacientes
+// Métodos BÁSICOS para PACIENTES
 void Consultorio::agregarPaciente(Paciente *paciente)
 {
     pacientes.push_back(paciente);
@@ -53,13 +53,13 @@ vector<Paciente *> Consultorio::getPacientes() const
     return pacientes;
 }
 
-// Métodos para turnos
+// MÉTODOS PARA LOS TURNOS(buscar, consultar, agregar, cancelar, reprogramar, ordenar)
+// Método para obtener los turnos
 vector<Turno> Consultorio::getTurnos() const
 {
     return turnos;
 }
 
-// Métodos de búsqueda de turnos
 // Busca todos los turnos de una fecha específica
 vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
 {
@@ -76,7 +76,9 @@ vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
     return encontrados;
 }
 
-// Busca todos los turnos de una hora específica
+/* FUNCIONES TEMPLATIZADAS
+// Busca todos los turnos de una hora/kinesio 
+template <typename T>
 vector<Turno> Consultorio::getTurnosPorHora(const string &hora)
 {
     vector<Turno> encontrados;
@@ -103,6 +105,8 @@ vector<Turno> Consultorio::getTurnosDeKinesiologo(const string &nombreKinesio)
     }
     return encontrados;
 }
+*/
+
 // Agregar un turno
 void Consultorio::agregarTurno(const Turno &turno)
 {
@@ -171,6 +175,9 @@ void Consultorio::ordenarTurnos()
 {
     sort(turnos.begin(), turnos.end());
 }
+
+/// MÉTODOS PARA VERIFICAR DISPONIBILIDAD DE LOS RECURSOS
+
 // Disponibilidad del Kinesiólogo
 bool Consultorio::verificarDisponibilidadKinesiologo(const string &nombreKinesio, const Fecha &fecha, const string &hora)
 {
@@ -208,9 +215,32 @@ bool Consultorio::verificarDisponibilidadCamilla(const Fecha &fecha, const strin
     }
 }
 
-// Métodos de búsqueda para Kinesios y Pacientes por nombre y apellido
+// Disponibilidad del Gimnasio
+bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora)
+{
+    int gimnasioOcupado = 0;
 
-// Métodos para Pacientes
+    for (const auto &turno : turnos)
+    {
+        if (turno.fecha == fecha && turno.hora == hora && turno.requiereGimnasio && turno.estadoDelTurno != "Cancelado")
+        {
+            gimnasioOcupado++;
+        }
+    }
+
+    if (gimnasioOcupado < capacidadGimnasio)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+// MÉTODOS DE BÚSQUEDA para Kinesios y Pacientes por nombre y apellido
+
+// MÉTODOS PARA PACIENTES
 Paciente *Consultorio::buscarPacientePorNombre(const string &nombre)
 {
     for (Paciente *p : pacientes)
@@ -233,7 +263,7 @@ Paciente *Consultorio::buscarPacientePorApellido(const string &apellido)
     }
     return nullptr;
 }
-// Métodos para Kinesiologos
+// MÉTODOS PARA KINESIÓLOGOS
 Kinesiologo *Consultorio::buscarKinesiologoPorNombre(const string &nombre)
 {
     for (Kinesiologo *k : kinesiologos)
@@ -257,7 +287,7 @@ Kinesiologo *Consultorio::buscarKinesiologoPorApellido(const string &apellido)
     return nullptr;
 }
 
-// Métodos de eliminación de pacientes y kinesiologos de los vectores de Consultorio
+// MÉTODOS DE ELIMINACIÓN de pacientes y kinesiologos de los vectores de Consultorio
 void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
 {
     Paciente *p = buscarPacientePorNombre(nombrePaciente);
@@ -291,25 +321,3 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
     return deudores;
 }
 
-// Disponibilidad del Gimnasio
-bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora)
-{
-    int gimnasioOcupado = 0;
-
-    for (const auto &turno : turnos)
-    {
-        if (turno.fecha == fecha && turno.hora == hora && turno.requiereGimnasio && turno.estadoDelTurno != "Cancelado")
-        {
-            gimnasioOcupado++;
-        }
-    }
-
-    if (gimnasioOcupado < capacidadGimnasio)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}

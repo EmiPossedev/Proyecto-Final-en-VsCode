@@ -75,6 +75,7 @@ public:
     void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
     void ordenarTurnos(); 
     
+    // FUNCIONES PARA TEMPLATIZAR!!
     // Búsqueda por fecha 
     vector<Turno> getTurnosPorFecha(const Fecha &fecha);
     vector<Turno> getTurnosPorHora(const string &hora);
