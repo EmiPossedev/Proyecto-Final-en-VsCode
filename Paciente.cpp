@@ -2,11 +2,11 @@
 
 
 // Métodos para la fecha de inicio
-int Paciente::getFechaDeInicio() const
+Fecha Paciente::getFechaDeInicio() const
 {
     return fechaDeInicio;
 }
-void Paciente::setFechaDeInicio(const int &nuevaFechaInicio)
+void Paciente::setFechaDeInicio(const Fecha &nuevaFechaInicio)
 {
     fechaDeInicio = nuevaFechaInicio;
 }
@@ -15,11 +15,10 @@ string Paciente::getDiagnostico() const
 {
     return diagnostico;
 }
-void Paciente::setDiagnostico(const string nuevoDiagnostico)
+void Paciente::setDiagnostico(const string &nuevoDiagnostico)
 {
     diagnostico = nuevoDiagnostico;
 }
-
 // Métodos para la obra social
 string Paciente::getObraSocial() const
 {
@@ -46,7 +45,10 @@ int Paciente::getCantidadSesionesRealizadas() const
 {
     return cantSesionesRealizadas;
 }
-
+void Paciente::setCantidadSesionesRealizadas(const int &cantidad)
+{
+    cantSesionesRealizadas = cantidad;
+}
 // Método para observaciones
 string Paciente::getObservaciones() const
 {
@@ -76,7 +78,7 @@ void Paciente::marcarComoPendiente()
     sesionesPagas = false;
 }
 
-void Paciente::MarcarComoPago()
+void Paciente::marcarComoPagado()
 {
     sesionesPagas = true;
 }

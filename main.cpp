@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Consultorio.h"
-
 using namespace std;
 
 // Creamos estas funciones de los menus para tener mas ordenado el main
@@ -19,7 +18,6 @@ void menuPacientes(Consultorio &sistema) {
         switch(opcion){
             case 1:
                 // Lógica para registrar nuevo paciente
-
                 break;
             case 2:
                 // Lógica para ver lista de pacientes

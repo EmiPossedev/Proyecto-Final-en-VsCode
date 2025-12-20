@@ -244,7 +244,7 @@ Kinesiologo *Consultorio::buscarKinesiologoPorNombre(const string &nombre)
 {
     for (Kinesiologo *k : kinesiologos)
     {
-        if (k->getApellido() == nombre)
+        if (k->getNombre() == nombre)
         {
             return k;
         }
@@ -273,16 +273,35 @@ void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
         delete p;
     }
 }
-void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
+    //no funcionaba ya que era un copy paste del de paciente
+
+// void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
+// {
+//     Kinesiologo *k = buscarPacientePorNombre(nombrePaciente);
+//     if (p != nullptr)
+//     {
+//         pacientes.erase(find(pacientes.begin(), pacientes.end(), p));
+//         delete p;
+//     }
+// }
+
+  //CORRECTO
+  void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
 {
-    Kinesiologo *k = buscarPacientePorNombre(nombrePaciente);
-    if (p != nullptr)
+    //ahora si buysca un kinesiologo
+    Kinesiologo *k = buscarKinesiologoPorNombre(nombreKinesio);
+    
+    if (k != nullptr)
     {
-        pacientes.erase(find(pacientes.begin(), pacientes.end(), p));
-        delete p;
+        // 2. Busco en vector KINESIOLOGOS
+        auto it = find(kinesiologos.begin(), kinesiologos.end(), k);
+        if (it != kinesiologos.end()) 
+        {
+            delete *it; 
+            kinesiologos.erase(it); // y borro del vector correcto
+        }
     }
 }
-
 // Paciente con pago pendiente
 vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 {
@@ -296,30 +315,11 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
     }
     return deudores;
 }
+//hagamos esto juntos de binarios que ta heavy
+// guardarPacientes / cargarPacientes
 
+// guardarKinesiologos / cargarKinesiologos
 
-/// MÉTODOS DE ARCHIVOS BINARIOS
-void Consultorio::guardarPacientes(const string &nombreArchivo)
-{
-    fstream bin(nombreArchivo, ios::binary);
-    if(!bin.is_open()){
-        throw runtime_error("No se pudo abrir el archivo para escritura.");
-    }
-    for (size_t i = 0; i < pacientes.size(); i++)
-    {
-        RegistroPaciente RegPaciente;
-        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59); // 59 porque el caracter 60 es para el \0 del c_string
-        strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), 59); // lo mismo para el apellido
-        strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), 99);
-        strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), 199);
-        strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), 49);
-        RegPaciente.telefono = pacientes[i]->getTelefono();
-        RegPaciente.fechaDeInicio = pacientes[i]->getFechaDeInicio();
-        RegPaciente.cantSesionesTotales = pacientes[i]->getCantSesionesTotales();
-        RegPaciente.cantSesionesRealizadas = pacientes[i]->getCantidadSesionesRealizadas();
-        RegPaciente.sesionesPagas = pacientes[i]->getSesionesPagas();
-        bin.write(reinterpret_cast<char*>(&RegPaciente), sizeof(RegistroPaciente));
-    }
-    bin.close();
-    cout << "Pacientes guardados correctamente en: " << nombreArchivo << endl;
-}
+// guardarTurnos / cargarTurnos
+
+//guardarTodosDatos / cargarTodosDatos

@@ -9,7 +9,7 @@ void Persona::setNombre(string nuevoNombre)
 {
     nombre = nuevoNombre;
 }
-string Persona::getNombre()
+string Persona::getNombre() const
 {
     return nombre;
 }
@@ -19,7 +19,7 @@ void Persona::setApellido(string nuevoApellido)
 {
     apellido = nuevoApellido;
 }
-string Persona::getApellido()
+string Persona::getApellido() const
 {
     return apellido;
 }
@@ -29,7 +29,7 @@ void Persona::setTelefono(int nuevoTelefono)
 {
     telefono = nuevoTelefono;
 }
-int Persona::getTelefono()
+int Persona::getTelefono() const
 {
     return telefono;
 }
