@@ -298,3 +298,28 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 }
 
 
+/// MÉTODOS DE ARCHIVOS BINARIOS
+void Consultorio::guardarPacientes(const string &nombreArchivo)
+{
+    fstream bin(nombreArchivo, ios::binary);
+    if(!bin.is_open()){
+        throw runtime_error("No se pudo abrir el archivo para escritura.");
+    }
+    for (size_t i = 0; i < pacientes.size(); i++)
+    {
+        RegistroPaciente RegPaciente;
+        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59); // 59 porque el caracter 60 es para el \0 del c_string
+        strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), 59); // lo mismo para el apellido
+        strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), 99);
+        strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), 199);
+        strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), 49);
+        RegPaciente.telefono = pacientes[i]->getTelefono();
+        RegPaciente.fechaDeInicio = pacientes[i]->getFechaDeInicio();
+        RegPaciente.cantSesionesTotales = pacientes[i]->getCantSesionesTotales();
+        RegPaciente.cantSesionesRealizadas = pacientes[i]->getCantidadSesionesRealizadas();
+        RegPaciente.sesionesPagas = pacientes[i]->getSesionesPagas();
+        bin.write(reinterpret_cast<char*>(&RegPaciente), sizeof(RegistroPaciente));
+    }
+    bin.close();
+    cout << "Pacientes guardados correctamente en: " << nombreArchivo << endl;
+}

@@ -3,52 +3,7 @@
 
 using namespace std;
 
-//creamos funciones para gestionar las opciones del menu, nos sirven para ordenar el codigo mejor
-
-void menuPacientes(Consultorio &sistema);
-void menuKinesiologos(Consultorio &sistema);
-void menuTurnos(Consultorio &sistema);
-
-int main(){
-
-    Consultorio sistema;
-    sistema.cargarTodosDatos(); // Carga los datos al iniciar el programa o no arranca
-
-    int opcion;
-    do {
-        cout << " SISTEMA DE GESTION DE CONSULTORIO " << endl;
-        cout << "1. Gestionar Pacientes" << endl;
-        cout << "2. Gestionar Kinesiologos" << endl;
-        cout << "3. Gestionar Turnos" << endl;
-        cout << "0. Guardar y salir" << endl;
-        cout << "Ingrese una opcion: ";
-        cin >> opcion;
-
-        switch(opcion) {
-            case 1:
-                menuPacientes(sistema);
-                break;
-            case 2:
-                menuKinesiologos(sistema);
-                break;
-            case 3:
-                menuTurnos(sistema);
-                break;
-            case 0:
-                sistema.guardarTodosDatos(); // guardamos los datos antes de salir
-                cout << "Datos guardados, salir del sistema." << endl;
-                break;
-            default:
-                cout << "No funciono, intente nuevamente." << endl;
-                break;
-        }
-    } while(opcion != 0);
-
-    return 0;
-}
-
-// Implementamos las funciones de los menus para tener mas ordenado el main
-
+// Creamos estas funciones de los menus para tener mas ordenado el main
 void menuPacientes(Consultorio &sistema) {
     // Aca armamos la implementación del menú de pacientes
     int opcion;
@@ -93,7 +48,7 @@ void menuKinesiologos(Consultorio &sistema) {
         cout<<"3. Buscar y gestionar kinesiologo por nombre"<<endl; //nuevamente fucniones aux para manejar todo por kinesiologo
         cout<<"0. Volver al menu principal"<<endl;
         cout<<"Ingrese una opcion: ";
-        cin>>opcion;
+        cin>>opcion; // leemos la opción del usuario
 
         switch(opcion){
             case 1:
@@ -128,7 +83,7 @@ void menuTurnos(Consultorio &sistema)
         cout << "4. Cancelar Turno " << endl; //cancelar turno
         cout << "0. Volver" << endl;
         cout << "Opcion: ";
-        cin >> opcion;
+        cin >> opcion; // leemos la opción del usuario
 
         switch (opcion) {
             case 1:
@@ -147,4 +102,43 @@ void menuTurnos(Consultorio &sistema)
                 break;
         }
     } while (opcion != 0);
+}
+
+/// Utilizamos el main para probar todas las clases  
+int main(){
+
+    Consultorio sistema;
+    sistema.cargarTodosDatos(); // Carga los datos al iniciar el programa
+
+    int opcion;
+    do {
+        cout << " SISTEMA DE GESTION DE CONSULTORIO " << endl;
+        cout << "1. Gestionar Pacientes" << endl;
+        cout << "2. Gestionar Kinesiologos" << endl;
+        cout << "3. Gestionar Turnos" << endl;
+        cout << "0. Guardar y salir" << endl;
+        cout << "Ingrese una opcion: ";
+        cin >> opcion; // leemos la opción del usuario
+
+        switch(opcion) {
+            case 1:
+                menuPacientes(sistema); // mostramos las opciones del menú de los pacientes
+                break;
+            case 2:
+                menuKinesiologos(sistema); // mostramos las opciones del menú de los kinesiologos
+                break;
+            case 3:
+                menuTurnos(sistema); // mostramos el menú de los turnos
+                break;
+            case 0:
+                sistema.guardarTodosDatos(); // guardamos los datos antes de salir
+                cout << "Datos guardados, salir del sistema." << endl;
+                break;
+            default:
+                cout << "No funciono, intente nuevamente." << endl;
+                break;
+        }
+    } while(opcion != 0);
+
+    return 0;
 }

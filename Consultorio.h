@@ -13,11 +13,11 @@ using namespace std;
 // Este struct sirve para guardar en archivo binario (usando char)
 struct RegistroTurno
 {
-    char nombreKinesio[50];
-    char nombrePaciente[50];
-    Fecha fecha;          // Usamos el struct Fecha definido en Fecha.h
+    char nombreKinesio[60];
+    char nombrePaciente[60];
+    Fecha fecha;             // Usamos el struct Fecha definido en Fecha.h
     char hora[10];           // Formato HH:MM
-    char estadoDelTurno[20]; // Programado, Cancelado, Completado
+    char estadoDelTurno[10]; // Programado, Cancelado, Completado
     bool requiereCamilla;
     bool requiereGimnasio;
     char observaciones[200];
