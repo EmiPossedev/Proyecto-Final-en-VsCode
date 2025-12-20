@@ -244,7 +244,7 @@ Kinesiologo *Consultorio::buscarKinesiologoPorNombre(const string &nombre)
 {
     for (Kinesiologo *k : kinesiologos)
     {
-        if (k->getApellido() == nombre)
+        if (k->getNombre() == nombre)
         {
             return k;
         }
@@ -273,16 +273,35 @@ void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
         delete p;
     }
 }
-void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
+    //no funcionaba ya que era un copy paste del de paciente
+
+// void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
+// {
+//     Kinesiologo *k = buscarPacientePorNombre(nombrePaciente);
+//     if (p != nullptr)
+//     {
+//         pacientes.erase(find(pacientes.begin(), pacientes.end(), p));
+//         delete p;
+//     }
+// }
+
+  //CORRECTO
+  void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
 {
-    Kinesiologo *k = buscarPacientePorNombre(nombrePaciente);
-    if (p != nullptr)
+    //ahora si buysca un kinesiologo
+    Kinesiologo *k = buscarKinesiologoPorNombre(nombreKinesio);
+    
+    if (k != nullptr)
     {
-        pacientes.erase(find(pacientes.begin(), pacientes.end(), p));
-        delete p;
+        // 2. Busco en vector KINESIOLOGOS
+        auto it = find(kinesiologos.begin(), kinesiologos.end(), k);
+        if (it != kinesiologos.end()) 
+        {
+            delete *it; 
+            kinesiologos.erase(it); // y borro del vector correcto
+        }
     }
 }
-
 // Paciente con pago pendiente
 vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 {
@@ -296,5 +315,11 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
     }
     return deudores;
 }
+//hagamos esto juntos de binarios que ta heavy
+// guardarPacientes / cargarPacientes
 
+// guardarKinesiologos / cargarKinesiologos
 
+// guardarTurnos / cargarTurnos
+
+// guardarTodosDatos / cargarTodosDatos

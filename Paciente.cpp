@@ -2,11 +2,11 @@
 
 
 // Métodos para la fecha de inicio
-int Paciente::getFechaDeInicio() const
+Fecha Paciente::getFechaDeInicio() const
 {
     return fechaDeInicio;
 }
-void Paciente::setFechaDeInicio(const int &nuevaFechaInicio)
+void Paciente::setFechaDeInicio(const Fecha &nuevaFechaInicio)
 {
     fechaDeInicio = nuevaFechaInicio;
 }
@@ -46,7 +46,10 @@ int Paciente::getCantidadSesionesRealizadas() const
 {
     return cantSesionesRealizadas;
 }
-
+void Paciente::setCantidadSesionesRealizadas(const int &cantidad)
+{
+    cantSesionesRealizadas = cantidad;
+}
 // Método para observaciones
 string Paciente::getObservaciones() const
 {

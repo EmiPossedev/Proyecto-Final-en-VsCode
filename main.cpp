@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Consultorio.h"
-
 using namespace std;
 
 //creamos funciones para gestionar las opciones del menu, nos sirven para ordenar el codigo mejor
@@ -64,7 +63,6 @@ void menuPacientes(Consultorio &sistema) {
         switch(opcion){
             case 1:
                 // Lógica para registrar nuevo paciente
-
                 break;
             case 2:
                 // Lógica para ver lista de pacientes

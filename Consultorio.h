@@ -4,10 +4,10 @@
 #include "Persona.h"
 #include "Kinesiologo.h"
 #include "Paciente.h"
-#include "Registros.h"
 #include <string>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 using namespace std;
 
 // Este struct sirve para guardar en archivo binario (usando char)
@@ -72,6 +72,11 @@ public:
     // Métodos para agregar y obtener kinesiologos y pacientes
     void agregarKinesiologo(Kinesiologo *kinesiologo);
     vector<Kinesiologo *> getKinesiologos() const;
+    //faltaban estos 3 métodos
+    Kinesiologo *buscarKinesiologoPorNombre(const string &nombre);
+    Kinesiologo *buscarKinesiologoPorApellido(const string &apellido);
+    void eliminarKinesiologoPorNombre(const string &nombreKinesio);
+
     void agregarPaciente(Paciente *paciente);
     vector<Paciente *> getPacientes() const;
 
@@ -85,7 +90,8 @@ public:
     // Funciones de búsqueda (se pueden templatizar)
     vector<Turno> getTurnosPorFecha(const Fecha &fecha);
     vector<Turno> getTurnosPorHora(const string &hora);
-    vector<Turno> getTurnoPorKinesiologo(const string &nombreKinesio);
+    vector<Turno> getTurnosPorKinesiologo(const string &nombreKinesio);
+
     template<typename T>
     vector<Turno> getTurnosPor(const T &valorBuscado){
         vector<Turno> encontrados;

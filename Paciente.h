@@ -1,6 +1,6 @@
 #ifndef PACIENTE_H
 #define PACIENTE_H
-
+#include "Fecha.h"
 #include "Persona.h"
 #include <string>
 using namespace std;
@@ -13,7 +13,7 @@ struct RegistroPaciente
     char apellido[50];
     int telefono;
     // Datos propios de Paciente
-    int fechaDeInicio;
+    Fecha fechaDeInicio;
     char diagnostico[100];
     char obraSocial[50];
     int cantSesionesTotales;
@@ -25,7 +25,7 @@ struct RegistroPaciente
 class Paciente : public Persona
 {
 private:
-    int fechaDeInicio;
+    Fecha fechaDeInicio;
     string diagnostico;
     string obraSocial; // mencionar si tiene o viene en forma particular
     int cantSesionesTotales; // la cantidad de sesiones totales asignadas para el tratamiento
@@ -36,11 +36,11 @@ private:
 public:
     // Métodos para obtener y modificar los datos del paciente(en inglés es más corto)
     // Obtener y modificar la fecha de inicio del paciente
-    int getFechaDeInicio() const;
-    void setFechaDeInicio(const int &nuevaFechaInicio);
+    Fecha getFechaDeInicio() const;
+    void setFechaDeInicio(const Fecha &nuevaFechaInicio);
     // Obtener y modificar el diágnostico del paciente
     string getDiagnostico() const;
-    void setDiagnostico(const string nuevoDiagnostico); 
+    void setDiagnostico(const string &nuevoDiagnostico); 
     // Obtener y modificar la obra social del paciente
     string getObraSocial() const;
     void setObraSocial(const string &nuevaObraSocial);
@@ -50,6 +50,7 @@ public:
     // Solo un método para saber las sesiones realizadas y no para modificarlas porque
     // esa lógica la manejan otros métodos, si alguien las modifica podría romper la lógica del sistema
     int getCantidadSesionesRealizadas() const;
+    void setCantidadSesionesRealizadas(const int &nuevaCant);
     // Obtener y modificar las observaciones del paciente
     string getObservaciones() const;
     void agregarObservaciones(const string &nuevaObservacion);
@@ -57,7 +58,7 @@ public:
     // Métodos para las sesiones pagas y pendientes
     bool getSesionesPagas() const;
     void marcarComoPendiente();
-    void MarcarComoPago();
+    void marcarComoPago();
     
     // Métodos para las cancelación de turnos de los pacientes
     void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
