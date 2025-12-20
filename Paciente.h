@@ -58,7 +58,7 @@ public:
     // Métodos para las sesiones pagas y pendientes
     bool getSesionesPagas() const;
     void marcarComoPendiente();
-    void marcarComoPago();
+    void marcarComoPagado();
     
     // Métodos para las cancelación de turnos de los pacientes
     void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
