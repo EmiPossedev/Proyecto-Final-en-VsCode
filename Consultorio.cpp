@@ -26,6 +26,17 @@ Consultorio::~Consultorio()
     }
 }
 
+// FUNCIONES AUXILIARES
+// Compara si coincide un turno con una fecha
+bool coincide(const Turno &turno, const Fecha &fecha) {
+    return turno.fecha == fecha;
+}
+// Compara si coincide un turno con el string que puede ser el nombre del kinesiologo o la hora
+bool coincide(const Turno &turno, const string &valor) {
+    return turno.hora == valor || turno.nombreKinesiologo == valor;
+}
+
+
 /// MÉTODOS BÁSICOS PARA AGREGAR/MODIFICAR DATOS
 
 // Métodos BÁSICOS para KINESIÓLOGOS
@@ -60,52 +71,17 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-// Busca todos los turnos de una fecha específica
-vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
-{
-    vector<Turno> encontrados;
-
-    for (const auto &turno : turnos)
-    {
-        // operator== en Fecha.h
-        if (turno.fecha == fecha)
-        {
-            encontrados.push_back(turno);
-        }
-    }
-    return encontrados;
+vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha){
+    return getTurnosPor(fecha);
 }
 
-/* FUNCIONES TEMPLATIZADAS
-// Busca todos los turnos de una hora/kinesio 
-template <typename T>
-vector<Turno> Consultorio::getTurnosPorHora(const string &hora)
-{
-    vector<Turno> encontrados;
-    for (const auto &turno : turnos)
-    {
-        if (turno.hora == hora)
-        {
-            encontrados.push_back(turno);
-        }
-    }
-    return encontrados;
+vector<Turno> Consultorio:: getTurnosPorHora(const string &hora){
+    return getTurnosPor(hora);
 }
 
-// Busca todos los turnos de un kinesiólogo específico
-vector<Turno> Consultorio::getTurnosDeKinesiologo(const string &nombreKinesio)
-{
-    vector<Turno> encontrados;
-    for (const auto &turno : turnos)
-    {
-        if (turno.nombreKinesiologo == nombreKinesio)
-        {
-            encontrados.push_back(turno);
-        }
-    }
-    return encontrados;
+vector<Turno> Consultorio::getTurnosPorKinesiologo(const string &nombreKinesio){
+    return getTurnosPor(nombreKinesio);
 }
-*/
 
 // Agregar un turno
 void Consultorio::agregarTurno(const Turno &turno)
@@ -320,4 +296,5 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
     }
     return deudores;
 }
+
 

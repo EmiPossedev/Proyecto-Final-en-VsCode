@@ -46,6 +46,13 @@ struct Turno
 
 };
 
+/// FUNCIONES AUXILIARES PARA PODER COMPARAR TURNOS POR FECHA, POR HORA Y POR KINESIOLOGOS
+// Compara si un turno coincide con una fecha
+bool coincide(const Turno &turno, const Fecha &fecha);
+// Compara si un turno coincide con un string como Nombrekinesio o Hora
+bool coincide(const Turno &turno, const string &valor);
+
+
 /// Definición de la clase Consultorio
 class Consultorio
 {
@@ -75,11 +82,23 @@ public:
     void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
     void ordenarTurnos(); 
     
-    // FUNCIONES PARA TEMPLATIZAR!!
-    // Búsqueda por fecha 
+    // Funciones de búsqueda (se pueden templatizar)
     vector<Turno> getTurnosPorFecha(const Fecha &fecha);
     vector<Turno> getTurnosPorHora(const string &hora);
-    vector<Turno> getTurnosDeKinesiologo(const string &nombreKinesio);
+    vector<Turno> getTurnoPorKinesiologo(const string &nombreKinesio);
+    template<typename T>
+    vector<Turno> getTurnosPor(const T &valorBuscado){
+        vector<Turno> encontrados;
+        for (size_t i = 0; i < turnos.size(); i++)
+        {
+            // la manera más simple encontré fue con una funcion auxiliar
+            if (coincide(turnos[i], valorBuscado)) // coincide es una funcion sobrecargada(no sé si es lo más óptimo pero funciona jajjaj)
+            {
+                encontrados.push_back(turnos[i]);
+            }
+        }
+        return encontrados;
+    }
 
     // Métodos de verificación 
     bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const Fecha &fecha, const string &hora);
