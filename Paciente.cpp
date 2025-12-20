@@ -54,7 +54,7 @@ string Paciente::getObservaciones() const
 {
     return observaciones;
 }
-void Paciente::agregarObservaciones(const string &nuevaObservacion)
+void Paciente::setObservaciones(const string &nuevaObservacion)
 {
     if (observaciones.empty()){
         observaciones = nuevaObservacion;

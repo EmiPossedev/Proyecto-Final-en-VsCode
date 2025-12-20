@@ -12,12 +12,12 @@ int Kinesiologo::getCantidadPacientesAtendidos() const
 
 /// Métodos para modificar los datos del kinesiólogo faltantes
 
-void Kinesiologo::modificarEspecialidad(const string &modificacion)
+void Kinesiologo::setEspecialidad(const string &modificacion)
 {
     especialidad = modificacion;
 }
 
-void Kinesiologo::modificarCantPacientesAtendidos(const int &cant)
+void Kinesiologo::setCantPacientesAtendidos(const int &cant)
 {
     cantidadPacientesAtendidos = cant;
 }
@@ -27,7 +27,7 @@ int Kinesiologo::getMatricula() const
     return matricula;
 }
 
-void Kinesiologo::modificarMatricula(int n)
+void Kinesiologo::setMatricula(int n)
 {
     matricula = n;
 }

@@ -10,11 +10,11 @@ using namespace std;
 struct RegistroKinesiologo
 {
     // Datos heredados de Persona
-    char nombre[50];
-    char apellido[50];
+    char nombre[60];
+    char apellido[60];
     int telefono;
     // Datos de la clase kinesiologo
-    char especialidad[50];
+    char especialidad[100];
     int matricula;
     int cantidadPacientesAtendidos;
 };
@@ -29,11 +29,11 @@ private:
 public:
     // Métodos para obtener los datos del kinesiologo y/o modificarlos
     string getEspecialidad() const;
-    void modificarEspecialidad(const string &modificacion);
+    void setEspecialidad(const string &modificacion);
     int getCantidadPacientesAtendidos() const;
-    void modificarCantPacientesAtendidos(const int &cant);
+    void setCantPacientesAtendidos(const int &cant);
     int getMatricula() const;
-    void modificarMatricula(int n);
+    void setMatricula(int n);
 };
 
 #endif

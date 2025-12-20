@@ -28,14 +28,15 @@ Consultorio::~Consultorio()
 
 // FUNCIONES AUXILIARES
 // Compara si coincide un turno con una fecha
-bool coincide(const Turno &turno, const Fecha &fecha) {
+bool coincide(const Turno &turno, const Fecha &fecha)
+{
     return turno.fecha == fecha;
 }
 // Compara si coincide un turno con el string que puede ser el nombre del kinesiologo o la hora
-bool coincide(const Turno &turno, const string &valor) {
+bool coincide(const Turno &turno, const string &valor)
+{
     return turno.hora == valor || turno.nombreKinesiologo == valor;
 }
-
 
 /// MÉTODOS BÁSICOS PARA AGREGAR/MODIFICAR DATOS
 
@@ -71,15 +72,18 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha){
+vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
+{
     return getTurnosPor(fecha);
 }
 
-vector<Turno> Consultorio:: getTurnosPorHora(const string &hora){
+vector<Turno> Consultorio::getTurnosPorHora(const string &hora)
+{
     return getTurnosPor(hora);
 }
 
-vector<Turno> Consultorio::getTurnosPorKinesiologo(const string &nombreKinesio){
+vector<Turno> Consultorio::getTurnosPorKinesiologo(const string &nombreKinesio)
+{
     return getTurnosPor(nombreKinesio);
 }
 
@@ -273,7 +277,7 @@ void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
         delete p;
     }
 }
-    //no funcionaba ya que era un copy paste del de paciente
+// no funcionaba ya que era un copy paste del de paciente
 
 // void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
 // {
@@ -285,19 +289,19 @@ void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
 //     }
 // }
 
-  //CORRECTO
-  void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
+// CORRECTO
+void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
 {
-    //ahora si buysca un kinesiologo
+    // ahora si buysca un kinesiologo
     Kinesiologo *k = buscarKinesiologoPorNombre(nombreKinesio);
-    
+
     if (k != nullptr)
     {
         // 2. Busco en vector KINESIOLOGOS
         auto it = find(kinesiologos.begin(), kinesiologos.end(), k);
-        if (it != kinesiologos.end()) 
+        if (it != kinesiologos.end())
         {
-            delete *it; 
+            delete *it;
             kinesiologos.erase(it); // y borro del vector correcto
         }
     }
@@ -317,17 +321,19 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 }
 
 /// MÉTODOS DE ARCHIVOS BINARIOS
-// Método para guardar los pacientes en un archivo binario 
+
+// Método para guardar/cargar los pacientes en un archivo binario
 void Consultorio::guardarPacientes(const string &nombreArchivo)
 {
-    fstream bin(nombreArchivo, ios::binary);
-    if(!bin.is_open()){
+    fstream bin(nombreArchivo, ios::binary | ios::out);
+    if (!bin.is_open())
+    {
         throw runtime_error("No se pudo abrir el archivo para escritura.");
     }
     for (size_t i = 0; i < pacientes.size(); i++)
     {
         RegistroPaciente RegPaciente;
-        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59); // 59 porque el caracter 60 es para el \0 del c_string
+        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59);     // 59 porque el caracter 60 es para el \0 del c_string
         strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), 59); // lo mismo para el apellido
         strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), 99);
         strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), 199);
@@ -337,16 +343,95 @@ void Consultorio::guardarPacientes(const string &nombreArchivo)
         RegPaciente.cantSesionesTotales = pacientes[i]->getCantSesionesTotales();
         RegPaciente.cantSesionesRealizadas = pacientes[i]->getCantidadSesionesRealizadas();
         RegPaciente.sesionesPagas = pacientes[i]->getSesionesPagas();
-        bin.write(reinterpret_cast<char*>(&RegPaciente), sizeof(RegistroPaciente));
+        bin.write(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente));
     }
     bin.close();
     cout << "Pacientes guardados correctamente en: " << nombreArchivo << endl;
 }
 
-// guardarPacientes / cargarPacientes
+void Consultorio::cargarPacientes(const string &nombreArchivo)
+{
+    fstream bin(nombreArchivo, ios::binary | ios::in);
+    if (!bin.is_open())
+    {
+        throw runtime_error("No se pudo abrir el archivo para lectura.");
+    }
+    RegistroPaciente RegPaciente;
+    while (bin.read(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente))))
+        {
+            Paciente *p = new Paciente();
+            // ahora tengo que convertur el RegistroPaciente a Paciente
+            p->setNombre(string(RegPaciente.nombre));
+            p->setApellido(string(RegPaciente.apellido));
+            p->setTelefono(RegPaciente.telefono);
+            p->setFechaDeInicio(RegPaciente.fechaDeInicio);
+            p->setDiagnostico(string(RegPaciente.diagnostico));
+            p->setObraSocial(string(RegPaciente.obraSocial));
+            p->setCantSesionesTotales(RegPaciente.cantSesionesTotales);
+            p->setCantidadSesionesRealizadas(RegPaciente.cantSesionesRealizadas);
+            p->setObservaciones(string(RegPaciente.observaciones));
+            // El atributo sesiones pagas se maneja con los métodos de marcarComoPagado y marcarComoPendiente
+            if (RegPaciente.sesionesPagas)
+            {
+                p->marcarComoPagado();
+            }
+            else
+            {
+                p->marcarComoPendiente();
+            }
+            pacientes.push_back(p);
+        }
+    bin.close();
+    cout << "Pacientes cargados correctamente desde: " << nombreArchivo << endl;
+}
 
 // guardarKinesiologos / cargarKinesiologos
+void Consultorio::guardarKinesiologos(const string &nombreArchivo)
+{
+    fstream bin(nombreArchivo, ios::binary | ios::out);
+    if (!bin.is_open())
+    {
+        throw runtime_error("No se pudo abrir el archivo para escritura.");
+    }
+    for (size_t i = 0; i < kinesiologos.size(); i++)
+    {
+        RegistroKinesiologo RegKinesio;
+        strncpy(RegKinesio.nombre, kinesiologos[i]->getNombre().c_str(), 59);     // 59 porque el caracter 60 es para el \0 del c_string
+        strncpy(RegKinesio.apellido, kinesiologos[i]->getApellido().c_str(), 59); // lo mismo para el apellido
+        RegKinesio.telefono = kinesiologos[i]->getTelefono();
+        strncpy(RegKinesio.especialidad, kinesiologos[i]->getEspecialidad().c_str(),99);
+        RegKinesio.matricula = kinesiologos[i]->getMatricula();
+        RegKinesio.cantidadPacientesAtendidos = kinesiologos[i]->getCantidadPacientesAtendidos();
+        bin.write(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo));
+    }
+    bin.close();
+    cout << "Kinesiólogos guardados correctamente en: " << nombreArchivo << endl;
+}
+
+void Consultorio::cargarKinesiologos(const string &nombreArchivo)
+{
+    fstream bin(nombreArchivo, ios::binary | ios::in);
+    if (!bin.is_open())
+    {
+        throw runtime_error("No se pudo abrir el archivo para lectura.");
+    }
+    RegistroKinesiologo RegKinesio;
+    while (bin.read(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo))))
+        {
+            Kinesiologo *k = new Kinesiologo();
+            // ahora tengo que convertur el RegistroPaciente a Paciente
+            k->setNombre(string(RegKinesio.nombre));
+            k->setApellido(string(RegKinesio.apellido));
+            k->setTelefono(RegKinesio.telefono);
+            k->setEspecialidad(string(RegKinesio.especialidad));
+            k->setMatricula(RegKinesio.matricula);
+            k->setCantPacientesAtendidos(RegKinesio.cantPacientesAtendidos);
+            kinesiologos.push_back(k);
+        }
+    bin.close();
+    cout << "Kinesiólogos cargados correctamente desde: " << nombreArchivo << endl;
+}
 
 // guardarTurnos / cargarTurnos
 
-//guardarTodosDatos / cargarTodosDatos
+// guardarTodosDatos / cargarTodosDatos

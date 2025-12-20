@@ -7,8 +7,8 @@ using namespace std;
 /// Necesitamos una manera de transformar los datos de las personas en registros para guardarlos en archivos binarios
 struct registro_persona
 {
-    char nombre[50];
-    char apellido[50];
+    char nombre[60];
+    char apellido[60];
     int telefono;
 };
 

@@ -9,9 +9,9 @@ using namespace std;
 struct RegistroPaciente
 {
     // Datos heredados de Persona
-    char nombre[50];
-    char apellido[50];
-    int telefono;
+    char nombre[60];
+    char apellido[60];
+    int telefono; // del paciente
     // Datos propios de Paciente
     Fecha fechaDeInicio;
     char diagnostico[100];
@@ -53,7 +53,7 @@ public:
     void setCantidadSesionesRealizadas(const int &nuevaCant);
     // Obtener y modificar las observaciones del paciente
     string getObservaciones() const;
-    void agregarObservaciones(const string &nuevaObservacion);
+    void setObservaciones(const string &nuevaObservacion);
     void borrarObservaciones();
     // Métodos para las sesiones pagas y pendientes
     bool getSesionesPagas() const;
