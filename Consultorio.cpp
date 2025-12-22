@@ -449,31 +449,22 @@ void Consultorio::cargarKinesiologos(const string &nombreArchivo)
 // guardarTodosDatos / cargarTodosDatos
 void Consultorio::guardarTurnos(const string &nombreArchivo){
     ofstream bin(nombreArchivo, ios::binary | ios::trunc);
-    if (!bin.is_open()) return;
+    if (!bin.is_open()){
+        throw runtime_error("No se pudo abrir el archivo para escritura.");
+    };
 
-    for (const auto &t : turnos)
+    for (const auto &k : turnos)
     {
         RegistroTurno reg;
         
-        strncpy(reg.nombreKinesio, t.nombreKinesiologo.c_str(), sizeof(reg.nombreKinesio) - 1);
-        reg.nombreKinesio[sizeof(reg.nombreKinesio) - 1] = '\0';
-
-        strncpy(reg.nombrePaciente, t.nombrePaciente.c_str(), sizeof(reg.nombrePaciente) - 1);
-        reg.nombrePaciente[sizeof(reg.nombrePaciente) - 1] = '\0';
-
-        reg.fecha = t.fecha; 
-
-        strncpy(reg.hora, t.hora.c_str(), sizeof(reg.hora) - 1);
-        reg.hora[sizeof(reg.hora) - 1] = '\0';
-
-        strncpy(reg.estadoDelTurno, t.estadoDelTurno.c_str(), sizeof(reg.estadoDelTurno) - 1);
-        reg.estadoDelTurno[sizeof(reg.estadoDelTurno) - 1] = '\0';
-        
-        strncpy(reg.observaciones, t.observaciones.c_str(), sizeof(reg.observaciones) - 1);
-        reg.observaciones[sizeof(reg.observaciones) - 1] = '\0';
-
-        reg.requiereCamilla = t.requiereCamilla;
-        reg.requiereGimnasio = t.requiereGimnasio;
+        strncpy(reg.nombreKinesio, k.nombreKinesiologo.c_str(), 59); 
+        strncpy(reg.nombrePaciente, k.nombrePaciente.c_str(), 59);
+        reg.fecha = k.fecha; 
+        strncpy(reg.hora, k.hora.c_str(), 9);
+        strncpy(reg.estadoDelTurno, k.estadoDelTurno.c_str(), 19);
+        strncpy(reg.observaciones, k.observaciones.c_str(), 199);
+        reg.requiereCamilla = k.requiereCamilla;
+        reg.requiereGimnasio = k.requiereGimnasio;
 
         bin.write(reinterpret_cast<char *>(&reg), sizeof(RegistroTurno));
     }
@@ -482,7 +473,9 @@ void Consultorio::guardarTurnos(const string &nombreArchivo){
 
 void Consultorio::cargarTurnos(const string &nombreArchivo){
     ifstream bin(nombreArchivo, ios::binary);
-    if (!bin.is_open()) return;
+    if (!bin.is_open()){
+        throw runtime_error("No se pudo abrir el archivo para lectura");
+    }
 
     turnos.clear(); // Limpiamos vector (como son structs, no hace falta delete)
 

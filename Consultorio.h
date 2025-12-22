@@ -109,6 +109,7 @@ public:
     bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadCamilla(const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora);
+    
     // Métodos de búsqueda de pacientes
     Paciente *buscarPacientePorNombre(const string &nombre);
     Paciente *buscarPacientePorApellido(const string &apellido);

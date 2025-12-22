@@ -21,14 +21,13 @@ private:
     int telefono;
 
 public:
-virtual ~Persona() {} // Destructor virtual para herencia segura
-
-    void setNombre(string nombreyApellido);
+    void setNombre(const string &nombre);
     string getNombre() const;
-    void setApellido(string apellido);
+    void setApellido(const string &apellido);
     string getApellido() const;
-    void setTelefono(int telefono);
+    void setTelefono(const int &telefono);
     int getTelefono() const;
+    virtual ~Persona() {} // Destructor virtual por ser clase madre
 };
 
 #endif

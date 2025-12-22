@@ -11,10 +11,10 @@ Fecha pedirFecha() {
     return f;
 }
 
-//LOGICA PACIENTES
+// LOGICA PACIENTES
 void registrarPaciente(Consultorio &sistema) {
     
-    //Crear el paciente nuevo en memoria
+    // Crear el paciente nuevo en memoria
     Paciente *nuevoP = new Paciente();
 
     // Variables auxiliares para leer los datos
@@ -34,7 +34,7 @@ void registrarPaciente(Consultorio &sistema) {
     getline(cin, textoAux);
     nuevoP->setApellido(textoAux);
 
-    //Pedir teléfono
+    // Pedir teléfono
     cout << "Ingrese Telefono (solo numeros): ";
     cin >> numeroAux;
     nuevoP->setTelefono(numeroAux);
@@ -47,7 +47,7 @@ void registrarPaciente(Consultorio &sistema) {
     
     nuevoP->setFechaDeInicio(fechaAux);
 
-    //(Diagnóstico y Obra Social)
+    // (Diagnóstico y Obra Social)
     cin.ignore(); 
 
     cout << "Ingrese Diagnostico: ";
@@ -75,34 +75,107 @@ void registrarPaciente(Consultorio &sistema) {
 void listarPacientes(Consultorio &sistema) {
     
     // Obtenemos la copia de la lista de pacientes
-    vector<Paciente*> lista = sistema.getPacientes();
+    vector<Paciente*> pacientes = sistema.getPacientes();
 
     cout << "LISTADO DE PACIENTES" << endl;
 
-    if (lista.empty() == true) {
+    if (pacientes.empty() == true) {
         cout << "No hay pacientes registrados en el sistema." << endl;
         return; 
     }
 
-    for (size_t i = 0; i < lista.size(); i++) {
+    for (size_t i = 0; i < pacientes.size(); i++) {
         
-       
-        Paciente *p = lista[i];
+        Paciente *p = pacientes[i];
         cout << i  << " " << p->getApellido() << " " << p->getNombre();
         
-        // Agregamos info extra útil separada por guiones
+        // Mostramos su obra social y la cantidad de sesiones que lleva
         cout << " Obra social" << p->getObraSocial();
-        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << " " << p->getCantSesionesTotales();
-        
-      
-        cout << endl; 
+        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales();
+        cout << endl;
     }
-    
-    cout << "Suiguiente " << endl;
+    cout << "-Siguiente-" << endl;
 }
 
-//LOGICA PARA BUSCAR Y GESTIONAR PACIENTE CON SU SUB MENU
+// LOGICA PARA BUSCAR Y GESTIONAR PACIENTE CON SU SUB MENU
+void gestionarPaciente(Paciente* p){
+    int opcion;
+    do
+    {
+        // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
+        cout << "GESTIONAR AL PACIENTE: "<< p->getNombre() << " " << p->getApellido() << endl;
+        cout << "Teléfono: " << p->getTelefono();
+        cout << "Obra social: " << p->getObraSocial();
+        cout << "Cantidad de Sesiones Totales: " << p->getCantSesionesTotales();
+        cout << "Cantidad de Sesiones Realizadas: " << p->getCantidadSesionesRealizadas();
+        cout << "Observaciones: " << p->getObservaciones();
+        if(p->getSesionesPagas()){
+            cout << "Sesiones pagas" << endl;
+        } else {
+            cout << "Falta pagar las sesiones" << endl;
+        }
+        cout << "1. Modificar el nombre del paciente" << endl;
+        cout << "2. Modificar el apellido del paciente" << endl;
+        cout << "3. Modificar el teléfono del paciente" << endl;
+        cout << "4. Modificar la obra social del paciente" << endl;
+        cout << "5. Modificar la cantidad de sesiones totales del paciente" << endl;
+        cout << "6. Modificar las observaciones del paciente" << endl;
+        cout << "0. Regresar al menú principal" << endl;
 
+        cout << "Ingrese una opcion: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+        case 1:
+            string nuevoNombre;
+            cout << "Ingrese el nombre: "; cin >> nombre;
+            p->setNombre(nuevoNombre);
+            break;
+        case 2: 
+            string nuevoApellido;
+            cout << "Ingrese el apellido: "; cin >> nuevoApellido;
+            p->setApellido(nuevoApellido);
+        case 3:
+            int nuevoTelefono;
+            cout << "Ingrese el teléfono: "; cin >> nuevoTelefonoo;
+            p->setTelefono(nuevoTelefonoo);
+        case 4:
+            string nuevaObraSocial
+            cout << "Ingrese la obra socia: "; cin >> nuevaObraSocial;
+            p->setObraSocial(nuevaObraSocial);
+        case 5:
+            int subOpcionObservaciones;
+            cout << "1. Agregar observaciones" << endl;
+            cout << "2. Borrar observaciones" << endl;
+            cin >> subOpcionObservaciones;
+            if (subOpcionObservaciones == 1){
+                string observaciones;
+                cout << "Ingrese las observaciones a agregar: ";
+                cin >> observaciones;
+            } else {
+                p->borrarObservaciones();
+                string observaciones;
+                cout << "Ya se borraron todas las observaciones. Ingrese las nuevas observaciones: ";
+                cin >> observaciones;
+            }
+        case 0:
+            cout << "Volver al menú principal" << endl;
+            break;
+        default:
+            cout << "No funciono, intente nuevamente."
+            break;
+        }
+    } while (opcion != 0);
+    
+}
+//LOGICA KINESIOLOGO
+void registrarKinesiologo(Consultorio &sistema){
+    Kinesiologo *nuevoK = new Kinesiologo();
+    st
+uAotxet gni
+
+}
 // Creamos estas funciones de los menus para tener mas ordenado el main
 void menuPacientes(Consultorio &sistema) {
     // Aca armamos la implementación del menú de pacientes
@@ -124,13 +197,17 @@ void menuPacientes(Consultorio &sistema) {
                 listarPacientes(sistema); // llamamos a la función para listar los pacientes
                 break;
             case 3:
-                // Lógica para buscar y gestionar paciente
+                string nomYape;
+                cout << "Ingrese el nombre y el apellido del paciente buscado: ";
+                cin >> nomYape;
+                Paciente* p = buscarPacientePorNombre(nomYape);
+                gestionarPaciente(p);
                 break;
             case 0:
                 cout<<"Volver al menu principal"<<endl;
                 break;
             default:
-                cout<<"No funciono, intente nuevamente."<<endl;
+                cout<<"No funciono, intente nuevamente"<<endl;
                 break;
         }
     }
@@ -138,8 +215,8 @@ void menuPacientes(Consultorio &sistema) {
 }
 
 void menuKinesiologos(Consultorio &sistema) {
-    // Aca armamos la implementación del menú de kinesiologos
-    int opcion;
+    // Acá armamos la implementación del menú de kinesiologos
+     int opcion;
     do{
         cout<<" GESTIONAR KINESIOLOGOS "<<endl;
         cout<<"1. Registrar nuevo kinesiologo"<<endl;
@@ -175,10 +252,10 @@ void menuTurnos(Consultorio &sistema)
 {
     int opcion;
     do {
-        cout << "GESTION DE TURNOS " << endl; //todas funciones aux por cada meno en cada case
-        cout << "1. Reservar nuevo Turno " << endl; //reservar turno
-        cout << "2. Ver agenda " << endl; //ver todos los turnos
-        cout << "3. Modificar Turno " << endl; //reprogramar turno
+        cout << "GESTION DE TURNOS " << endl; // todas funciones aux por cada meno en cada case
+        cout << "1. Reservar nuevo Turno " << endl; // reservar turno
+        cout << "2. Ver agenda " << endl; // ver todos los turnos
+        cout << "3. Modificar Turno " << endl; // reprogramar turno
         cout << "4. Cancelar Turno " << endl; //cancelar turno
         cout << "0. Volver" << endl;
         cout << "Opcion: ";
@@ -186,7 +263,7 @@ void menuTurnos(Consultorio &sistema)
 
         switch (opcion) {
             case 1:
-            //necesitamos fuinciones aux
+            // necesitamos funciones aux
                 menuReservarTurno(sistema); 
                 break;
             case 2:
