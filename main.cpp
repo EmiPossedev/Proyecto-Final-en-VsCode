@@ -2,6 +2,107 @@
 #include "Consultorio.h"
 using namespace std;
 
+// Función para leer fecha cómodamente
+Fecha pedirFecha() {
+    Fecha f;
+    cout << "   Dia: "; cin >> f.dia;
+    cout << "   Mes: "; cin >> f.mes;
+    cout << "   Anio: "; cin >> f.anio;
+    return f;
+}
+
+//LOGICA PACIENTES
+void registrarPaciente(Consultorio &sistema) {
+    
+    //Crear el paciente nuevo en memoria
+    Paciente *nuevoP = new Paciente();
+
+    // Variables auxiliares para leer los datos
+    string textoAux;
+    int numeroAux;
+    Fecha fechaAux; 
+
+    cout << "REGISTRAR NUEVO PACIENTE" << endl;
+    // Usamos cin.ignore() al principio por si quedó basura del menú anterior
+    cin.ignore(); 
+
+    cout << "Ingrese Nombre: ";
+    getline(cin, textoAux); 
+    nuevoP->setNombre(textoAux); 
+
+    cout << "Ingrese Apellido: ";
+    getline(cin, textoAux);
+    nuevoP->setApellido(textoAux);
+
+    //Pedir teléfono
+    cout << "Ingrese Telefono (solo numeros): ";
+    cin >> numeroAux;
+    nuevoP->setTelefono(numeroAux);
+
+    // La Fecha (es un struct, hay que llenarlo parte por parte)
+    cout << "Fecha de Inicio " << endl;
+    cout << "Dia: "; cin >> fechaAux.dia;
+    cout << "Mes: "; cin >> fechaAux.mes;
+    cout << "Anio: "; cin >> fechaAux.anio;
+    
+    nuevoP->setFechaDeInicio(fechaAux);
+
+    //(Diagnóstico y Obra Social)
+    cin.ignore(); 
+
+    cout << "Ingrese Diagnostico: ";
+    getline(cin, textoAux);
+    nuevoP->setDiagnostico(textoAux);
+
+    cout << "Ingrese Obra Social: ";
+    getline(cin, textoAux);
+    nuevoP->setObraSocial(textoAux);
+
+    cout << "Cantidad de sesiones totales asignadas: ";
+    cin >> numeroAux;
+    nuevoP->setCantSesionesTotales(numeroAux);
+
+    // Configuramos valores por defecto (empieza con 0 hechas y no pagó aún)
+    nuevoP->setCantidadSesionesRealizadas(0); 
+    nuevoP->marcarComoPendiente(); // Por defecto debe plata
+
+    // Guardar en el consultorio
+    sistema.agregarPaciente(nuevoP);
+
+    cout << "Paciente registrado con exito! " << endl;
+}
+
+void listarPacientes(Consultorio &sistema) {
+    
+    // Obtenemos la copia de la lista de pacientes
+    vector<Paciente*> lista = sistema.getPacientes();
+
+    cout << "LISTADO DE PACIENTES" << endl;
+
+    if (lista.empty() == true) {
+        cout << "No hay pacientes registrados en el sistema." << endl;
+        return; 
+    }
+
+    for (size_t i = 0; i < lista.size(); i++) {
+        
+       
+        Paciente *p = lista[i];
+        cout << i  << " " << p->getApellido() << " " << p->getNombre();
+        
+        // Agregamos info extra útil separada por guiones
+        cout << " Obra social" << p->getObraSocial();
+        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << " " << p->getCantSesionesTotales();
+        
+      
+        cout << endl; 
+    }
+    
+    cout << "Suiguiente " << endl;
+}
+
+//LOGICA PARA BUSCAR Y GESTIONAR PACIENTE CON SU SUB MENU
+
 // Creamos estas funciones de los menus para tener mas ordenado el main
 void menuPacientes(Consultorio &sistema) {
     // Aca armamos la implementación del menú de pacientes
@@ -17,10 +118,10 @@ void menuPacientes(Consultorio &sistema) {
 
         switch(opcion){
             case 1:
-                // Lógica para registrar nuevo paciente
+               registrarPaciente(sistema); // llamamos a la función para registrar un paciente
                 break;
             case 2:
-                // Lógica para ver lista de pacientes
+                listarPacientes(sistema); // llamamos a la función para listar los pacientes
                 break;
             case 3:
                 // Lógica para buscar y gestionar paciente
