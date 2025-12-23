@@ -72,9 +72,11 @@ public:
     // Métodos para agregar y obtener kinesiologos y pacientes
     void agregarKinesiologo(Kinesiologo *kinesiologo);
     vector<Kinesiologo *> getKinesiologos() const;
-    //faltaban estos 3 métodos
+
+    // Métodos para buscar kinesiólogos
     Kinesiologo *buscarKinesiologoPorNombre(const string &nombre);
     Kinesiologo *buscarKinesiologoPorApellido(const string &apellido);
+    Kinesiologo *buscarKinesioPorNombreYapellido(const string &nombre, const string &apellido);
 
     void agregarPaciente(Paciente *paciente);
     vector<Paciente *> getPacientes() const;
@@ -109,7 +111,7 @@ public:
     bool verificarDisponibilidadKinesiologo(const string &kinesiologo, const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadCamilla(const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora);
-    
+
     // Métodos de búsqueda de pacientes
     Paciente *buscarPacientePorNombre(const string &nombre);
     Paciente *buscarPacientePorApellido(const string &apellido);

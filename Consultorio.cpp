@@ -243,6 +243,17 @@ Paciente *Consultorio::buscarPacientePorApellido(const string &apellido)
     }
     return nullptr;
 }
+Paciente *Consultorio::buscarPacientePorNombreYapellido(const string &nombre, const string &apellido){
+    
+    for(Paciente *p : pacientes){
+        if (p->getNombre() == nombre && p->getApellido() == apellido)
+        {
+            return p;
+        }
+    }
+    return nullptr; // si no se encontró al paciente devuelvo el nullptr
+}
+
 // MÉTODOS PARA KINESIÓLOGOS
 Kinesiologo *Consultorio::buscarKinesiologoPorNombre(const string &nombre)
 {
@@ -265,6 +276,15 @@ Kinesiologo *Consultorio::buscarKinesiologoPorApellido(const string &apellido)
         }
     }
     return nullptr;
+}
+Kinesiologo* Consultorio::buscarKinesiologoPorNombreYapellido(const string &nombre, const string &apellido){
+    for(Kinesiologo *k : kinesiologos){
+        if (k->getNombre() == nombre && k->getApellido() == apellido)
+        {
+            return p;
+        }
+    }
+    return nullptr; // devuelve el nullptr si no lo encontró
 }
 
 // MÉTODOS DE ELIMINACIÓN de pacientes y kinesiologos de los vectores de Consultorio

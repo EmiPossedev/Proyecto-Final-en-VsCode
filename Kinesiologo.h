@@ -30,6 +30,7 @@ public:
     // Métodos para obtener los datos del kinesiologo y/o modificarlos
     string getEspecialidad() const;
     void setEspecialidad(const string &modificacion);
+    void borrarEspecialidad();
     int getCantidadPacientesAtendidos() const;
     void setCantPacientesAtendidos(const int &cant);
     int getMatricula() const;
