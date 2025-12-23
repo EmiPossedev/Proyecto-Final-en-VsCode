@@ -2,11 +2,7 @@
 #define UTILS_H
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Fecha.h"
-#include "Consultorio.h"
-#include "Paciente.h"
-#include "Kinesiologo.h"
 #include <ctime>
 
 /// FUNCIONES AUXILIARES
@@ -34,4 +30,3 @@ Fecha pedirFecha()
     cin >> f.anio;
     return f;
 }
-
