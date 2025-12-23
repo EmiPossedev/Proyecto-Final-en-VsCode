@@ -1,3 +1,4 @@
+#include "Consultorio.h" 
 #include "submenu.h"
 #include <iostream>
 #include <string>
@@ -212,7 +213,7 @@ void registrarkinesiologo(Consultorio &sistema){
     string textoAux;
     int numeroAux;
     // Pido el nombre
-    cout << "REGISTRAR NUEVO KINESIOLOGO" << end1;
+    cout << "REGISTRAR NUEVO KINESIOLOGO" << endl;
     cin.ignore();
     cout << "Ingrese nombre: ";
     getline(cin, textoAux);
@@ -281,6 +282,7 @@ void gestionarKinesiologo(Kinesiologo *k){
             cout << "1. Agregar una especialidad nueva" << endl
             << "2. Borrar la/s especialiadad/es anterior/es y agregar una/s nueva/s " << endl;
             cin >> subOpcionEspecialidad;
+            cin.ignore();
             if(subOpcionEspecialidad == 1){
                 string nuevaEspecialidad;
                 cout << "Ingrese la nueva especialidad: "; getline(cin, nuevaEspecialidad);
@@ -309,7 +311,7 @@ void gestionarKinesiologo(Kinesiologo *k){
             cout << "No funcionó, intente nuevamente" << endl;
             break;
         }
-    } while (opcion != 0)
+    } while (opcion != 0);
 }
 
 /// LÓGICA PARA TURNOS
@@ -317,20 +319,23 @@ void reservarTurno(Consultorio &sistema){
 	cout<<"RESERVAR TURNO"<<endl;
 	cin.ignore();
 	
-	string nombrePac;
+	string nombrePac, apellidoPac;
 	cout << "Ingrese el nombre del paciente: ";
 	getline(cin, nombrePac);
-	
-	if(sistema.buscarPacientePorNombre(nombrePac) == nullptr){
-		cout << "Error: No se encontro un paciente con ese nombre." << endl;
+	cout << "Ingrese el apellido del paciente: ";
+    getline(cin, apellidoPac);
+	if(sistema.buscarPacientePorNombreYapellido(nombrePac,apellidoPac) == nullptr){
+		cout << "Error: No se encontro un paciente con ese nombre y apellido." << endl;
 		return;
 	}
 	
-	string nombreKine;
+	string nombreKine, apellidoKine;
 	cout << "Ingrese el nombre del kinesiologo: ";
 	getline(cin, nombreKine);
-	if(sistema.buscarKinesiologoPorNombre(nombreKine) == nullptr){
-		cout << "Error: No se encontro un kinesiologo con ese nombre." << endl;
+	cout << "Ingrese el nombre del kinesiologo: ";
+    getline(cin, apellidoKine);
+	if(sistema.buscarKinesiologoPorNombreYapellido(nombreKine,apellidoKine) == nullptr){
+		cout << "Error: No se encontro un kinesiologo con ese nombre y apellido." << endl;
 		return;
 	}
 	
@@ -348,10 +353,10 @@ void reservarTurno(Consultorio &sistema){
 	char respuesta;
 	cout << "Requiere Camilla? (s/n): "; cin >> respuesta;
 	// Si pone 's' o 'S', es true. Si no, false.
-	nuevoT.requiereCamilla = (respuesta == 's' or respuesta == 'S');
+	nuevoT.requiereCamilla = (respuesta == 's' || respuesta == 'S');
 	
 	cout << "Requiere Gimnasio? (s/n): "; cin >> respuesta;
-	nuevoT.requiereGimnasio = (respuesta == 's' or respuesta == 'S');
+	nuevoT.requiereGimnasio = (respuesta == 's' || respuesta == 'S');
 	
 	nuevoT.estadoDelTurno = "Programado"; 
 	
@@ -376,7 +381,7 @@ void reservarTurno(Consultorio &sistema){
 	// Validar Gimnasio (Solo si lo pidió)
 	if (nuevoT.requiereGimnasio == true) {
 		if (sistema.verificarDisponibilidadGimnasio(nuevoT.fecha, nuevoT.hora) == false) {
-			cout << ">>> Error: El gimnasio esta lleno a esa hora." << endl;
+			cout << ">>> Error: El gimnasio está lleno a esa hora." << endl;
 			return;
 		}
 	}
@@ -405,13 +410,13 @@ void verAgenda(Consultorio &sistema) {
 		
 		Turno t = lista[i];
 		
-		cout << i  << " ";
+		cout << i+1  << ". ";
 		
 		// Formato de fecha [DD/MM/AAAA - HH:MM]
 		cout << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] ";
 		
 		// Datos de las personas
-		cout << "Pac: " << t.nombrePaciente << " Kine: " << t.nombreKinesiologo;
+		cout << "Paciente: " << t.nombrePaciente << " Kinesiólogo: " << t.nombreKinesiologo;
 		
 		// Estado y Extras
 		cout << " (" << t.estadoDelTurno << ")";
@@ -475,6 +480,7 @@ void cancelarTurno(Consultorio &sistema) {
 	cout << "Anio: "; cin >> fecha.anio;
 	cout << "Hora (HH:MM): "; cin >> hora;
 	
+	cin.ignore();
 	
 	char respuesta;
 	cout << "¿Estas seguro que queres cancelar este turno? (s/n): ";
