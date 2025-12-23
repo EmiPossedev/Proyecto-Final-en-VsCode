@@ -87,8 +87,7 @@ void menuKinesiologos(Consultorio &sistema)
     } while (opcion != 0);
 }
 
-void menuTurnos(Consultorio &sistema)
-{
+void menuTurnos(Consultorio &sistema){
     int opcion;
     do
     {
@@ -104,18 +103,16 @@ void menuTurnos(Consultorio &sistema)
         switch (opcion)
         {
         case 1:
-            // necesitamos funciones aux
-            menuReservarTurno(sistema);
+           reservarTurno(sistema);
             break;
         case 2:
-
-            menuListarTurnos(sistema);
+            verAgenda(sistema);
             break;
         case 3:
-            // Lógica de Reprogramación
+            modificarTurno(sistema);
             break;
         case 4:
-            // Lógica de Cancelación
+            cancelarTurno(sistema);
             break;
         }
     } while (opcion != 0);
