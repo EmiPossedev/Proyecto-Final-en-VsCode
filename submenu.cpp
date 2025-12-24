@@ -185,7 +185,7 @@ void gestionarPaciente(Paciente *p){
 }
 
 /// LÓGICA PARA KINESIOLOGOS
-void listarKinesiologo(const Consultorio &sistema){
+void listarKinesiologos(const Consultorio &sistema){
     // Obtenemos la copia de la lista de kinesiologos
     vector<Kinesiologo *> kinesiologos = sistema.getKinesiologos();
 

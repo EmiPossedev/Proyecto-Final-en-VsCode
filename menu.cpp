@@ -31,8 +31,8 @@ void menuPacientes(Consultorio &sistema)
             cout << "Nombre del paciente buscado: ";
             getline(cin, nombre);
             cout << "Apellido del paciente buscado: ";
-            getline(cin, apellido)
-                Paciente *p = buscarPacientePorNombreYapellido(nombre, apellido);
+            getline(cin, apellido);
+            Paciente *p = sistema.buscarPacientePorNombreYapellido(nombre, apellido);
             gestionarPaciente(p);
             break;
         case 0:
@@ -74,7 +74,7 @@ void menuKinesiologos(Consultorio &sistema)
             getline(cin, nombre);
             cout << "Apellido del paciente buscado: ";
             getline(cin, apellido);
-            Kinesiologo *k = buscarKinesiologoPorNombreYapellido(nombre, apellido);
+            Kinesiologo *k = sistema.buscarKinesiologoPorNombreYapellido(nombre, apellido);
             gestionarKinesiologo(k);
             break;
         case 0:

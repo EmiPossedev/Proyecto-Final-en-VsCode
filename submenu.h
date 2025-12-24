@@ -14,8 +14,14 @@ void gestionarPaciente(Paciente *p); // lógica para buscar y gestionar paciente
 
 
 /// LÓGICA PARA KINESIOLOGOS
-void listarKinesiologo(const Consultorio &consultorio);
+void listarKinesiologos(const Consultorio &consultorio);
 void registrarkinesiologo(Consultorio &sistema);
 void gestionarKinesiologo(Kinesiologo *k);
+
+/// LÓGICA PARA TURNOS
+void reservarTurno(Consultorio &sistema);
+void verAgenda(Consultorio &sistema);
+void modificarTurno(Consultorio &sistema);
+void cancelarTurno(Consultorio &sistema);
 
 #endif

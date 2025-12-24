@@ -72,21 +72,6 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-vector<Turno> Consultorio::getTurnosPorFecha(const Fecha &fecha)
-{
-    return getTurnosPor(fecha);
-}
-
-vector<Turno> Consultorio::getTurnosPorHora(const string &hora)
-{
-    return getTurnosPor(hora);
-}
-
-vector<Turno> Consultorio::getTurnosPorKinesiologo(const string &nombreKinesio)
-{
-    return getTurnosPor(nombreKinesio);
-}
-
 // Agregar un turno
 void Consultorio::agregarTurno(const Turno &turno)
 {
@@ -281,7 +266,7 @@ Kinesiologo* Consultorio::buscarKinesiologoPorNombreYapellido(const string &nomb
     for(Kinesiologo *k : kinesiologos){
         if (k->getNombre() == nombre && k->getApellido() == apellido)
         {
-            return p;
+            return k;
         }
     }
     return nullptr; // devuelve el nullptr si no lo encontró

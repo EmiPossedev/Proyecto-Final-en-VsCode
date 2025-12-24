@@ -69,17 +69,19 @@ public:
     // Método constructor y método destructor
     Consultorio(){}
     ~Consultorio();
-    // Métodos para agregar y obtener kinesiologos y pacientes
+    // Métodos para agregar/obtener pacientes
     void agregarKinesiologo(Kinesiologo *kinesiologo);
     vector<Kinesiologo *> getKinesiologos() const;
+
+    // Métodos para agregar/obtener kinesiólogos
+    void agregarPaciente(Paciente *paciente);
+    vector<Paciente *> getPacientes() const;
 
     // Métodos para buscar kinesiólogos
     Kinesiologo *buscarKinesiologoPorNombre(const string &nombre);
     Kinesiologo *buscarKinesiologoPorApellido(const string &apellido);
     Kinesiologo *buscarKinesioPorNombreYapellido(const string &nombre, const string &apellido);
 
-    void agregarPaciente(Paciente *paciente);
-    vector<Paciente *> getPacientes() const;
 
     // Métodos para la gestión de los turnos
     vector<Turno> getTurnos() const;
@@ -88,11 +90,7 @@ public:
     void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
     void ordenarTurnos(); 
     
-    // Funciones de búsqueda (se pueden templatizar)
-    vector<Turno> getTurnosPorFecha(const Fecha &fecha);
-    vector<Turno> getTurnosPorHora(const string &hora);
-    vector<Turno> getTurnosPorKinesiologo(const string &nombreKinesio);
-
+    // Función de búsqueda templatizada(funciona paragetTurnosPorFecha, getTurnosPorHora, getTurnosPorKinesiologo)
     template<typename T>
     vector<Turno> getTurnosPor(const T &valorBuscado){
         vector<Turno> encontrados;
@@ -115,6 +113,10 @@ public:
     // Métodos de búsqueda de pacientes
     Paciente *buscarPacientePorNombre(const string &nombre);
     Paciente *buscarPacientePorApellido(const string &apellido);
+    Paciente *buscarPacientePorNombreYapellido(const string &nombre, const string &apellido);
+    
+    // Métodos de búsqueda de kinesiologos
+    Kinesiologo *buscarKinesiologoPorNombreYapellido(const string &nombre, const string &apellido);
 
     // Métodos de eliminación
     void eliminarPacientePorNombre(const string &nombrePaciente);
