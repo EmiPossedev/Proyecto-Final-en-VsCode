@@ -154,8 +154,14 @@ void gestionarPaciente(Paciente *p){
             p->setObraSocial(nuevaObraSocial);
             break;
         }
-        case 5:
-        {
+        case 5:{
+            int nuevaCantSesiones;
+            cout << "Ingrese la nueva cantidad de sesiones totales: ";
+            cin >> nuevaCantSesiones;
+            p->setCantSesionesTotales(nuevaCantSesiones);
+            break;
+        }
+        case 6:{
             int subOpcionObservaciones;
             cout << "1. Agregar observaciones" << endl
             << "2. Borrar observaciones anteriores y anotar nuevas observaciones" << endl;
