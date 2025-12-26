@@ -29,7 +29,11 @@ void registrarPaciente(Consultorio &sistema){
 
     // Pedir teléfono
     cout << "Ingrese Telefono (solo numeros): ";
-    cin >> numeroAux;
+    while (!(cin >> numeroAux)) {
+        cout << "Entrada inválida. Ingrese solo números: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     nuevoP->setTelefono(numeroAux);
 
     // La Fecha (es un struct, hay que llenarlo parte por parte)
