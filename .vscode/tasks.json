@@ -1,24 +1,118 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "type": "shell",
-      "label": "Compilar con MinGW",
-      "command": "C:/MinGW/bin/g++.exe",
-      "args": [
-        "-Wall",
-        "-Wextra",
-        "-g",
-          "${file}",
-          "-o",
-          "${fileDirname}/${fileBasenameNoExtension}.exe"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "problemMatcher": ["$gcc"],
-      "detail": "Compilación manual con MinGW"
-    }
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Compilar con MinGW",
+			"command": "C:/MinGW/bin/g++.exe",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}/${fileBasenameNoExtension}.exe"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"detail": "Compilación manual con MinGW"
+		},
+		{
+			"label": "Compilar todo el proyecto con MinGW",
+			"type": "shell",
+			"command": "C:/MinGW/bin/g++.exe",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"main.cpp",
+				"menu.cpp",
+				"Consultorio.cpp",
+				"Fecha.cpp",
+				"Kinesiologo.cpp",
+				"Paciente.cpp",
+				"Persona.cpp",
+				"submenu.cpp",
+				"-o",
+				"programa.exe"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Compilar todo el proyecto con MinGW",
+			"type": "shell",
+			"command": "C:/MinGW/bin/g++.exe",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"main.cpp",
+				"menu.cpp",
+				"Consultorio.cpp",
+				"Fecha.cpp",
+				"Kinesiologo.cpp",
+				"Paciente.cpp",
+				"Persona.cpp",
+				"submenu.cpp",
+				"-o",
+				"programa.exe"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Compilar todo el proyecto con MinGW",
+			"type": "shell",
+			"command": "C:/MinGW/bin/g++.exe",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"main.cpp",
+				"menu.cpp",
+				"Consultorio.cpp",
+				"Fecha.cpp",
+				"Kinesiologo.cpp",
+				"Paciente.cpp",
+				"Persona.cpp",
+				"submenu.cpp",
+				"-o",
+				"programa.exe"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Compilar todo el proyecto con MinGW",
+			"type": "shell",
+			"command": "C:/MinGW/bin/g++.exe",
+			"args": [
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"main.cpp",
+				"menu.cpp",
+				"Consultorio.cpp",
+				"Fecha.cpp",
+				"Kinesiologo.cpp",
+				"Paciente.cpp",
+				"Persona.cpp",
+				"submenu.cpp",
+				"Utils.cpp",
+				"-o",
+				"programa.exe"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Ejecutar programa.exe",
+			"type": "shell",
+			"command": "programa.exe",
+			"args": [],
+			"group": "test"
+		}
+	]
 }

@@ -180,6 +180,7 @@ void gestionarPaciente(Paciente *p){
                 p->setObservaciones(observaciones);
             }
             break;
+        }
         case 0: {
             cout << "Volver al menú principal" << endl;
             break;
@@ -255,7 +256,7 @@ void gestionarKinesiologo(Kinesiologo *k){
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
         cout << "Teléfono: " << k->getTelefono();
-        cout << "Especialidad: " << k->getEspecialidad() << endl;
+            cout << "Especialidad: " << k->getEspecialidad() << endl;
         cout << "Matrícula: " << k->getMatricula() << endl;
         cout << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
@@ -290,8 +291,8 @@ void gestionarKinesiologo(Kinesiologo *k){
         }
         case 4: {
             int subOpcionEspecialidad;
-            cout << "1. Agregar una especialidad nueva" << endl
-            << "2. Borrar la/s especialiadad/es anterior/es y agregar una/s nueva/s " << endl;
+            cout << "1. Agregar una especialidad nueva" << endl;
+            cout << "2. Borrar la/s especialiadad/es anterior/es y agregar una/s nueva/s " << endl;
             cin >> subOpcionEspecialidad;
             cin.ignore();
             if(subOpcionEspecialidad == 1){
