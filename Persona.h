@@ -9,7 +9,7 @@ struct registro_persona
 {
     char nombre[60];
     char apellido[60];
-    int telefono;
+    char telefono[20];
 };
 
 /// Definición de la clase Persona
@@ -18,15 +18,15 @@ class Persona
 private:
     string nombre;
     string apellido;
-    int telefono;
+    string telefono;
 
 public:
     void setNombre(const string &nombre);
     string getNombre() const;
     void setApellido(const string &apellido);
     string getApellido() const;
-    void setTelefono(const int &telefono);
-    int getTelefono() const;
+        void setTelefono(const string &telefono);
+        std::string getTelefono() const;
     virtual ~Persona() {} // Destructor virtual por ser clase madre
 };
 

@@ -12,7 +12,7 @@ struct RegistroKinesiologo
     // Datos heredados de Persona
     char nombre[60];
     char apellido[60];
-    int telefono;
+    char telefono[20];
     // Datos de la clase kinesiologo
     char especialidad[100];
     int matricula;

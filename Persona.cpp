@@ -25,11 +25,11 @@ string Persona::getApellido() const
 }
 
 // Métodos para el teléfono
-void Persona::setTelefono(const int &nuevoTelefono)
+void Persona::setTelefono(const std::string &nuevoTelefono)
 {
     telefono = nuevoTelefono;
 }
-int Persona::getTelefono() const
+std::string Persona::getTelefono() const
 {
     return telefono;
 }

@@ -16,8 +16,6 @@ void registrarPaciente(Consultorio &sistema){
     Fecha fechaAux;
 
     cout << "REGISTRAR NUEVO PACIENTE" << endl;
-    // Usamos cin.ignore() al principio por si quedó basura del menú anterior
-    cin.ignore();
 
     cout << "Ingrese Nombre: ";
     getline(cin, textoAux);
@@ -29,12 +27,8 @@ void registrarPaciente(Consultorio &sistema){
 
     // Pedir teléfono
     cout << "Ingrese Telefono (solo numeros): ";
-    while (!(cin >> numeroAux)) {
-        cout << "Entrada inválida. Ingrese solo números: ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-    nuevoP->setTelefono(numeroAux);
+    cin >> textoAux;
+    nuevoP->setTelefono(textoAux);
 
     // La Fecha (es un struct, hay que llenarlo parte por parte)
     cout << "Fecha de Inicio " << endl;
@@ -89,11 +83,11 @@ void listarPacientes(Consultorio &sistema){
     {
 
         Paciente *p = pacientes[i];
-        cout << i << " " << p->getApellido() << " " << p->getNombre();
+        cout << i+1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
 
         // Mostramos su obra social y la cantidad de sesiones que lleva
-        cout << " Obra social" << p->getObraSocial();
-        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales();
+        cout << " Obra social: " << p->getObraSocial() << ". ";
+        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
@@ -147,14 +141,13 @@ void gestionarPaciente(Paciente *p){
             break;
         }
         case 3:{
-            int nuevoTelefono;
+            string nuevoTelefono;
             cout << "Ingrese el teléfono: ";
             cin >> nuevoTelefono;
             p->setTelefono(nuevoTelefono);
             break;
         }
-        case 4:
-        {
+        case 4:{
             string nuevaObraSocial;
             cout << "Ingrese la obra social: ";
             getline(cin, nuevaObraSocial);
@@ -236,9 +229,9 @@ void registrarkinesiologo(Consultorio &sistema){
     getline(cin, textoAux);
     k->setApellido(textoAux);
     // Pido el teléfono
-    cout << "Ingrese Telefono (solo numeros): ";
-    cin >> numeroAux;
-    k->setTelefono(numeroAux);
+        cout << "Ingrese Telefono (solo numeros): ";
+        cin >> textoAux;
+        k->setTelefono(textoAux);
     cin.ignore(); // porque mi última lectura fue con un cin y la prox va a ser un getline
     // Pido especialidad
     cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): "; getline(cin, textoAux);
@@ -275,10 +268,10 @@ void gestionarKinesiologo(Kinesiologo *k){
 
         switch (opcion)
         {
-        case 1: {
-            string nombre;
-            cout << "Ingrese el nombre: "; getline(cin, nombre);
-            k->setNombre(nombre);
+        case 1:{
+            string nuevoNombre;
+            cout << "Ingrese el nombre: "; getline(cin,nuevoNombre);
+            k->setNombre(nuevoNombre);
             break;
         }
         case 2: {
@@ -288,7 +281,7 @@ void gestionarKinesiologo(Kinesiologo *k){
             break;
         }
         case 3: {
-            int nuevoTel;
+            string nuevoTel;
             cout << "Ingrese el telefono: "; cin >> nuevoTel;
             k->setTelefono(nuevoTel);
             break;

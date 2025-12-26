@@ -11,7 +11,7 @@ struct RegistroPaciente
     // Datos heredados de Persona
     char nombre[60];
     char apellido[60];
-    int telefono; // del paciente
+    char telefono[20]; // del paciente
     // Datos propios de Paciente
     Fecha fechaDeInicio;
     char diagnostico[100];

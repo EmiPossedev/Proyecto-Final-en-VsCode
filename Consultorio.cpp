@@ -339,7 +339,8 @@ void Consultorio::guardarPacientes(const string &nombreArchivo){
         strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), sizeof(RegPaciente.obraSocial) - 1);
         RegPaciente.obraSocial[sizeof(RegPaciente.obraSocial) - 1] = '\0';
 
-        RegPaciente.telefono = pacientes[i]->getTelefono();
+        strncpy(RegPaciente.telefono, pacientes[i]->getTelefono().c_str(), sizeof(RegPaciente.telefono));
+        RegPaciente.telefono[sizeof(RegPaciente.telefono)-1] = '\0';
         RegPaciente.fechaDeInicio = pacientes[i]->getFechaDeInicio();
         RegPaciente.cantSesionesTotales = pacientes[i]->getCantSesionesTotales();
         RegPaciente.cantSesionesRealizadas = pacientes[i]->getCantidadSesionesRealizadas();
@@ -408,7 +409,8 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
         strncpy(RegKinesio.especialidad, kinesiologos[i]->getEspecialidad().c_str(), sizeof(RegKinesio.especialidad) - 1);
         RegKinesio.especialidad[sizeof(RegKinesio.especialidad) - 1] = '\0';
 
-        RegKinesio.telefono = kinesiologos[i]->getTelefono();
+        strncpy(RegKinesio.telefono, kinesiologos[i]->getTelefono().c_str(), sizeof(RegKinesio.telefono));
+        RegKinesio.telefono[sizeof(RegKinesio.telefono)-1] = '\0';
         RegKinesio.matricula = kinesiologos[i]->getMatricula();
         RegKinesio.cantidadPacientesAtendidos = kinesiologos[i]->getCantidadPacientesAtendidos();
         
