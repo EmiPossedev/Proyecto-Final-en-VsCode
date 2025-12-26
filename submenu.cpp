@@ -128,31 +128,37 @@ void gestionarPaciente(Paciente *p){
         cin.ignore(); // limpio el buffer porque uso getline en algunos casos
         switch (opcion)
         {
-        case 1:
+        case 1:{
             string nuevoNombre;
             cout << "Ingrese el nombre: ";
             getline(cin, nuevoNombre);
             p->setNombre(nuevoNombre);
             break;
-        case 2:
+        }
+        case 2:{
             string nuevoApellido;
             cout << "Ingrese el apellido: ";
             getline(cin, nuevoApellido);
             p->setApellido(nuevoApellido);
             break;
-        case 3:
+        }
+        case 3:{
             int nuevoTelefono;
             cout << "Ingrese el teléfono: ";
             cin >> nuevoTelefono;
             p->setTelefono(nuevoTelefono);
             break;
+        }
         case 4:
+        {
             string nuevaObraSocial;
             cout << "Ingrese la obra social: ";
             getline(cin, nuevaObraSocial);
             p->setObraSocial(nuevaObraSocial);
             break;
+        }
         case 5:
+        {
             int subOpcionObservaciones;
             cout << "1. Agregar observaciones" << endl
             << "2. Borrar observaciones anteriores y anotar nuevas observaciones" << endl;
@@ -174,12 +180,14 @@ void gestionarPaciente(Paciente *p){
                 p->setObservaciones(observaciones);
             }
             break;
-        case 0:
+        case 0: {
             cout << "Volver al menú principal" << endl;
             break;
-        default:
+        }
+        default: {
             cout << "No funciono, intente nuevamente." << endl;
             break;
+        }
         }
     } while (opcion != 0);
 }
@@ -262,22 +270,25 @@ void gestionarKinesiologo(Kinesiologo *k){
 
         switch (opcion)
         {
-        case 1:
+        case 1: {
             string nombre;
             cout << "Ingrese el nombre: "; getline(cin, nombre);
             k->setNombre(nombre);
             break;
-        case 2:
+        }
+        case 2: {
             string apellido;
             cout << "Ingrese el apellido: "; getline(cin, apellido);
             k->setApellido(apellido);
             break;
-        case 3:
+        }
+        case 3: {
             int nuevoTel;
             cout << "Ingrese el telefono: "; cin >> nuevoTel;
             k->setTelefono(nuevoTel);
             break;
-        case 4:
+        }
+        case 4: {
             int subOpcionEspecialidad;
             cout << "1. Agregar una especialidad nueva" << endl
             << "2. Borrar la/s especialiadad/es anterior/es y agregar una/s nueva/s " << endl;
@@ -294,22 +305,27 @@ void gestionarKinesiologo(Kinesiologo *k){
                 k->setEspecialidad(nuevaEspecialiadad);
             }
             break;
-        case 5:
+        }
+        case 5: {
             int nuevaMatricula;
             cout << "Ingrese la nueva matrícula: "; cin >> nuevaMatricula;
             k->setMatricula(nuevaMatricula);
             break;
-        case 6:
+        }
+        case 6: {
             int nuevaCant;
             cout << "Ingrese la nueva cantidad de pacientes atendidos: "; cin >> nuevaCant;
             k->setCantPacientesAtendidos(nuevaCant);
             break;
-        case 0:
+        }
+        case 0: {
             cout << "Volver al menú principal" << endl;
             break;
-        default:
+        }
+        default: {
             cout << "No funcionó, intente nuevamente" << endl;
             break;
+        }
         }
     } while (opcion != 0);
 }

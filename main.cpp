@@ -24,22 +24,27 @@ int main(){
         cin >> opcion; // leemos la opción del usuario
         
         switch(opcion) {
-            case 1:
+            case 1: {
                 menuPacientes(sistema); // mostramos las opciones del menú de los pacientes
                 break;
-            case 2:
+            }
+            case 2: {
                 menuKinesiologos(sistema); // mostramos las opciones del menú de los kinesiologos
                 break;
-            case 3:
+            }
+            case 3: {
                 menuTurnos(sistema); // mostramos el menú de los turnos
                 break;
-            case 0:
+            }
+            case 0: {
                 sistema.guardarTodosDatos(); // guardamos los datos antes de salir
                 cout << "Datos guardados, salir del sistema." << endl;
                 break;
-            default:
+            }
+            default: {
                 cout << "No funciono, intente nuevamente." << endl;
                 break;
+            }
         }
     } while(opcion != 0);
 

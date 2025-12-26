@@ -45,10 +45,7 @@ void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
     kinesiologos.push_back(kinesiologo);
 }
-void Consultorio::eliminarKinesiologo(Kinesiologo *kinesiologo)
-{
-    delete kinesiologo;
-}
+
 vector<Kinesiologo *> Consultorio::getKinesiologos() const
 {
     return kinesiologos;

@@ -26,7 +26,7 @@ void menuPacientes(Consultorio &sistema)
         case 2:
             listarPacientes(sistema); // llamamos a la función para listar los pacientes
             break;
-        case 3:
+        case 3:{
             string nombre, apellido;
             cout << "Nombre del paciente buscado: ";
             getline(cin, nombre);
@@ -35,12 +35,15 @@ void menuPacientes(Consultorio &sistema)
             Paciente *p = sistema.buscarPacientePorNombreYapellido(nombre, apellido);
             gestionarPaciente(p);
             break;
-        case 0:
+        }
+        case 0: {
             cout << "Volver al menu principal" << endl;
             break;
-        default:
+        }
+        default: {
             cout << "No funciono, intente nuevamente" << endl;
             break;
+        }
         }
     } while (opcion != 0);
 }
@@ -68,6 +71,7 @@ void menuKinesiologos(Consultorio &sistema)
             listarKinesiologos(sistema);
             break;
         case 3:
+        {
             string nombre, apellido;
             cout << "Nombre del paciente buscado: ";
             getline(cin, nombre);
@@ -76,12 +80,15 @@ void menuKinesiologos(Consultorio &sistema)
             Kinesiologo *k = sistema.buscarKinesiologoPorNombreYapellido(nombre, apellido);
             gestionarKinesiologo(k);
             break;
-        case 0:
+        }
+        case 0: {
             cout << "Volviendo al menu principal..." << endl;
             break;
-        default:
+        }
+        default: {
             cout << "Opcion invalida, intente nuevamente." << endl;
             break;
+        }
         }
     } while (opcion != 0);
 }
@@ -101,18 +108,30 @@ void menuTurnos(Consultorio &sistema){
 
         switch (opcion)
         {
-        case 1:
+        case 1: {
            reservarTurno(sistema);
             break;
-        case 2:
+        }
+        case 2: {
             verAgenda(sistema);
             break;
-        case 3:
+        }
+        case 3: {
             modificarTurno(sistema);
             break;
-        case 4:
+        }
+        case 4: {
             cancelarTurno(sistema);
             break;
+        }
+        case 0: {
+            cout << "Volver al menu principal" << endl;
+            break;
+        }
+        default: {
+            cout << "Opcion invalida, intente nuevamente." << endl;
+            break;
+        }
         }
     } while (opcion != 0);
 }

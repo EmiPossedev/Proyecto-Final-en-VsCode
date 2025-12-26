@@ -5,7 +5,7 @@
 /// Implementación de los métodos de la clase Persona
 
 // Métodos para el nombre
-void Persona::setNombre(string nuevoNombre)
+void Persona::setNombre(const string &nuevoNombre)
 {
     nombre = nuevoNombre;
 }
@@ -15,7 +15,7 @@ string Persona::getNombre() const
 }
 
 // Métodos para el apellido
-void Persona::setApellido(string nuevoApellido)
+void Persona::setApellido(const string &nuevoApellido)
 {
     apellido = nuevoApellido;
 }
@@ -25,7 +25,7 @@ string Persona::getApellido() const
 }
 
 // Métodos para el teléfono
-void Persona::setTelefono(int nuevoTelefono)
+void Persona::setTelefono(const int &nuevoTelefono)
 {
     telefono = nuevoTelefono;
 }

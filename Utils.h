@@ -30,3 +30,5 @@ Fecha pedirFecha()
     cin >> f.anio;
     return f;
 }
+
+#endif
