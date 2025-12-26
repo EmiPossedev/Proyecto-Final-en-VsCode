@@ -63,7 +63,6 @@ void menuKinesiologos(Consultorio &sistema)
         {
         case 1:
             registrarkinesiologo(sistema);
-
             break;
         case 2:
             listarKinesiologos(sistema);
