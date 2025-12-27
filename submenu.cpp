@@ -109,11 +109,11 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
         cout << "Observaciones: " << p->getObservaciones() << endl;
         if (p->getSesionesPagas())
         {
-            cout << "Sesiones pagas" << endl;
+            cout << "Estado de sesiones: Sesiones pagas" << endl;
         }
         else
         {
-            cout << "Falta pagar las sesiones" << endl;
+            cout << "Estado de sesiones: Falta pagar las sesiones" << endl;
         }
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl 
         << "1. Modificar el nombre del paciente" << endl
@@ -161,11 +161,17 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 5:
+        case 5:{
+            int nuevaCant;
+            cout << "Ingrese la nueva cantidad de sesiones totales: "; cin >> nuevaCant;
+            p->setCantSesionesTotales(nuevaCant);
+            break;
+        }
+        case 6:
         {
             int subOpcionObservaciones;
             cout << "1. Agregar observaciones" << endl
-            << "2. Borrar observaciones anteriores y anotar nuevas observaciones" << endl;
+            << "2. Borrar observaciones anteriores y anotar unas nuevas" << endl;
             cin >> subOpcionObservaciones;
             cin.ignore(); // limpio el buffer después de haber usado el cin en vez de getline
             if (subOpcionObservaciones == 1)
