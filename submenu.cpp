@@ -247,7 +247,7 @@ void listarKinesiologos(const Consultorio &sistema)
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << ". " << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad() << ". " << endl
+        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << ". " << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad() << ". " << endl;
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
