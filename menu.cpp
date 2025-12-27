@@ -21,26 +21,33 @@ void menuPacientes(Consultorio &sistema)
         switch (opcion)
         {
         case 1:
+        {
             registrarPaciente(sistema); // llamamos a la función para registrar un paciente
             break;
+        }
         case 2:
+        {
             listarPacientes(sistema); // llamamos a la función para listar los pacientes
             break;
-        case 3:{
+        }
+        case 3:
+        {
             string nombre, apellido;
             cout << "Nombre del paciente buscado: ";
             getline(cin, nombre);
             cout << "Apellido del paciente buscado: ";
             getline(cin, apellido);
             Paciente *p = sistema.buscarPacientePorNombreYapellido(nombre, apellido);
-            gestionarPaciente(p);
+            gestionarPaciente(sistema, p);
             break;
         }
-        case 0: {
+        case 0:
+        {
             cout << "Volver al menu principal" << endl;
             break;
         }
-        default: {
+        default:
+        {
             cout << "No funciono, intente nuevamente" << endl;
             break;
         }
@@ -65,11 +72,15 @@ void menuKinesiologos(Consultorio &sistema)
         switch (opcion)
         {
         case 1:
+        {
             registrarkinesiologo(sistema);
             break;
+        }
         case 2:
+        {
             listarKinesiologos(sistema);
             break;
+        }
         case 3:
         {
             string nombre, apellido;
@@ -78,14 +89,16 @@ void menuKinesiologos(Consultorio &sistema)
             cout << "Apellido del paciente buscado: ";
             getline(cin, apellido);
             Kinesiologo *k = sistema.buscarKinesiologoPorNombreYapellido(nombre, apellido);
-            gestionarKinesiologo(k);
+            gestionarKinesiologo(sistema, k);
             break;
         }
-        case 0: {
+        case 0:
+        {
             cout << "Volviendo al menu principal..." << endl;
             break;
         }
-        default: {
+        default:
+        {
             cout << "Opcion invalida, intente nuevamente." << endl;
             break;
         }
@@ -93,7 +106,8 @@ void menuKinesiologos(Consultorio &sistema)
     } while (opcion != 0);
 }
 
-void menuTurnos(Consultorio &sistema){
+void menuTurnos(Consultorio &sistema)
+{
     int opcion;
     do
     {
@@ -108,27 +122,33 @@ void menuTurnos(Consultorio &sistema){
 
         switch (opcion)
         {
-        case 1: {
-           reservarTurno(sistema);
+        case 1:
+        {
+            reservarTurno(sistema);
             break;
         }
-        case 2: {
+        case 2:
+        {
             verAgenda(sistema);
             break;
         }
-        case 3: {
+        case 3:
+        {
             modificarTurno(sistema);
             break;
         }
-        case 4: {
+        case 4:
+        {
             cancelarTurno(sistema);
             break;
         }
-        case 0: {
+        case 0:
+        {
             cout << "Volver al menu principal" << endl;
             break;
         }
-        default: {
+        default:
+        {
             cout << "Opcion invalida, intente nuevamente." << endl;
             break;
         }

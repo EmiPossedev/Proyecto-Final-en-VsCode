@@ -7,6 +7,7 @@ using namespace std;
 
 /// LÓGICA PARA PACIENTES
 void registrarPaciente(Consultorio &sistema){
+
     // Crear el paciente nuevo en memoria
     Paciente *nuevoP = new Paciente();
 
@@ -62,6 +63,8 @@ void registrarPaciente(Consultorio &sistema){
 
     // Guardar en el consultorio
     sistema.agregarPaciente(nuevoP);
+    // Y luego lo guardo en mi archivo binario
+    sistema.guardarPacientes("pacientes.dat");
 
     cout << "Paciente registrado con exito! " << endl;
 }
@@ -93,7 +96,7 @@ void listarPacientes(Consultorio &sistema){
     cout << "-Siguiente-" << endl;
 }
 
-void gestionarPaciente(Paciente *p){
+void gestionarPaciente(Consultorio &sistema, Paciente *p){
     int opcion;
     do
     {
@@ -131,6 +134,7 @@ void gestionarPaciente(Paciente *p){
             cout << "Ingrese el nombre: ";
             getline(cin, nuevoNombre);
             p->setNombre(nuevoNombre);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 2:{
@@ -138,6 +142,7 @@ void gestionarPaciente(Paciente *p){
             cout << "Ingrese el apellido: ";
             getline(cin, nuevoApellido);
             p->setApellido(nuevoApellido);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 3:{
@@ -145,6 +150,7 @@ void gestionarPaciente(Paciente *p){
             cout << "Ingrese el teléfono: ";
             cin >> nuevoTelefono;
             p->setTelefono(nuevoTelefono);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 4:{
@@ -152,6 +158,7 @@ void gestionarPaciente(Paciente *p){
             cout << "Ingrese la obra social: ";
             getline(cin, nuevaObraSocial);
             p->setObraSocial(nuevaObraSocial);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 5:
@@ -167,6 +174,7 @@ void gestionarPaciente(Paciente *p){
                 cout << "Ingrese las observaciones a agregar: ";
                 getline(cin, observaciones);
                 p->setObservaciones(observaciones);
+                sistema.guardarPacientes("pacientes.dat");
             }
             else
             {
@@ -175,6 +183,7 @@ void gestionarPaciente(Paciente *p){
                 cout << "Ya se borraron todas las observaciones. Ingrese las nuevas observaciones: ";
                 getline(cin, observaciones);
                 p->setObservaciones(observaciones);
+                sistema.guardarPacientes("pacientes.dat");
             }
             break;
         }
@@ -215,10 +224,14 @@ void listarKinesiologos(const Consultorio &sistema){
 }
 
 void registrarkinesiologo(Consultorio &sistema){
+    
+    // Crear el kinesiologo nuevo en memoria
     Kinesiologo *k = new Kinesiologo();
+
+    // Variables auxiliares para leer los datos
     string textoAux;
     int numeroAux;
-    // Pido el nombre
+
     cout << "REGISTRAR NUEVO KINESIOLOGO" << endl;
     cout << "-Ingrese nombre y apellido por separado-" << endl;
     cout << "Ingrese nombre: ";
@@ -241,12 +254,16 @@ void registrarkinesiologo(Consultorio &sistema){
     cin >> numeroAux;
     k->setMatricula(numeroAux);
     k->setCantPacientesAtendidos(0);
-    // Y luego lo pusheo en mi vector de kinesiologos
+
+    // Luego lo pusheo en mi vector de kinesiologos
     sistema.agregarKinesiologo(k);
+    // Y lo guardo en mi archivo binario
+    sistema.guardarKinesiologos("kinesiologos.dat");
+
     cout << "Kinesiologo registrado con exito" << endl;
 }
 
-void gestionarKinesiologo(Kinesiologo *k){
+void gestionarKinesiologo(Consultorio &sistema ,Kinesiologo *k){
     int opcion;
     do
     {
@@ -272,18 +289,21 @@ void gestionarKinesiologo(Kinesiologo *k){
             string nuevoNombre;
             cout << "Ingrese el nombre: "; getline(cin,nuevoNombre);
             k->setNombre(nuevoNombre);
+            sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
         case 2: {
             string apellido;
             cout << "Ingrese el apellido: "; getline(cin, apellido);
             k->setApellido(apellido);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 3: {
             string nuevoTel;
             cout << "Ingrese el telefono: "; cin >> nuevoTel;
             k->setTelefono(nuevoTel);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
         case 4: {
@@ -296,11 +316,13 @@ void gestionarKinesiologo(Kinesiologo *k){
                 string nuevaEspecialidad;
                 cout << "Ingrese la nueva especialidad: "; getline(cin, nuevaEspecialidad);
                 k->setEspecialidad(nuevaEspecialidad);
+                sistema.guardarKinesiologos("kinesiologos.dat");
             } else {
                 k->borrarEspecialidad();
                 string nuevaEspecialiadad;
                 cout << "Ya se borraron las especialidades. Ingrese la/s nueva/s especialidad/es: "; getline(cin, nuevaEspecialiadad);
                 k->setEspecialidad(nuevaEspecialiadad);
+                sistema.guardarKinesiologos("kinesiologos.dat");
             }
             break;
         }
@@ -308,12 +330,14 @@ void gestionarKinesiologo(Kinesiologo *k){
             int nuevaMatricula;
             cout << "Ingrese la nueva matrícula: "; cin >> nuevaMatricula;
             k->setMatricula(nuevaMatricula);
+            sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
         case 6: {
             int nuevaCant;
             cout << "Ingrese la nueva cantidad de pacientes atendidos: "; cin >> nuevaCant;
             k->setCantPacientesAtendidos(nuevaCant);
+            sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
         case 0: {

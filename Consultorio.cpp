@@ -315,10 +315,9 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 
 // Método para guardar/cargar los pacientes en un archivo binario
 void Consultorio::guardarPacientes(const string &nombreArchivo){
-    ofstream bin(nombreArchivo, ios::binary | ios::trunc); 
+    ofstream bin(nombreArchivo, ios::binary | ios::trunc); // la banderea trunc nos va a ayudar a que no se dupliquen los pacientes guardados en el vector
     if (!bin.is_open()) {
-        cout << "Error: No se pudo abrir " << nombreArchivo << " para escritura." << endl;
-        return;
+        throw runtime_error("No se pudo abrir el archivo pacientes para para escritura.");
     }
 
     for (size_t i = 0; i < pacientes.size(); i++){
@@ -393,7 +392,7 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
 {
     ofstream bin(nombreArchivo, ios::binary | ios::trunc);
     if (!bin.is_open()){
-        cout << "Error al abrir archivo Kinesiologos." << endl;
+        cout << "Error al abrir archivo Kinesiologos para escritura." << endl;
         return;
     }
     for (size_t i = 0; i < kinesiologos.size(); i++){
@@ -423,7 +422,9 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
 void Consultorio::cargarKinesiologos(const string &nombreArchivo)
 {
     ifstream bin(nombreArchivo, ios::binary);
-    if (!bin.is_open()) return;
+    if (!bin.is_open()){
+        throw runtime_error("No se pudo abrir el archivo kinesiólogos para lectura.");
+    }
 
     // 1. LIMPIEZA DE MEMORIA
     for (auto k : kinesiologos) delete k;
