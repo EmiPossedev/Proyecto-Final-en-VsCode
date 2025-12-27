@@ -17,7 +17,6 @@ void menuPacientes(Consultorio &sistema)
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
-        cin.ignore();
         switch (opcion)
         {
         case 1:

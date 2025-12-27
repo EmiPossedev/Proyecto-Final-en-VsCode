@@ -20,6 +20,7 @@ void registrarPaciente(Consultorio &sistema)
     cout << "REGISTRAR NUEVO PACIENTE" << endl;
     cout << "-Ingrese nombre y apellido por separado-" << endl;
     cout << "Ingrese Nombre: ";
+    cin.ignore();
     getline(cin, textoAux);
     p->setNombre(textoAux);
 
