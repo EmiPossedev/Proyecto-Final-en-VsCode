@@ -12,6 +12,7 @@ struct RegistroPaciente
     char nombre[60];
     char apellido[60];
     char telefono[20]; // del paciente
+    char dni[10]; 
     // Datos propios de Paciente
     Fecha fechaDeInicio;
     char diagnostico[100];

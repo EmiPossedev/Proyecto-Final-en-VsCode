@@ -13,7 +13,7 @@ void menuPacientes(Consultorio &sistema)
         cout << " GESTIONAR PACIENTES " << endl;
         cout << "1. Registrar nuevo paciente" << endl;
         cout << "2. Ver lista de pacientes (Nombres)" << endl;
-        cout << "3. Buscar y gestionar paciente por nombre y apellido" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
+        cout << "3. Buscar y gestionar paciente por dni" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
@@ -32,12 +32,10 @@ void menuPacientes(Consultorio &sistema)
         }
         case 3:
         {
-            string nombre, apellido;
-            cout << "Nombre del paciente buscado: ";
-            getline(cin, nombre);
-            cout << "Apellido del paciente buscado: ";
-            getline(cin, apellido);
-            Paciente *p = sistema.buscarPacientePorNombreYapellido(nombre, apellido);
+            string dniBuscado;
+            cout << "Dni del paciente buscado: ";
+            cin >> dniBuscado;
+            Paciente *p = sistema.buscarPacientePorDni(dniBuscado);
             gestionarPaciente(sistema, p);
             break;
         }
@@ -64,7 +62,7 @@ void menuKinesiologos(Consultorio &sistema)
         cout << " GESTIONAR KINESIOLOGOS " << endl;
         cout << "1. Registrar nuevo kinesiologo" << endl;
         cout << "2. Ver lista de kinesiologos (Nombres)" << endl;
-        cout << "3. Buscar y gestionar kinesiologo por nombre y apellido" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
+        cout << "3. Buscar y gestionar kinesiologo por dni" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion; // leemos la opción del usuario
@@ -83,12 +81,10 @@ void menuKinesiologos(Consultorio &sistema)
         }
         case 3:
         {
-            string nombre, apellido;
-            cout << "Nombre del paciente buscado: ";
-            getline(cin, nombre);
-            cout << "Apellido del paciente buscado: ";
-            getline(cin, apellido);
-            Kinesiologo *k = sistema.buscarKinesiologoPorNombreYapellido(nombre, apellido);
+            string dniBuscado;
+            cout << "Dni del paciente buscado: ";
+            cin >> dniBuscado;
+            Kinesiologo *k = sistema.buscarKinesiologoPorDni(dniBuscado);
             gestionarKinesiologo(sistema, k);
             break;
         }

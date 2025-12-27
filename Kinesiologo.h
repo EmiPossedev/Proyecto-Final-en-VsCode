@@ -13,6 +13,7 @@ struct RegistroKinesiologo
     char nombre[60];
     char apellido[60];
     char telefono[20];
+    char dni[10];
     // Datos de la clase kinesiologo
     char especialidad[100];
     int matricula;

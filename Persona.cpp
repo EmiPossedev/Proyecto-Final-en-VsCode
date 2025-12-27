@@ -29,7 +29,17 @@ void Persona::setTelefono(const std::string &nuevoTelefono)
 {
     telefono = nuevoTelefono;
 }
-std::string Persona::getTelefono() const
+string Persona::getTelefono() const
 {
     return telefono;
+}
+
+string Persona::getDni() const
+{
+    return dni;
+}
+
+void Persona::setDni(const string &dniNuevo)
+{
+    dni = dniNuevo;
 }

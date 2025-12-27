@@ -141,11 +141,11 @@ void Consultorio::ordenarTurnos()
 /// MÉTODOS PARA VERIFICAR DISPONIBILIDAD DE LOS RECURSOS
 
 // Disponibilidad del Kinesiólogo
-bool Consultorio::verificarDisponibilidadKinesiologo(const string &nombreKinesio, const Fecha &fecha, const string &hora)
+bool Consultorio::verificarDisponibilidadKinesiologo(const string &dniKine, const Fecha &fecha, const string &hora)
 {
     for (const auto &turno : turnos)
     {
-        if (turno.nombreKinesiologo == nombreKinesio && turno.fecha == fecha && turno.hora == hora)
+        if (turno.dniKinesiologo == dniKine && turno.fecha == fecha && turno.hora == hora)
         {
             if (turno.estadoDelTurno != "Cancelado")
             {
@@ -202,7 +202,36 @@ bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const stri
 
 // MÉTODOS DE BÚSQUEDA para Kinesios y Pacientes por nombre y apellido
 
-// MÉTODOS PARA PACIENTES
+// MÉTODOS DE BÚSQUEDA POR DNI
+Kinesiologo *Consultorio::buscarKinesiologoPorDni(const string &dniBuscado)
+{
+    for (Kinesiologo *k : kinesiologos)
+    {
+        if (k->getDni() == dniBuscado)
+        {
+            return k;
+        }
+    }
+    return nullptr;
+}
+
+Paciente *Consultorio::buscarPacientePorDni(const string &dniBuscado)
+{
+
+    for (Paciente *p : pacientes)
+    {
+        if (p->getDni() == dniBuscado)
+        {
+            return p;
+        }
+    }
+    return nullptr; // si no se encontró al paciente devuelvo el nullptr
+}
+
+// MÉTODOS PARA KINESIÓLOGOS
+
+/* LOS DEJO COMENTADOS PORQUE EL ÚNICO QUE VAMOS A UTILIZAR ES POR DNI, PERO ESTOS SON LOS MÉTODOS
+SI QUISIÉSEMOS BUSCAR POR NOMBRE
 Paciente *Consultorio::buscarPacientePorNombre(const string &nombre)
 {
     for (Paciente *p : pacientes)
@@ -225,18 +254,6 @@ Paciente *Consultorio::buscarPacientePorApellido(const string &apellido)
     }
     return nullptr;
 }
-Paciente *Consultorio::buscarPacientePorNombreYapellido(const string &nombre, const string &apellido){
-    
-    for(Paciente *p : pacientes){
-        if (p->getNombre() == nombre && p->getApellido() == apellido)
-        {
-            return p;
-        }
-    }
-    return nullptr; // si no se encontró al paciente devuelvo el nullptr
-}
-
-// MÉTODOS PARA KINESIÓLOGOS
 Kinesiologo *Consultorio::buscarKinesiologoPorNombre(const string &nombre)
 {
     for (Kinesiologo *k : kinesiologos)
@@ -259,44 +276,10 @@ Kinesiologo *Consultorio::buscarKinesiologoPorApellido(const string &apellido)
     }
     return nullptr;
 }
-Kinesiologo* Consultorio::buscarKinesiologoPorNombreYapellido(const string &nombre, const string &apellido){
-    for(Kinesiologo *k : kinesiologos){
-        if (k->getNombre() == nombre && k->getApellido() == apellido)
-        {
-            return k;
-        }
-    }
-    return nullptr; // devuelve el nullptr si no lo encontró
-}
+*/
 
 // MÉTODOS DE ELIMINACIÓN de pacientes y kinesiologos de los vectores de Consultorio
-void Consultorio::eliminarPacientePorNombre(const string &nombrePaciente)
-{
-    Paciente *p = buscarPacientePorNombre(nombrePaciente);
-    if (p != nullptr)
-    {
-        pacientes.erase(find(pacientes.begin(), pacientes.end(), p));
-        delete p;
-    }
-}
 
-// CORRECTO
-void Consultorio::eliminarKinesiologoPorNombre(const string &nombreKinesio)
-{
-    // ahora si buysca un kinesiologo
-    Kinesiologo *k = buscarKinesiologoPorNombre(nombreKinesio);
-
-    if (k != nullptr)
-    {
-        // 2. Busco en vector KINESIOLOGOS
-        auto it = find(kinesiologos.begin(), kinesiologos.end(), k);
-        if (it != kinesiologos.end())
-        {
-            delete *it;
-            kinesiologos.erase(it); // y borro del vector correcto
-        }
-    }
-}
 // Paciente con pago pendiente
 vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 {
@@ -314,32 +297,25 @@ vector<Paciente *> Consultorio::getPacientesConPagoPendiente() const
 /// MÉTODOS DE ARCHIVOS BINARIOS
 
 // Método para guardar/cargar los pacientes en un archivo binario
-void Consultorio::guardarPacientes(const string &nombreArchivo){
+void Consultorio::guardarPacientes(const string &nombreArchivo)
+{
     ofstream bin(nombreArchivo, ios::binary | ios::trunc); // la banderea trunc nos va a ayudar a que no se dupliquen los pacientes guardados en el vector
-    if (!bin.is_open()) {
+    if (!bin.is_open())
+    {
         throw runtime_error("No se pudo abrir el archivo pacientes para para escritura.");
     }
 
-    for (size_t i = 0; i < pacientes.size(); i++){
+    for (size_t i = 0; i < pacientes.size(); i++)
+    {
         RegistroPaciente RegPaciente;
-        
-        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), sizeof(RegPaciente.nombre) - 1);
-        RegPaciente.nombre[sizeof(RegPaciente.nombre) - 1] = '\0';
 
-        strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), sizeof(RegPaciente.apellido) - 1);
-        RegPaciente.apellido[sizeof(RegPaciente.apellido) - 1] = '\0';
-
-        strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), sizeof(RegPaciente.diagnostico) - 1);
-        RegPaciente.diagnostico[sizeof(RegPaciente.diagnostico) - 1] = '\0';
-
-        strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), sizeof(RegPaciente.observaciones) - 1);
-        RegPaciente.observaciones[sizeof(RegPaciente.observaciones) - 1] = '\0';
-
-        strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), sizeof(RegPaciente.obraSocial) - 1);
-        RegPaciente.obraSocial[sizeof(RegPaciente.obraSocial) - 1] = '\0';
-
-        strncpy(RegPaciente.telefono, pacientes[i]->getTelefono().c_str(), sizeof(RegPaciente.telefono));
-        RegPaciente.telefono[sizeof(RegPaciente.telefono)-1] = '\0';
+        strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59);
+        strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), 59);
+        strncpy(RegPaciente.dni, pacientes[i]->getDni().c_str(), 9);
+        strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), 99);
+        strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), 199);
+        strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), 49);
+        strncpy(RegPaciente.telefono, pacientes[i]->getTelefono().c_str(), 19);
         RegPaciente.fechaDeInicio = pacientes[i]->getFechaDeInicio();
         RegPaciente.cantSesionesTotales = pacientes[i]->getCantSesionesTotales();
         RegPaciente.cantSesionesRealizadas = pacientes[i]->getCantidadSesionesRealizadas();
@@ -354,10 +330,12 @@ void Consultorio::guardarPacientes(const string &nombreArchivo){
 void Consultorio::cargarPacientes(const string &nombreArchivo)
 {
     ifstream bin(nombreArchivo, ios::binary); // <--- Usamos ifstream es más seguro
-    if (!bin.is_open()) return; // Si no existe, no es error critico, solo no carga nada
+    if (!bin.is_open())
+        return; // Si no existe, no es error critico, solo no carga nada
 
     // 1. LIMPIEZA DE MEMORIA (IMPORTANTE)
-    for (auto p : pacientes) delete p;
+    for (auto p : pacientes)
+        delete p;
     pacientes.clear();
 
     RegistroPaciente RegPaciente;
@@ -365,7 +343,7 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
     while (bin.read(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente)))
     {
         Paciente *p = new Paciente();
-        
+
         p->setNombre(string(RegPaciente.nombre));
         p->setApellido(string(RegPaciente.apellido));
         p->setTelefono(RegPaciente.telefono);
@@ -375,12 +353,14 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
         p->setObraSocial(string(RegPaciente.obraSocial));
         p->setCantSesionesTotales(RegPaciente.cantSesionesTotales);
         p->setCantidadSesionesRealizadas(RegPaciente.cantSesionesRealizadas);
-        
+
         // setObservaciones agrega, está bien
-        p->setObservaciones(string(RegPaciente.observaciones)); 
-        
-        if (RegPaciente.sesionesPagas) p->marcarComoPagado();
-        else p->marcarComoPendiente();
+        p->setObservaciones(string(RegPaciente.observaciones));
+
+        if (RegPaciente.sesionesPagas)
+            p->marcarComoPagado();
+        else
+            p->marcarComoPendiente();
 
         pacientes.push_back(p);
     }
@@ -391,28 +371,24 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
 void Consultorio::guardarKinesiologos(const string &nombreArchivo)
 {
     ofstream bin(nombreArchivo, ios::binary | ios::trunc);
-    if (!bin.is_open()){
+    if (!bin.is_open())
+    {
         cout << "Error al abrir archivo Kinesiologos para escritura." << endl;
         return;
     }
-    for (size_t i = 0; i < kinesiologos.size(); i++){
+    for (size_t i = 0; i < kinesiologos.size(); i++)
+    {
         RegistroKinesiologo RegKinesio;
 
-        // <--- CORREGIDO: Usamos sizeof en lugar de números fijos (59/99)
-        strncpy(RegKinesio.nombre, kinesiologos[i]->getNombre().c_str(), sizeof(RegKinesio.nombre) - 1);
-        RegKinesio.nombre[sizeof(RegKinesio.nombre) - 1] = '\0';
-
-        strncpy(RegKinesio.apellido, kinesiologos[i]->getApellido().c_str(), sizeof(RegKinesio.apellido) - 1);
-        RegKinesio.apellido[sizeof(RegKinesio.apellido) - 1] = '\0';
-
-        strncpy(RegKinesio.especialidad, kinesiologos[i]->getEspecialidad().c_str(), sizeof(RegKinesio.especialidad) - 1);
-        RegKinesio.especialidad[sizeof(RegKinesio.especialidad) - 1] = '\0';
-
-        strncpy(RegKinesio.telefono, kinesiologos[i]->getTelefono().c_str(), sizeof(RegKinesio.telefono));
-        RegKinesio.telefono[sizeof(RegKinesio.telefono)-1] = '\0';
+        // Transformamos todo para poder guardarlo en archivo binario
+        strncpy(RegKinesio.nombre, kinesiologos[i]->getNombre().c_str(), 59);
+        strncpy(RegKinesio.apellido, kinesiologos[i]->getApellido().c_str(), 59);
+        strncpy(RegKinesio.especialidad, kinesiologos[i]->getEspecialidad().c_str(), 99);
+        strncpy(RegKinesio.telefono, kinesiologos[i]->getTelefono().c_str(), 19);
+        strncpy(RegKinesio.dni, kinesiologos[i]->getDni().c_str(), 9);
         RegKinesio.matricula = kinesiologos[i]->getMatricula();
         RegKinesio.cantidadPacientesAtendidos = kinesiologos[i]->getCantidadPacientesAtendidos();
-        
+
         bin.write(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo));
     }
     bin.close();
@@ -422,28 +398,31 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
 void Consultorio::cargarKinesiologos(const string &nombreArchivo)
 {
     ifstream bin(nombreArchivo, ios::binary);
-    if (!bin.is_open()){
+    if (!bin.is_open())
+    {
         throw runtime_error("No se pudo abrir el archivo kinesiólogos para lectura.");
     }
 
-    // 1. LIMPIEZA DE MEMORIA
-    for (auto k : kinesiologos) delete k;
+    // Primero limpio mi vector, y lo vuelvo a cargar
+    for (Kinesiologo *k : kinesiologos)
+    {
+        delete k;
+    }
     kinesiologos.clear();
 
     RegistroKinesiologo RegKinesio;
-    // <--- CORREGIDO: Sintaxis de while
     while (bin.read(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo)))
     {
         Kinesiologo *k = new Kinesiologo();
-        
+
         k->setNombre(string(RegKinesio.nombre));
         k->setApellido(string(RegKinesio.apellido));
         k->setTelefono(RegKinesio.telefono);
-        
+
         k->setEspecialidad(string(RegKinesio.especialidad));
         k->setMatricula(RegKinesio.matricula);
         k->setCantPacientesAtendidos(RegKinesio.cantidadPacientesAtendidos);
-        
+
         kinesiologos.push_back(k);
     }
     bin.close();
@@ -452,19 +431,21 @@ void Consultorio::cargarKinesiologos(const string &nombreArchivo)
 // guardarTurnos / cargarTurnos
 
 // guardarTodosDatos / cargarTodosDatos
-void Consultorio::guardarTurnos(const string &nombreArchivo){
+void Consultorio::guardarTurnos(const string &nombreArchivo)
+{
     ofstream bin(nombreArchivo, ios::binary | ios::trunc);
-    if (!bin.is_open()){
+    if (!bin.is_open())
+    {
         throw runtime_error("No se pudo abrir el archivo para escritura.");
     };
 
     for (const auto &k : turnos)
     {
         RegistroTurno reg;
-        
-        strncpy(reg.nombreKinesio, k.nombreKinesiologo.c_str(), 59); 
+
+        strncpy(reg.nombreKinesio, k.nombreKinesiologo.c_str(), 59);
         strncpy(reg.nombrePaciente, k.nombrePaciente.c_str(), 59);
-        reg.fecha = k.fecha; 
+        reg.fecha = k.fecha;
         strncpy(reg.hora, k.hora.c_str(), 9);
         strncpy(reg.estadoDelTurno, k.estadoDelTurno.c_str(), 19);
         strncpy(reg.observaciones, k.observaciones.c_str(), 199);
@@ -476,16 +457,19 @@ void Consultorio::guardarTurnos(const string &nombreArchivo){
     bin.close();
 }
 
-void Consultorio::cargarTurnos(const string &nombreArchivo){
+void Consultorio::cargarTurnos(const string &nombreArchivo)
+{
     ifstream bin(nombreArchivo, ios::binary);
-    if (!bin.is_open()){
+    if (!bin.is_open())
+    {
         throw runtime_error("No se pudo abrir el archivo para lectura");
     }
 
     turnos.clear(); // Limpiamos vector (como son structs, no hace falta delete)
 
     RegistroTurno reg;
-    while (bin.read(reinterpret_cast<char *>(&reg), sizeof(RegistroTurno))){
+    while (bin.read(reinterpret_cast<char *>(&reg), sizeof(RegistroTurno)))
+    {
         Turno t;
         t.nombreKinesiologo = reg.nombreKinesio;
         t.nombrePaciente = reg.nombrePaciente;
@@ -501,14 +485,16 @@ void Consultorio::cargarTurnos(const string &nombreArchivo){
     bin.close();
 }
 
-void Consultorio::guardarTodosDatos(){
+void Consultorio::guardarTodosDatos()
+{
     guardarPacientes("pacientes.dat");
     guardarKinesiologos("kinesiologos.dat");
     guardarTurnos("turnos.dat");
     cout << "Todos los datos han sido guardados." << endl;
 }
 
-void Consultorio::cargarTodosDatos(){
+void Consultorio::cargarTodosDatos()
+{
     cargarPacientes("pacientes.dat");
     cargarKinesiologos("kinesiologos.dat");
     cargarTurnos("turnos.dat");

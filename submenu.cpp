@@ -1,4 +1,4 @@
-#include "Consultorio.h" 
+#include "Consultorio.h"
 #include "submenu.h"
 #include <iostream>
 #include <string>
@@ -6,7 +6,8 @@
 using namespace std;
 
 /// LÓGICA PARA PACIENTES
-void registrarPaciente(Consultorio &sistema){
+void registrarPaciente(Consultorio &sistema)
+{
 
     // Crear el paciente nuevo en memoria
     Paciente *nuevoP = new Paciente();
@@ -69,7 +70,8 @@ void registrarPaciente(Consultorio &sistema){
     cout << "Paciente registrado con exito! " << endl;
 }
 
-void listarPacientes(Consultorio &sistema){
+void listarPacientes(Consultorio &sistema)
+{
 
     // Obtenemos la copia de la lista de pacientes
     vector<Paciente *> pacientes = sistema.getPacientes();
@@ -86,7 +88,7 @@ void listarPacientes(Consultorio &sistema){
     {
 
         Paciente *p = pacientes[i];
-        cout << i+1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
+        cout << i + 1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
 
         // Mostramos su obra social y la cantidad de sesiones que lleva
         cout << " Obra social: " << p->getObraSocial() << ". ";
@@ -96,7 +98,8 @@ void listarPacientes(Consultorio &sistema){
     cout << "-Siguiente-" << endl;
 }
 
-void gestionarPaciente(Consultorio &sistema, Paciente *p){
+void gestionarPaciente(Consultorio &sistema, Paciente *p)
+{
     int opcion;
     do
     {
@@ -115,21 +118,22 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
         {
             cout << "Estado de sesiones: Falta pagar las sesiones" << endl;
         }
-        cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl 
-        << "1. Modificar el nombre del paciente" << endl
-        << "2. Modificar el apellido del paciente" << endl
-        << "3. Modificar el teléfono del paciente" << endl
-        << "4. Modificar la obra social del paciente" << endl
-        << "5. Modificar la cantidad de sesiones totales del paciente" << endl
-        << "6. Modificar las observaciones del paciente" << endl
-        << "0. Regresar al menú principal" << endl;
+        cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
+             << "1. Modificar el nombre del paciente" << endl
+             << "2. Modificar el apellido del paciente" << endl
+             << "3. Modificar el teléfono del paciente" << endl
+             << "4. Modificar la obra social del paciente" << endl
+             << "5. Modificar la cantidad de sesiones totales del paciente" << endl
+             << "6. Modificar las observaciones del paciente" << endl
+             << "0. Regresar al menú principal" << endl;
 
         cout << "Ingrese una opcion: ";
         cin >> opcion;
         cin.ignore(); // limpio el buffer porque uso getline en algunos casos
         switch (opcion)
         {
-        case 1:{
+        case 1:
+        {
             string nuevoNombre;
             cout << "Ingrese el nombre: ";
             getline(cin, nuevoNombre);
@@ -137,7 +141,8 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 2:{
+        case 2:
+        {
             string nuevoApellido;
             cout << "Ingrese el apellido: ";
             getline(cin, nuevoApellido);
@@ -145,7 +150,8 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 3:{
+        case 3:
+        {
             string nuevoTelefono;
             cout << "Ingrese el teléfono: ";
             cin >> nuevoTelefono;
@@ -153,51 +159,64 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 4:{
+        case 4:
+        {
             string nuevaObraSocial;
-            cout << "Ingrese la obra social: ";
+            cout << "Ingrese la obra social del paciente: ";
             getline(cin, nuevaObraSocial);
             p->setObraSocial(nuevaObraSocial);
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 5:{
+        case 5:
+        {
             int nuevaCant;
-            cout << "Ingrese la nueva cantidad de sesiones totales: "; cin >> nuevaCant;
+            cout << "Ingrese la nueva cantidad de sesiones totales: ";
+            cin >> nuevaCant;
             p->setCantSesionesTotales(nuevaCant);
             break;
         }
         case 6:
         {
-            int subOpcionObservaciones;
-            cout << "1. Agregar observaciones" << endl
-            << "2. Borrar observaciones anteriores y anotar unas nuevas" << endl;
-            cin >> subOpcionObservaciones;
-            cin.ignore(); // limpio el buffer después de haber usado el cin en vez de getline
-            if (subOpcionObservaciones == 1)
+            int subOpcionDelMenu;
+            cout << "Ingrese " << endl;
+            cout << "1. Si desea agregar observaciones nuevas." << endl;
+            cout << "2. Si desea borrar las observaciones viejas y agregar unas nuevas." << endl;
+            do
             {
-                string observaciones;
-                cout << "Ingrese las observaciones a agregar: ";
-                getline(cin, observaciones);
-                p->setObservaciones(observaciones);
-                sistema.guardarPacientes("pacientes.dat");
-            }
-            else
-            {
-                p->borrarObservaciones();
-                string observaciones;
-                cout << "Ya se borraron todas las observaciones. Ingrese las nuevas observaciones: ";
-                getline(cin, observaciones);
-                p->setObservaciones(observaciones);
-                sistema.guardarPacientes("pacientes.dat");
-            }
+                cin >> subOpcionDelMenu;
+                if (subOpcionDelMenu == 1)
+                {
+                    string observaciones;
+                    cout << "Ingrese las observaciones a agregar: ";
+                    getline(cin, observaciones);
+                    p->setObservaciones(observaciones);
+                    sistema.guardarPacientes("pacientes.dat");
+                }
+                else if (subOpcionDelMenu == 2)
+                {
+                    p->borrarObservaciones();
+                    string observaciones;
+                    cout << "Ya se borraron todas las observaciones. Ingrese las nuevas observaciones: ";
+                    getline(cin, observaciones);
+                    p->setObservaciones(observaciones);
+                    sistema.guardarPacientes("pacientes.dat");
+                }
+                else
+                {
+                    cout << "Ingrese una opción válida por favor." << endl;
+                }
+            } while (subOpcionDelMenu != 1 && subOpcionDelMenu != 2);
+
             break;
         }
-        case 0: {
+        case 0:
+        {
             cout << "Volver al menú principal" << endl;
             break;
         }
-        default: {
+        default:
+        {
             cout << "No funciono, intente nuevamente." << endl;
             break;
         }
@@ -206,7 +225,8 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p){
 }
 
 /// LÓGICA PARA KINESIOLOGOS
-void listarKinesiologos(const Consultorio &sistema){
+void listarKinesiologos(const Consultorio &sistema)
+{
     // Obtenemos la copia de la lista de kinesiologos
     vector<Kinesiologo *> kinesiologos = sistema.getKinesiologos();
 
@@ -221,16 +241,15 @@ void listarKinesiologos(const Consultorio &sistema){
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre();
-        cout << "Tel: " << k->getTelefono() << endl;
-        cout << "Especialidad: " << k->getEspecialidad() << endl;
+        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << " ." << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad();
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
 }
 
-void registrarkinesiologo(Consultorio &sistema){
-    
+void registrarkinesiologo(Consultorio &sistema)
+{
+
     // Crear el kinesiologo nuevo en memoria
     Kinesiologo *k = new Kinesiologo();
 
@@ -248,12 +267,13 @@ void registrarkinesiologo(Consultorio &sistema){
     getline(cin, textoAux);
     k->setApellido(textoAux);
     // Pido el teléfono
-        cout << "Ingrese Telefono (solo numeros): ";
-        cin >> textoAux;
-        k->setTelefono(textoAux);
+    cout << "Ingrese Telefono (solo numeros): ";
+    cin >> textoAux;
+    k->setTelefono(textoAux);
     cin.ignore(); // porque mi última lectura fue con un cin y la prox va a ser un getline
     // Pido especialidad
-    cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): "; getline(cin, textoAux);
+    cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): ";
+    getline(cin, textoAux);
     k->setEspecialidad(textoAux);
     // Pido el nro de matrícula
     cout << "Ingrese Numero de Matricula: ";
@@ -269,88 +289,114 @@ void registrarkinesiologo(Consultorio &sistema){
     cout << "Kinesiologo registrado con exito" << endl;
 }
 
-void gestionarKinesiologo(Consultorio &sistema ,Kinesiologo *k){
+void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
+{
     int opcion;
     do
     {
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
         cout << "Teléfono: " << k->getTelefono();
-            cout << "Especialidad: " << k->getEspecialidad() << endl;
+        cout << "Especialidad: " << k->getEspecialidad() << endl;
         cout << "Matrícula: " << k->getMatricula() << endl;
         cout << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
-        << "1. Modificar el nombre del kinesiologo" << endl
-        << "2. Modificar el apellido del kinesiolgo" << endl
-        << "3. Modificar el telefono" << endl
-        << "4. Modificar la especialidad" << endl
-        << "5. Modificar la matrícula" << endl
-        << "6. Modificar la cantidad de pacientes atendidos" << endl;
+             << "1. Modificar el nombre del kinesiologo" << endl
+             << "2. Modificar el apellido del kinesiolgo" << endl
+             << "3. Modificar el telefono" << endl
+             << "4. Modificar la especialidad" << endl
+             << "5. Modificar la matrícula" << endl
+             << "6. Modificar la cantidad de pacientes atendidos" << endl;
         cin >> opcion;
         cin.ignore();
 
         switch (opcion)
         {
-        case 1:{
+        case 1:
+        {
             string nuevoNombre;
-            cout << "Ingrese el nombre: "; getline(cin,nuevoNombre);
+            cout << "Ingrese el nombre: ";
+            getline(cin, nuevoNombre);
             k->setNombre(nuevoNombre);
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
-        case 2: {
+        case 2:
+        {
             string apellido;
-            cout << "Ingrese el apellido: "; getline(cin, apellido);
+            cout << "Ingrese el apellido: ";
+            getline(cin, apellido);
             k->setApellido(apellido);
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 3: {
+        case 3:
+        {
             string nuevoTel;
-            cout << "Ingrese el telefono: "; cin >> nuevoTel;
+            cout << "Ingrese el telefono: ";
+            cin >> nuevoTel;
             k->setTelefono(nuevoTel);
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 4: {
+        case 4:
+        {
             int subOpcionEspecialidad;
             cout << "1. Agregar una especialidad nueva" << endl;
-            cout << "2. Borrar la/s especialiadad/es anterior/es y agregar una/s nueva/s " << endl;
-            cin >> subOpcionEspecialidad;
-            cin.ignore();
-            if(subOpcionEspecialidad == 1){
-                string nuevaEspecialidad;
-                cout << "Ingrese la nueva especialidad: "; getline(cin, nuevaEspecialidad);
-                k->setEspecialidad(nuevaEspecialidad);
-                sistema.guardarKinesiologos("kinesiologos.dat");
-            } else {
-                k->borrarEspecialidad();
-                string nuevaEspecialiadad;
-                cout << "Ya se borraron las especialidades. Ingrese la/s nueva/s especialidad/es: "; getline(cin, nuevaEspecialiadad);
-                k->setEspecialidad(nuevaEspecialiadad);
-                sistema.guardarKinesiologos("kinesiologos.dat");
-            }
+            cout << "2. Borrar la/s especialidad/es anterior/es y agregar una/s nueva/s" << endl;
+            do
+            {
+                cin >> subOpcionEspecialidad;
+                cin.ignore();
+                if (subOpcionEspecialidad == 1)
+                {
+                    string nuevaEspecialidad;
+                    cout << "Ingrese la nueva especialidad: ";
+                    getline(cin, nuevaEspecialidad);
+                    k->setEspecialidad(nuevaEspecialidad);
+                    sistema.guardarKinesiologos("kinesiologos.dat");
+                }
+                else if (subOpcionEspecialidad == 2)
+                {
+                    k->borrarEspecialidad();
+                    string nuevaEspecialidad;
+                    cout << "Ya se borraron las especialidades. Ingrese la/s nueva/s especialidad/es: ";
+                    getline(cin, nuevaEspecialidad);
+                    k->setEspecialidad(nuevaEspecialidad);
+                    sistema.guardarKinesiologos("kinesiologos.dat");
+                }
+                else
+                {
+                    cout << "Ingrese una opción válida por favor." << endl;
+                }
+            } while (subOpcionEspecialidad != 1 && subOpcionEspecialidad != 2);
             break;
         }
-        case 5: {
+        case 5:
+        {
             int nuevaMatricula;
-            cout << "Ingrese la nueva matrícula: "; cin >> nuevaMatricula;
+            cout << "Ingrese la nueva matrícula: ";
+            cin >> nuevaMatricula;
             k->setMatricula(nuevaMatricula);
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
-        case 6: {
+        case 6:
+        {
             int nuevaCant;
-            cout << "Ingrese la nueva cantidad de pacientes atendidos: "; cin >> nuevaCant;
+            cout << "Ingrese la nueva cantidad de pacientes atendidos: ";
+            cin >> nuevaCant;
             k->setCantPacientesAtendidos(nuevaCant);
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
-        case 0: {
+        case 0:
+        {
             cout << "Volver al menú principal" << endl;
             break;
         }
-        default: {
+        default:
+        {
             cout << "No funcionó, intente nuevamente" << endl;
             break;
         }
@@ -359,181 +405,219 @@ void gestionarKinesiologo(Consultorio &sistema ,Kinesiologo *k){
 }
 
 /// LÓGICA PARA TURNOS
-void reservarTurno(Consultorio &sistema){
-	cout<<"RESERVAR TURNO"<<endl;
-	cin.ignore();
-	
-	string nombrePac, apellidoPac;
-	cout << "Ingrese el nombre del paciente: ";
-	getline(cin, nombrePac);
-	cout << "Ingrese el apellido del paciente: ";
+void reservarTurno(Consultorio &sistema)
+{
+    cout << "RESERVAR TURNO" << endl;
+    cin.ignore();
+
+    string nombrePac, apellidoPac, dniPaciente;
+    cout << "Ingrese el nombre del paciente: ";
+    getline(cin, nombrePac);
+    cout << "Ingrese el apellido del paciente: ";
     getline(cin, apellidoPac);
-	if(sistema.buscarPacientePorNombreYapellido(nombrePac,apellidoPac) == nullptr){
-		cout << "Error: No se encontro un paciente con ese nombre y apellido." << endl;
-		return;
-	}
-	
-	string nombreKine, apellidoKine;
-	cout << "Ingrese el nombre del kinesiologo: ";
-	getline(cin, nombreKine);
-	cout << "Ingrese el nombre del kinesiologo: ";
+    cout << "Ingrese el dni del paciente: ";
+    cin >> dniPaciente;
+    if (sistema.buscarPacientePorDni(dniPaciente) == nullptr)
+    {
+        cout << "Error: No se encontro un paciente con ese dni." << endl;
+        return;
+    }
+
+    string nombreKine, apellidoKine, dniKine;
+    cout << "Ingrese el nombre del kinesiologo: ";
+    getline(cin, nombreKine);
+    cout << "Ingrese el nombre del kinesiologo: ";
     getline(cin, apellidoKine);
-	if(sistema.buscarKinesiologoPorNombreYapellido(nombreKine,apellidoKine) == nullptr){
-		cout << "Error: No se encontro un kinesiologo con ese nombre y apellido." << endl;
-		return;
-	}
-	
-	Turno nuevoT;
-	nuevoT.nombrePaciente = nombrePac;
-	nuevoT.nombreKinesiologo = nombreKine;
-	cout << "Ingrese la fecha del turno: " << endl;
-	cout << "Dia: "; cin >> nuevoT.fecha.dia;
-	cout << "Mes: "; cin >> nuevoT.fecha.mes;
-	cout << "Anio: "; cin >> nuevoT.fecha.anio;
-	
-	cout<<"Ingrese la hora del turno (formato HH:MM): ";
-	cin>>nuevoT.hora;
-	
-	char respuesta;
-	cout << "Requiere Camilla? (s/n): "; cin >> respuesta;
-	// Si pone 's' o 'S', es true. Si no, false.
-	nuevoT.requiereCamilla = (respuesta == 's' || respuesta == 'S');
-	
-	cout << "Requiere Gimnasio? (s/n): "; cin >> respuesta;
-	nuevoT.requiereGimnasio = (respuesta == 's' || respuesta == 'S');
-	
-	nuevoT.estadoDelTurno = "Programado"; 
-	
-	cin.ignore();
-	cout << "Observacion para el turno: "; 
-	getline(cin, nuevoT.observaciones);
-	
-	// Validar Kinesiologo
-	if (sistema.verificarDisponibilidadKinesiologo(nombreKine, nuevoT.fecha, nuevoT.hora) == false) {
-		cout << ">>> Error: El Kinesiologo ya tiene un turno a esa hora." << endl;
-		return;
-	}
-	
-	// Validar Camilla (Solo si la pidió)
-	if (nuevoT.requiereCamilla == true) {
-		if (sistema.verificarDisponibilidadCamilla(nuevoT.fecha, nuevoT.hora) == false) {
-			cout << ">>> Error: No hay camillas disponibles a esa hora (Todas ocupadas)." << endl;
-			return;
-		}
-	}
-	
-	// Validar Gimnasio (Solo si lo pidió)
-	if (nuevoT.requiereGimnasio == true) {
-		if (sistema.verificarDisponibilidadGimnasio(nuevoT.fecha, nuevoT.hora) == false) {
-			cout << ">>> Error: El gimnasio está lleno a esa hora." << endl;
-			return;
-		}
-	}
-	
-	sistema.agregarTurno(nuevoT);
-	cout << "TURNO AGENDADO CON EXITO" << endl;
-	
+    cout << "Ingrese el dni del kinesiólogo: ";
+    cin >> dniKine;
+    if (sistema.buscarKinesiologoPorDni(dniKine) == nullptr)
+    {
+        cout << "Error: No se encontro un kinesiologo con ese dni." << endl;
+        return;
+    }
+
+    Turno nuevoT;
+    nuevoT.nombrePaciente = nombrePac;
+    nuevoT.nombreKinesiologo = nombreKine;
+    cout << "Ingrese la fecha del turno: " << endl;
+    cout << "Dia(formato DD): ";
+    cin >> nuevoT.fecha.dia;
+    cout << "Mes(formato MM): ";
+    cin >> nuevoT.fecha.mes;
+    cout << "Anio(formato AAAA): ";
+    cin >> nuevoT.fecha.anio;
+
+    cout << "Ingrese la hora del turno (formato HH:MM): ";
+    cin >> nuevoT.hora;
+
+    char respuesta;
+    cout << "Requiere Camilla? (s/n): ";
+    cin >> respuesta;
+    // Si pone 's' o 'S', es true. Si no, false.
+    nuevoT.requiereCamilla = (respuesta == 's' || respuesta == 'S');
+
+    cout << "Requiere Gimnasio? (s/n): ";
+    cin >> respuesta;
+    nuevoT.requiereGimnasio = (respuesta == 's' || respuesta == 'S');
+
+    nuevoT.estadoDelTurno = "Programado";
+
+    cin.ignore();
+    cout << "Observacion para el turno: ";
+    getline(cin, nuevoT.observaciones);
+
+    // Validar Kinesiologo
+    if (sistema.verificarDisponibilidadKinesiologo(dniKine, nuevoT.fecha, nuevoT.hora) == false)
+    {
+        cout << ">>> Error: El Kinesiologo ya tiene un turno a esa hora." << endl;
+        return;
+    }
+
+    // Validar Camilla (Solo si la pidió)
+    if (nuevoT.requiereCamilla == true)
+    {
+        if (sistema.verificarDisponibilidadCamilla(nuevoT.fecha, nuevoT.hora) == false)
+        {
+            cout << ">>> Error: No hay camillas disponibles a esa hora (Todas ocupadas)." << endl;
+            return;
+        }
+    }
+
+    // Validar Gimnasio (Solo si lo pidió)
+    if (nuevoT.requiereGimnasio == true)
+    {
+        if (sistema.verificarDisponibilidadGimnasio(nuevoT.fecha, nuevoT.hora) == false)
+        {
+            cout << ">>> Error: El gimnasio está lleno a esa hora." << endl;
+            return;
+        }
+    }
+
+    sistema.agregarTurno(nuevoT);
+    cout << "TURNO AGENDADO CON EXITO" << endl;
 }
 
-void verAgenda(Consultorio &sistema) {
-	// Ordenar la agenda cronológicamente
-	sistema.ordenarTurnos();
-	
-	// Obtener la lista
-	vector<Turno> lista = sistema.getTurnos();
-	
-	cout << " AGENDA DE TURNOS " << endl;
-	
-	// Verificar si está vacía
-	if (lista.empty()) {
-		cout << "No hay turnos registrados en la agenda." << endl;
-		return;
-	}
-	
-	for (size_t i = 0; i < lista.size(); i++) {
-		
-		Turno t = lista[i];
-		
-		cout << i+1  << ". ";
-		
-		// Formato de fecha [DD/MM/AAAA - HH:MM]
-		cout << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] ";
-		
-		// Datos de las personas
-		cout << "Paciente: " << t.nombrePaciente << " Kinesiólogo: " << t.nombreKinesiologo;
-		
-		// Estado y Extras
-		cout << " (" << t.estadoDelTurno << ")";
-		
-		if (t.requiereCamilla) cout << " [Cam]";
-		if (t.requiereGimnasio) cout << " [Gim]";
-		
-		cout << endl; 
-	}
-	cout << "Siguiente" << endl;
+void verAgenda(Consultorio &sistema)
+{
+    // Ordenar la agenda cronológicamente
+    sistema.ordenarTurnos();
+
+    // Obtener la lista
+    vector<Turno> lista = sistema.getTurnos();
+
+    cout << " AGENDA DE TURNOS " << endl;
+
+    // Verificar si está vacía
+    if (lista.empty())
+    {
+        cout << "No hay turnos registrados en la agenda." << endl;
+        return;
+    }
+
+    for (size_t i = 0; i < lista.size(); i++)
+    {
+
+        Turno t = lista[i];
+
+        cout << i + 1 << ". ";
+
+        // Formato de fecha [DD/MM/AAAA - HH:MM]
+        cout << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] ";
+
+        // Datos de las personas
+        cout << "Paciente: " << t.nombrePaciente << " Kinesiólogo: " << t.nombreKinesiologo;
+
+        // Estado y Extras
+        cout << " (" << t.estadoDelTurno << ")";
+
+        if (t.requiereCamilla)
+            cout << " [Cam]";
+        if (t.requiereGimnasio)
+            cout << " [Gim]";
+
+        cout << endl;
+    }
+    cout << "Siguiente" << endl;
 }
 
-void modificarTurno(Consultorio &sistema) {
-	cout << "REPROGRAMAR TURNO " << endl;
-	
-	cin.ignore(); 
-	
-	// Pedimos los datos para encontrar el turno viejo
-	string nombrePac;
-	cout << "Ingrese el nombre del Paciente: ";
-	getline(cin, nombrePac);
-	
-	Fecha fechaVieja;
-	string horaVieja;
-	
-	cout << "Datos del Turno ACTUAL (El que quiere cambiar) " << endl;
-	cout << "Dia: "; cin >> fechaVieja.dia;
-	cout << "Mes: "; cin >> fechaVieja.mes;
-	cout << "Anio: "; cin >> fechaVieja.anio;
-	cout << "Hora actual (HH:MM): "; cin >> horaVieja;
-	
-	// Pedimos los datos para el nuevo horario
-	Fecha fechaNueva;
-	string horaNueva;
-	
-	cout << " Datos del NUEVO Horario " << endl;
-	cout << "Nuevo Dia: "; cin >> fechaNueva.dia;
-	cout << "Nuevo Mes: "; cin >> fechaNueva.mes;
-	cout << "Nuevo Anio: "; cin >> fechaNueva.anio;
-	cout << "Nueva Hora (HH:MM): "; cin >> horaNueva;
-	
-	sistema.reprogramarTurno(nombrePac, fechaVieja, horaVieja, fechaNueva, horaNueva);
+void modificarTurno(Consultorio &sistema)
+{
+    cout << "REPROGRAMAR TURNO " << endl;
+
+    cin.ignore();
+
+    // Pedimos los datos para encontrar el turno viejo
+    string nombrePac;
+    cout << "Ingrese el nombre del Paciente: ";
+    getline(cin, nombrePac);
+
+    Fecha fechaVieja;
+    string horaVieja;
+
+    cout << "Datos del Turno ACTUAL (El que quiere cambiar) " << endl;
+    cout << "Dia: ";
+    cin >> fechaVieja.dia;
+    cout << "Mes: ";
+    cin >> fechaVieja.mes;
+    cout << "Anio: ";
+    cin >> fechaVieja.anio;
+    cout << "Hora actual (HH:MM): ";
+    cin >> horaVieja;
+
+    // Pedimos los datos para el nuevo horario
+    Fecha fechaNueva;
+    string horaNueva;
+
+    cout << " Datos del NUEVO Horario " << endl;
+    cout << "Nuevo Dia: ";
+    cin >> fechaNueva.dia;
+    cout << "Nuevo Mes: ";
+    cin >> fechaNueva.mes;
+    cout << "Nuevo Anio: ";
+    cin >> fechaNueva.anio;
+    cout << "Nueva Hora (HH:MM): ";
+    cin >> horaNueva;
+
+    sistema.reprogramarTurno(nombrePac, fechaVieja, horaVieja, fechaNueva, horaNueva);
 }
 
-void cancelarTurno(Consultorio &sistema) {
-	cout << " CANCELAR TURNO " << endl;
-	
-	cin.ignore();
-	
-	// Pedimos los datos para identificar el turno
-	string nombrePac;
-	cout << "Ingrese el nombre del Paciente: ";
-	getline(cin, nombrePac);
-	
-	Fecha fecha;
-	string hora;
-	
-	cout << " Datos del Turno a ELIMINAR " << endl;
-	cout << "Dia: "; cin >> fecha.dia;
-	cout << "Mes: "; cin >> fecha.mes;
-	cout << "Anio: "; cin >> fecha.anio;
-	cout << "Hora (HH:MM): "; cin >> hora;
-	
-	cin.ignore();
-	
-	char respuesta;
-	cout << "¿Estas seguro que queres cancelar este turno? (s/n): ";
-	cin >> respuesta;
-	
-	if (respuesta == 's' || respuesta == 'S') {
-		sistema.cancelarTurno(nombrePac, fecha, hora);
-		cout << " Turno cancelado con exito " << endl;
-	} else {
-		cout << " Operacion cancelada. El turno sigue activo." << endl;
-	}
+void cancelarTurno(Consultorio &sistema)
+{
+    cout << " CANCELAR TURNO " << endl;
+
+    cin.ignore();
+
+    // Pedimos los datos para identificar el turno
+    string nombrePac;
+    cout << "Ingrese el nombre del Paciente: ";
+    getline(cin, nombrePac);
+
+    Fecha fecha;
+    string hora;
+
+    cout << " Datos del Turno a ELIMINAR " << endl;
+    cout << "Dia: ";
+    cin >> fecha.dia;
+    cout << "Mes: ";
+    cin >> fecha.mes;
+    cout << "Anio: ";
+    cin >> fecha.anio;
+    cout << "Hora (HH:MM): ";
+    cin >> hora;
+
+    cin.ignore();
+
+    char respuesta;
+    cout << "¿Estas seguro que queres cancelar este turno? (s/n): ";
+    cin >> respuesta;
+
+    if (respuesta == 's' || respuesta == 'S')
+    {
+        sistema.cancelarTurno(nombrePac, fecha, hora);
+        cout << " Turno cancelado con exito " << endl;
+    }
+    else
+    {
+        cout << " Operacion cancelada. El turno sigue activo." << endl;
+    }
 }
