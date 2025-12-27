@@ -10,7 +10,7 @@ void registrarPaciente(Consultorio &sistema)
 {
 
     // Crear el paciente nuevo en memoria
-    Paciente *nuevoP = new Paciente();
+    Paciente *p = new Paciente();
 
     // Variables auxiliares para leer los datos
     string textoAux;
@@ -21,16 +21,19 @@ void registrarPaciente(Consultorio &sistema)
     cout << "-Ingrese nombre y apellido por separado-" << endl;
     cout << "Ingrese Nombre: ";
     getline(cin, textoAux);
-    nuevoP->setNombre(textoAux);
+    p->setNombre(textoAux);
 
     cout << "Ingrese Apellido: ";
     getline(cin, textoAux);
-    nuevoP->setApellido(textoAux);
+    p->setApellido(textoAux);
+    cout << "Ingrese dni: ";
+    cin >> textoAux;
+    p->setDni(textoAux);
 
     // Pedir teléfono
     cout << "Ingrese Telefono (solo numeros): ";
     cin >> textoAux;
-    nuevoP->setTelefono(textoAux);
+    p->setTelefono(textoAux);
 
     // La Fecha (es un struct, hay que llenarlo parte por parte)
     cout << "Fecha de Inicio " << endl;
@@ -41,29 +44,29 @@ void registrarPaciente(Consultorio &sistema)
     cout << "Año: ";
     cin >> fechaAux.anio;
 
-    nuevoP->setFechaDeInicio(fechaAux);
+    p->setFechaDeInicio(fechaAux);
 
     // (Diagnóstico y Obra Social)
     cin.ignore();
 
     cout << "Ingrese Diagnostico: ";
     getline(cin, textoAux);
-    nuevoP->setDiagnostico(textoAux);
+    p->setDiagnostico(textoAux);
 
     cout << "Ingrese Obra Social: ";
     getline(cin, textoAux);
-    nuevoP->setObraSocial(textoAux);
+    p->setObraSocial(textoAux);
 
     cout << "Cantidad de sesiones totales asignadas: ";
     cin >> numeroAux;
-    nuevoP->setCantSesionesTotales(numeroAux);
+    p->setCantSesionesTotales(numeroAux);
 
     // Configuramos valores por defecto (empieza con 0 hechas y no pagó aún)
-    nuevoP->setCantidadSesionesRealizadas(0);
-    nuevoP->marcarComoPendiente(); // Por defecto debe plata
+    p->setCantidadSesionesRealizadas(0);
+    p->marcarComoPendiente(); // Por defecto debe plata
 
     // Guardar en el consultorio
-    sistema.agregarPaciente(nuevoP);
+    sistema.agregarPaciente(p);
     // Y luego lo guardo en mi archivo binario
     sistema.guardarPacientes("pacientes.dat");
 
@@ -266,6 +269,9 @@ void registrarkinesiologo(Consultorio &sistema)
     cout << "Ingrese apellido: ";
     getline(cin, textoAux);
     k->setApellido(textoAux);
+    cout << "Ingrese DNI: ";
+    cin >> textoAux;
+    k->setDni(textoAux);
     // Pido el teléfono
     cout << "Ingrese Telefono (solo numeros): ";
     cin >> textoAux;
