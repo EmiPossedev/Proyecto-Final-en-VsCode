@@ -88,10 +88,17 @@ void menuKinesiologos(Consultorio &sistema)
         case 3:
         {
             string dniBuscado;
-            cout << "Dni del paciente buscado: ";
+            cout << "Dni del kinesiologo buscado: ";
             cin >> dniBuscado;
             Kinesiologo *k = sistema.buscarKinesiologoPorDni(dniBuscado);
-            gestionarKinesiologo(sistema, k);
+            if (k == nullptr)
+            {
+                cout << "No se encontró un kinesiologo con ese dni." << endl;
+            }
+            else
+            {
+                gestionarKinesiologo(sistema, k);
+            }
             break;
         }
         case 0:

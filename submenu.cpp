@@ -247,7 +247,7 @@ void listarKinesiologos(const Consultorio &sistema)
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << " ." << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad();
+        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << ". " << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad() << ". " << endl
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
@@ -305,10 +305,10 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
     {
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
-        cout << "Teléfono: " << k->getTelefono();
-        cout << "Especialidad: " << k->getEspecialidad() << endl;
-        cout << "Matrícula: " << k->getMatricula() << endl;
-        cout << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
+        cout << "Teléfono: " << k->getTelefono() << ". "
+        << "Especialidad: " << k->getEspecialidad() << ". " 
+        << "Matrícula: " << k->getMatricula() 
+        << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
              << "1. Modificar el nombre del kinesiologo" << endl
              << "2. Modificar el apellido del kinesiolgo" << endl
