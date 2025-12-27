@@ -16,7 +16,7 @@ void registrarPaciente(Consultorio &sistema){
     Fecha fechaAux;
 
     cout << "REGISTRAR NUEVO PACIENTE" << endl;
-
+    cout << "-Ingrese nombre y apellido por separado-" << endl;
     cout << "Ingrese Nombre: ";
     getline(cin, textoAux);
     nuevoP->setNombre(textoAux);
@@ -220,7 +220,7 @@ void registrarkinesiologo(Consultorio &sistema){
     int numeroAux;
     // Pido el nombre
     cout << "REGISTRAR NUEVO KINESIOLOGO" << endl;
-    cin.ignore();
+    cout << "-Ingrese nombre y apellido por separado-" << endl;
     cout << "Ingrese nombre: ";
     getline(cin, textoAux);
     k->setNombre(textoAux);
