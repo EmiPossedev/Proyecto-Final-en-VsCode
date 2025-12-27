@@ -35,7 +35,14 @@ void menuPacientes(Consultorio &sistema)
             cout << "Dni del paciente buscado: ";
             cin >> dniBuscado;
             Paciente *p = sistema.buscarPacientePorDni(dniBuscado);
-            gestionarPaciente(sistema, p);
+            if (p == nullptr)
+            {
+                cout << "No se encontró un paciente con ese dni." << endl;
+            }
+            else
+            {
+                gestionarPaciente(sistema, p);
+            }
             break;
         }
         case 0:

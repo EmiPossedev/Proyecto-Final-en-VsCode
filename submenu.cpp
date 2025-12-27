@@ -109,6 +109,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
     {
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL PACIENTE: " << p->getNombre() << " " << p->getApellido() << endl;
+        cout << "Dni: " << p->getDni() << endl;
         cout << "Teléfono: " << p->getTelefono() << endl;
         cout << "Obra social: " << p->getObraSocial() << endl;
         cout << "Cantidad de Sesiones Totales: " << p->getCantSesionesTotales() << endl;
