@@ -37,11 +37,11 @@ void registrarPaciente(Consultorio &sistema)
 
     // La Fecha (es un struct, hay que llenarlo parte por parte)
     cout << "Fecha de Inicio " << endl;
-    cout << "Dia: ";
+    cout << "Dia(DD): ";
     cin >> fechaAux.dia;
-    cout << "Mes: ";
+    cout << "Mes(MM): ";
     cin >> fechaAux.mes;
-    cout << "Año: ";
+    cout << "Año(AAAA): ";
     cin >> fechaAux.anio;
 
     p->setFechaDeInicio(fechaAux);
@@ -192,6 +192,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
                 {
                     string observaciones;
                     cout << "Ingrese las observaciones a agregar: ";
+                    cin.ignore();
                     getline(cin, observaciones);
                     p->setObservaciones(observaciones);
                     sistema.guardarPacientes("pacientes.dat");
