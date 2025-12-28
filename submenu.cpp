@@ -277,7 +277,7 @@ void registrarkinesiologo(Consultorio &sistema)
     // Pido el apellido
     cout << "Ingrese Apellido: ";
     getline(cin, textoAux);
-    p->setApellido(textoAux);
+    k->setApellido(textoAux);
     cin.ignore(); // Limpiar buffer antes de pedir DNI
 
     // Pido el dni

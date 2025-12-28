@@ -125,6 +125,7 @@ public:
     // Métodos de eliminación
     void eliminarPacientePorDni(const string &dniKine);
     void eliminarKinesiologoPorDni(const string &nombreKinesio);
+    void Consultorio::eliminarTurno(const string &dniPaciente, const Fecha &fecha, const string &hora);
 
     // Método de alerta al kinesiologo de que le tienen que pagar
     vector<Paciente *> getPacientesConPagoPendiente() const;
