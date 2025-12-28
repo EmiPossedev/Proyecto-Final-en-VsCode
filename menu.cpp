@@ -13,7 +13,8 @@ void menuPacientes(Consultorio &sistema)
         cout << " GESTIONAR PACIENTES " << endl;
         cout << "1. Registrar nuevo paciente" << endl;
         cout << "2. Ver lista de pacientes (Nombres)" << endl;
-        cout << "3. Buscar y gestionar paciente por dni" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
+        cout << "3. Buscar y gestionar paciente por dni" << endl;
+        cout << "4. Borrar todos los pacientes" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
@@ -45,6 +46,10 @@ void menuPacientes(Consultorio &sistema)
             }
             break;
         }
+        case 4:
+        {
+            sistema.borrarPacientes();
+        }
         case 0:
         {
             cout << "Volver al menu principal" << endl;
@@ -69,6 +74,7 @@ void menuKinesiologos(Consultorio &sistema)
         cout << "1. Registrar nuevo kinesiologo" << endl;
         cout << "2. Ver lista de kinesiologos (Nombres)" << endl;
         cout << "3. Buscar y gestionar kinesiologo por dni" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
+        cout << "4. Borrar todos los kinesiologos." << endl;
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion; // leemos la opción del usuario
@@ -100,6 +106,10 @@ void menuKinesiologos(Consultorio &sistema)
                 gestionarKinesiologo(sistema, k);
             }
             break;
+        }
+        case 4:
+        {
+            sistema.borrarKinesiologos();
         }
         case 0:
         {

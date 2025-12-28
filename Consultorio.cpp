@@ -501,35 +501,88 @@ void Consultorio::cargarTodosDatos()
 }
 
 /// FUNCIONES PARA VACIAR LOS DATOS
+
+// Eliminar un paciente por DNI del vector y del archivo binario
+void Consultorio::eliminarPacientePorDni(const string &dniKine)
+{
+    for (auto it = pacientes.begin(); it != pacientes.end(); ++it)
+    {
+        if ((*it)->getDni() == dniKine)
+        {
+            delete *it;
+            pacientes.erase(it);
+            guardarPacientes("pacientes.dat");
+            cout << "Paciente eliminado y archivo actualizado." << std::endl;
+            return;
+        }
+    }
+    cout << "No se encontró paciente con ese DNI." << std::endl;
+}
 // Borra todos los pacientes y libera memoria
-void Consultorio::borrarPacientes() {
-    for (size_t i = 0; i < pacientes.size(); ++i) {
+void Consultorio::borrarPacientes()
+{
+    for (size_t i = 0; i < pacientes.size(); ++i)
+    {
         delete pacientes[i];
     }
     pacientes.clear();
     // Vaciar archivo binario de pacientes
-    std::ofstream bin("pacientes.dat", std::ios::binary | std::ios::trunc);
+    ofstream bin("pacientes.dat", std::ios::binary | std::ios::trunc);
     bin.close();
-    std::cout << "Archivo de pacientes vaciado correctamente." << std::endl;
+    cout << "Archivo de pacientes vaciado correctamente." << std::endl;
 }
 
-// Borra todos los turnos
-void Consultorio::borrarTurnos() {
-    turnos.clear();
-    // Vaciar archivo binario de turnos
-    std::ofstream bin("turnos.dat", std::ios::binary | std::ios::trunc);
-    bin.close();
-    std::cout << "Archivo de turnos vaciado correctamente." << std::endl;
+// Eliminar un kinesiologo por DNI del vector y del archivo binario
+void Consultorio::eliminarKinesiologoPorDni(const string &dniKine)
+{
+    for (auto it = kinesiologos.begin(); it != kinesiologos.end(); ++it)
+    {
+        if ((*it)->getDni() == dniKine)
+        {
+            delete *it;
+            kinesiologos.erase(it);
+            guardarKinesiologos("kinesiologos.dat");
+            cout << "Kinesiologo eliminado y archivo actualizado." << endl;
+            return;
+        }
+    }
+    cout << "No se encontró kinesiologo con ese DNI." << endl;
 }
-
 // Borra todos los kinesiologos y libera memoria
-void Consultorio::borrarKinesiologos() {
-    for (size_t i = 0; i < kinesiologos.size(); ++i) {
+void Consultorio::borrarKinesiologos()
+{
+    for (size_t i = 0; i < kinesiologos.size(); ++i)
+    {
         delete kinesiologos[i];
     }
     kinesiologos.clear();
     // Vaciar archivo binario de kinesiologos
-    std::ofstream bin("kinesiologos.dat", std::ios::binary | std::ios::trunc);
+    ofstream bin("kinesiologos.dat", std::ios::binary | std::ios::trunc);
     bin.close();
-    std::cout << "Archivo de kinesiologos vaciado correctamente." << std::endl;
+    cout << "Archivo de kinesiologos vaciado correctamente." << std::endl;
+}
+
+// Eliminar un turno por dni de paciente, fecha y hora, y actualizar archivo binario
+void Consultorio::eliminarTurno(const string &dniPaciente, const Fecha &fecha, const string &hora)
+{
+    for (auto it = turnos.begin(); it != turnos.end(); ++it)
+    {
+        if (it->dniKinesiologo == dniPaciente && it->fecha == fecha && it->hora == hora)
+        {
+            turnos.erase(it);
+            guardarTurnos("turnos.dat");
+            cout << "Turno eliminado y archivo actualizado." << endl;
+            return;
+        }
+    }
+    cout << "No se encontró turno con esos datos." << endl;
+}
+// Borra todos los turnos
+void Consultorio::borrarTurnos()
+{
+    turnos.clear();
+    // Vaciar archivo binario de turnos
+    ofstream bin("turnos.dat", std::ios::binary | std::ios::trunc);
+    bin.close();
+    cout << "Archivo de turnos vaciado correctamente." << std::endl;
 }

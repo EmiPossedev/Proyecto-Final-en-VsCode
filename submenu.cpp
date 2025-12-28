@@ -96,9 +96,9 @@ void listarPacientes(Consultorio &sistema)
         cout << i + 1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
 
         // Mostramos su obra social y la cantidad de sesiones que lleva
-        cout << "Dni: " << p->getDni() << ". "  
-        << " Obra social: " << p->getObraSocial() << ". "
-        << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
+        cout << "Dni: " << p->getDni() << ". "
+             << " Obra social: " << p->getObraSocial() << ". "
+             << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
@@ -132,6 +132,9 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
              << "4. Modificar la obra social del paciente" << endl
              << "5. Modificar la cantidad de sesiones totales del paciente" << endl
              << "6. Modificar las observaciones del paciente" << endl
+             << "7. Marcar sesiones como pagas" << endl
+             << "8. Marcar sesiones como pendientes de pago" << endl
+             << "9. Borrar paciente" << endl
              << "0. Regresar al menú principal" << endl;
 
         cout << "Ingrese una opcion: ";
@@ -277,7 +280,7 @@ void registrarkinesiologo(Consultorio &sistema)
     p->setApellido(textoAux);
     cin.ignore(); // Limpiar buffer antes de pedir DNI
 
-    // Pido el dni 
+    // Pido el dni
     cout << "Ingrese dni: ";
     cin >> textoAux;
     p->setDni(textoAux);
@@ -292,7 +295,7 @@ void registrarkinesiologo(Consultorio &sistema)
     cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): ";
     getline(cin, textoAux);
     k->setEspecialidad(textoAux);
-    
+
     // Pido el nro de matrícula
     cout << "Ingrese Numero de Matricula: ";
     cin >> numeroAux;
@@ -315,16 +318,17 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
         cout << "Teléfono: " << k->getTelefono() << ". "
-        << "Especialidad: " << k->getEspecialidad() << ". " 
-        << "Matrícula: " << k->getMatricula() 
-        << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
+             << "Especialidad: " << k->getEspecialidad() << ". "
+             << "Matrícula: " << k->getMatricula()
+             << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
              << "1. Modificar el nombre del kinesiologo" << endl
              << "2. Modificar el apellido del kinesiolgo" << endl
              << "3. Modificar el telefono" << endl
              << "4. Modificar la especialidad" << endl
              << "5. Modificar la matrícula" << endl
-             << "6. Modificar la cantidad de pacientes atendidos" << endl;
+             << "6. Modificar la cantidad de pacientes atendidos" << endl
+             << "7. Borrar este kinesiologo" << endl;
         cin >> opcion;
         cin.ignore();
 
@@ -408,6 +412,14 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
+        case 7:
+        {
+            string dniKine;
+            cout << "Ingrese el dni del kinesiologo a eliminar: ";
+            cin >> dniKine;
+            sistema.eliminarKinesiologoPorDni(dniKine);
+            break;
+        }
         case 0:
         {
             cout << "Volver al menú principal" << endl;
@@ -435,7 +447,8 @@ void reservarTurno(Consultorio &sistema)
     getline(cin, apellidoPac);
     cout << "Ingrese el dni del paciente: ";
     cin >> dniPaciente;
-    if (sistema.buscarPacientePorDni(dniPaciente) == nullptr)
+    Paciente* paciente = sistema.buscarPacientePorDni(dniPaciente);
+    if (paciente == nullptr)
     {
         cout << "Error: No se encontro un paciente con ese dni." << endl;
         return;
@@ -444,8 +457,6 @@ void reservarTurno(Consultorio &sistema)
     string nombreKine, apellidoKine, dniKine;
     cout << "Ingrese el nombre del kinesiologo: ";
     getline(cin, nombreKine);
-    cout << "Ingrese el nombre del kinesiologo: ";
-    getline(cin, apellidoKine);
     cout << "Ingrese el dni del kinesiólogo: ";
     cin >> dniKine;
     if (sistema.buscarKinesiologoPorDni(dniKine) == nullptr)
@@ -512,7 +523,10 @@ void reservarTurno(Consultorio &sistema)
     }
 
     sistema.agregarTurno(nuevoT);
-    cout << "TURNO AGENDADO CON EXITO" << endl;
+    // Actualizar sesiones del paciente
+    paciente->setCantidadSesionesRealizadas(paciente->getCantidadSesionesRealizadas() + 1);
+    sistema.guardarPacientes("pacientes.dat");
+    cout << "TURNO AGENDADO CON EXITO. Sesiones realizadas actualizadas." << endl;
 }
 
 void verAgenda(Consultorio &sistema)
@@ -606,9 +620,9 @@ void cancelarTurno(Consultorio &sistema)
     cin.ignore();
 
     // Pedimos los datos para identificar el turno
-    string nombrePac;
-    cout << "Ingrese el nombre del Paciente: ";
-    getline(cin, nombrePac);
+    string dniPac;
+    cout << "Ingrese el DNI del Paciente: ";
+    getline(cin, dniPac);
 
     Fecha fecha;
     string hora;
@@ -631,8 +645,15 @@ void cancelarTurno(Consultorio &sistema)
 
     if (respuesta == 's' || respuesta == 'S')
     {
-        sistema.cancelarTurno(nombrePac, fecha, hora);
-        cout << " Turno cancelado con exito " << endl;
+        sistema.cancelarTurno(dniPac, fecha, hora);
+        // Actualizar sesiones del paciente
+        Paciente* paciente = sistema.buscarPacientePorDni(dniPac);
+        if (paciente != nullptr) {
+            int realizadas = paciente->getCantidadSesionesRealizadas();
+            if (realizadas > 0) paciente->setCantidadSesionesRealizadas(realizadas - 1);
+            sistema.guardarPacientes("pacientes.dat");
+        }
+        cout << " Turno cancelado con exito y sesiones actualizadas." << endl;
     }
     else
     {
