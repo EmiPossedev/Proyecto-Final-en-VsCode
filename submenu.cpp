@@ -283,7 +283,7 @@ void registrarkinesiologo(Consultorio &sistema)
     // Pido el dni
     cout << "Ingrese dni: ";
     cin >> textoAux;
-    p->setDni(textoAux);
+    k->setDni(textoAux);
 
     // Pido el teléfono
     cout << "Ingrese Telefono (solo numeros): ";
