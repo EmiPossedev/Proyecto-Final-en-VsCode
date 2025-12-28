@@ -97,7 +97,6 @@ void listarPacientes(Consultorio &sistema)
         // Mostramos su obra social y la cantidad de sesiones que lleva
         cout << " Obra social: " << p->getObraSocial() << ". ";
         cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
-        cout << endl;
     }
     cout << "-Siguiente-" << endl;
 }
@@ -248,7 +247,6 @@ void listarKinesiologos(const Consultorio &sistema)
     {
         Kinesiologo *k = kinesiologos[i];
         cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << ". " << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad() << ". " << endl;
-        cout << endl;
     }
     cout << "-Siguiente-" << endl;
 }
