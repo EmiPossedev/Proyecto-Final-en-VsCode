@@ -1,6 +1,5 @@
 #include "Paciente.h"
 
-
 // Métodos para la fecha de inicio
 Fecha Paciente::getFechaDeInicio() const
 {
@@ -56,13 +55,16 @@ string Paciente::getObservaciones() const
 }
 void Paciente::setObservaciones(const string &nuevaObservacion)
 {
-    if (observaciones.empty()){
+    if (observaciones.empty())
+    {
         observaciones = nuevaObservacion;
-    } else {
+    }
+    else
+    {
         observaciones += '\n' + nuevaObservacion; // \n es el caracter que indica salto de línea
     }
 }
-void Paciente::borrarObservaciones() //faltaba "Paciente::" ;)
+void Paciente::borrarObservaciones() // faltaba "Paciente::" ;)
 {
     observaciones = ""; // vacío las observaciones
 }

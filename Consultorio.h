@@ -13,7 +13,7 @@ using namespace std;
 // Este struct sirve para guardar en archivo binario (usando char)
 struct RegistroTurno
 {
-    char dniKine[10];
+    char dniKine[16];
     char nombreKinesio[60];
     char nombrePaciente[60];
     Fecha fecha;             // Usamos el struct Fecha definido en Fecha.h

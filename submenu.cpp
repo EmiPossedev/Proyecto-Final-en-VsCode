@@ -128,13 +128,14 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
              << "1. Modificar el nombre del paciente" << endl
              << "2. Modificar el apellido del paciente" << endl
-             << "3. Modificar el teléfono del paciente" << endl
-             << "4. Modificar la obra social del paciente" << endl
-             << "5. Modificar la cantidad de sesiones totales del paciente" << endl
-             << "6. Modificar las observaciones del paciente" << endl
-             << "7. Marcar sesiones como pagas" << endl
-             << "8. Marcar sesiones como pendientes de pago" << endl
-             << "9. Borrar paciente" << endl
+             << "3. Modificar el dni del paciente" << endl
+             << "4. Modificar el teléfono del paciente" << endl
+             << "5. Modificar la obra social del paciente" << endl
+             << "6. Modificar la cantidad de sesiones totales del paciente" << endl
+             << "7. Modificar las observaciones del paciente" << endl
+             << "8. Marcar sesiones como pagas" << endl
+             << "9. Marcar sesiones como pendientes de pago" << endl
+             << "10. Borrar paciente" << endl
              << "0. Regresar al menú principal" << endl;
 
         cout << "Ingrese una opcion: ";
@@ -142,7 +143,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
         cin.ignore(); // limpio el buffer porque uso getline en algunos casos
         switch (opcion)
         {
-        case 1:
+        case 1: // Modificar nombre
         {
             string nuevoNombre;
             cout << "Ingrese el nombre: ";
@@ -151,7 +152,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 2:
+        case 2: // Modificar apellido
         {
             string nuevoApellido;
             cout << "Ingrese el apellido: ";
@@ -160,7 +161,16 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 3:
+        case 3: // Modificar DNI
+        {
+            string nuevoDni;
+            cout << "Ingrese el nuevo DNI: ";
+            cin >> nuevoDni;
+            p->setDni(nuevoDni);
+            sistema.guardarPacientes("pacientes.dat");
+            break;
+        }
+        case 4: // Modificar teléfono
         {
             string nuevoTelefono;
             cout << "Ingrese el teléfono: ";
@@ -169,7 +179,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 4:
+        case 5: // Modificar obra social
         {
             string nuevaObraSocial;
             cout << "Ingrese la obra social del paciente: ";
@@ -178,15 +188,16 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 5:
+        case 6: // Modificar cantidad de sesiones totales
         {
             int nuevaCant;
             cout << "Ingrese la nueva cantidad de sesiones totales: ";
             cin >> nuevaCant;
             p->setCantSesionesTotales(nuevaCant);
+            sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 6:
+        case 7: // Modificar observaciones
         {
             int subOpcionDelMenu;
             cout << "Ingrese " << endl;
@@ -218,7 +229,27 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
                     cout << "Ingrese una opción válida por favor." << endl;
                 }
             } while (subOpcionDelMenu != 1 && subOpcionDelMenu != 2);
-
+            break;
+        }
+        case 8: // Marcar sesiones como pagas
+        {
+            p->marcarComoPagado();
+            sistema.guardarPacientes("pacientes.dat");
+            cout << "Las sesiones del paciente han sido marcadas como pagadas." << endl;
+            break;
+        }
+        case 9: // Marcar sesiones como pendientes de pago
+        {
+            p->marcarComoPendiente();
+            sistema.guardarPacientes("pacientes.dat");
+            cout << "Las sesiones del paciente han sido marcadas como pendientes de pago." << endl;
+            break;
+        }
+        case 10: // Borrar paciente
+        {
+            sistema.eliminarPacientePorDni(p->getDni());
+            sistema.guardarPacientes("pacientes.dat");
+            cout << "Paciente eliminado del sistema." << endl;
             break;
         }
         case 0:
@@ -447,7 +478,7 @@ void reservarTurno(Consultorio &sistema)
     getline(cin, apellidoPac);
     cout << "Ingrese el dni del paciente: ";
     cin >> dniPaciente;
-    Paciente* paciente = sistema.buscarPacientePorDni(dniPaciente);
+    Paciente *paciente = sistema.buscarPacientePorDni(dniPaciente);
     if (paciente == nullptr)
     {
         cout << "Error: No se encontro un paciente con ese dni." << endl;
@@ -647,10 +678,12 @@ void cancelarTurno(Consultorio &sistema)
     {
         sistema.cancelarTurno(dniPac, fecha, hora);
         // Actualizar sesiones del paciente
-        Paciente* paciente = sistema.buscarPacientePorDni(dniPac);
-        if (paciente != nullptr) {
+        Paciente *paciente = sistema.buscarPacientePorDni(dniPac);
+        if (paciente != nullptr)
+        {
             int realizadas = paciente->getCantidadSesionesRealizadas();
-            if (realizadas > 0) paciente->setCantidadSesionesRealizadas(realizadas - 1);
+            if (realizadas > 0)
+                paciente->setCantidadSesionesRealizadas(realizadas - 1);
             sistema.guardarPacientes("pacientes.dat");
         }
         cout << " Turno cancelado con exito y sesiones actualizadas." << endl;

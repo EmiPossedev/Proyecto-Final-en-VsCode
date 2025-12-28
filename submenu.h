@@ -12,7 +12,6 @@ void registrarPaciente(Consultorio &sistema);
 void listarPacientes(Consultorio &sistema);
 void gestionarPaciente(Consultorio &sistema, Paciente *p); // lógica para buscar y gestionar paciente con su sub menu
 
-
 /// LÓGICA PARA KINESIOLOGOS
 void listarKinesiologos(const Consultorio &consultorio);
 void registrarkinesiologo(Consultorio &sistema);

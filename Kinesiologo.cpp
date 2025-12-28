@@ -14,9 +14,12 @@ int Kinesiologo::getCantidadPacientesAtendidos() const
 
 void Kinesiologo::setEspecialidad(const string &nuevaEspecialidad)
 {
-    if (especialidad.empty()){
+    if (especialidad.empty())
+    {
         especialidad = nuevaEspecialidad;
-    } else {
+    }
+    else
+    {
         especialidad += '\n' + nuevaEspecialidad; // \n es el caracter que indica salto de línea
     }
 }

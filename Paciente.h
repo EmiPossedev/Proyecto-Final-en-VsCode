@@ -12,7 +12,7 @@ struct RegistroPaciente
     char nombre[60];
     char apellido[60];
     char telefono[20]; // del paciente
-    char dni[10]; 
+    char dni[16];
     // Datos propios de Paciente
     Fecha fechaDeInicio;
     char diagnostico[100];
@@ -28,8 +28,8 @@ class Paciente : public Persona
 private:
     Fecha fechaDeInicio;
     string diagnostico;
-    string obraSocial; // mencionar si tiene o viene en forma particular
-    int cantSesionesTotales; // la cantidad de sesiones totales asignadas para el tratamiento
+    string obraSocial;          // mencionar si tiene o viene en forma particular
+    int cantSesionesTotales;    // la cantidad de sesiones totales asignadas para el tratamiento
     int cantSesionesRealizadas; // las que se vayan realizando, se van a ir descontando de las totales
     string observaciones;
     bool sesionesPagas;
@@ -41,7 +41,7 @@ public:
     void setFechaDeInicio(const Fecha &nuevaFechaInicio);
     // Obtener y modificar el diágnostico del paciente
     string getDiagnostico() const;
-    void setDiagnostico(const string &nuevoDiagnostico); 
+    void setDiagnostico(const string &nuevoDiagnostico);
     // Obtener y modificar la obra social del paciente
     string getObraSocial() const;
     void setObraSocial(const string &nuevaObraSocial);
@@ -60,9 +60,9 @@ public:
     bool getSesionesPagas() const;
     void marcarComoPendiente();
     void marcarComoPagado();
-    
+
     // Métodos para las cancelación de turnos de los pacientes
-    void descontarSesionDelTotal(); // descontar la sesion si se agendó un turno
+    void descontarSesionDelTotal();   // descontar la sesion si se agendó un turno
     void reintegrarSesionRealizada(); // reintegrar la sesion si se canceló el turno
 };
 

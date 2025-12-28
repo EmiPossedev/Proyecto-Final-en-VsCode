@@ -311,7 +311,7 @@ void Consultorio::guardarPacientes(const string &nombreArchivo)
 
         strncpy(RegPaciente.nombre, pacientes[i]->getNombre().c_str(), 59);
         strncpy(RegPaciente.apellido, pacientes[i]->getApellido().c_str(), 59);
-        strncpy(RegPaciente.dni, pacientes[i]->getDni().c_str(), 9);
+        strncpy(RegPaciente.dni, pacientes[i]->getDni().c_str(), 15);
         strncpy(RegPaciente.diagnostico, pacientes[i]->getDiagnostico().c_str(), 99);
         strncpy(RegPaciente.observaciones, pacientes[i]->getObservaciones().c_str(), 199);
         strncpy(RegPaciente.obraSocial, pacientes[i]->getObraSocial().c_str(), 49);
@@ -343,25 +343,20 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
     while (bin.read(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente)))
     {
         Paciente *p = new Paciente();
-
         p->setNombre(string(RegPaciente.nombre));
         p->setApellido(string(RegPaciente.apellido));
         p->setTelefono(RegPaciente.telefono);
-
+        p->setDni(string(RegPaciente.dni));
         p->setFechaDeInicio(RegPaciente.fechaDeInicio);
         p->setDiagnostico(string(RegPaciente.diagnostico));
         p->setObraSocial(string(RegPaciente.obraSocial));
         p->setCantSesionesTotales(RegPaciente.cantSesionesTotales);
         p->setCantidadSesionesRealizadas(RegPaciente.cantSesionesRealizadas);
-
-        // setObservaciones agrega, está bien
         p->setObservaciones(string(RegPaciente.observaciones));
-
         if (RegPaciente.sesionesPagas)
             p->marcarComoPagado();
         else
             p->marcarComoPendiente();
-
         pacientes.push_back(p);
     }
     bin.close();
@@ -385,7 +380,7 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
         strncpy(RegKinesio.apellido, kinesiologos[i]->getApellido().c_str(), 59);
         strncpy(RegKinesio.especialidad, kinesiologos[i]->getEspecialidad().c_str(), 99);
         strncpy(RegKinesio.telefono, kinesiologos[i]->getTelefono().c_str(), 19);
-        strncpy(RegKinesio.dni, kinesiologos[i]->getDni().c_str(), 9);
+        strncpy(RegKinesio.dni, kinesiologos[i]->getDni().c_str(), 15);
         RegKinesio.matricula = kinesiologos[i]->getMatricula();
         RegKinesio.cantidadPacientesAtendidos = kinesiologos[i]->getCantidadPacientesAtendidos();
 

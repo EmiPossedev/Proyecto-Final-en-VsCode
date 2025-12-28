@@ -10,7 +10,7 @@ struct registro_persona
     char nombre[60];
     char apellido[60];
     char telefono[20];
-    char dni[10];
+    char dni[16];
 };
 
 /// Definición de la clase Persona
@@ -21,6 +21,7 @@ private:
     string apellido;
     string telefono;
     string dni;
+
 public:
     void setNombre(const string &nombre);
     string getNombre() const;
