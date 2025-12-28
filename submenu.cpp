@@ -28,6 +28,7 @@ void registrarPaciente(Consultorio &sistema)
     getline(cin, textoAux);
     p->setApellido(textoAux);
     cout << "Ingrese dni: ";
+    cin.ignore();
     cin >> textoAux;
     p->setDni(textoAux);
 
@@ -95,8 +96,9 @@ void listarPacientes(Consultorio &sistema)
         cout << i + 1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
 
         // Mostramos su obra social y la cantidad de sesiones que lleva
-        cout << " Obra social: " << p->getObraSocial() << ". ";
-        cout << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
+        cout << "Dni: " << p->getDni() << ". "  
+        << " Obra social: " << p->getObraSocial() << ". "
+        << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
@@ -268,22 +270,29 @@ void registrarkinesiologo(Consultorio &sistema)
     cout << "Ingrese nombre: ";
     getline(cin, textoAux);
     k->setNombre(textoAux);
+
     // Pido el apellido
-    cout << "Ingrese apellido: ";
+    cout << "Ingrese Apellido: ";
     getline(cin, textoAux);
-    k->setApellido(textoAux);
-    cout << "Ingrese DNI: ";
+    p->setApellido(textoAux);
+    cin.ignore(); // Limpiar buffer antes de pedir DNI
+
+    // Pido el dni 
+    cout << "Ingrese dni: ";
     cin >> textoAux;
-    k->setDni(textoAux);
+    p->setDni(textoAux);
+
     // Pido el teléfono
     cout << "Ingrese Telefono (solo numeros): ";
     cin >> textoAux;
     k->setTelefono(textoAux);
     cin.ignore(); // porque mi última lectura fue con un cin y la prox va a ser un getline
+
     // Pido especialidad
     cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): ";
     getline(cin, textoAux);
     k->setEspecialidad(textoAux);
+    
     // Pido el nro de matrícula
     cout << "Ingrese Numero de Matricula: ";
     cin >> numeroAux;

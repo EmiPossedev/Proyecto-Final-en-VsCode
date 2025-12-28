@@ -499,3 +499,37 @@ void Consultorio::cargarTodosDatos()
     cargarKinesiologos("kinesiologos.dat");
     cargarTurnos("turnos.dat");
 }
+
+/// FUNCIONES PARA VACIAR LOS DATOS
+// Borra todos los pacientes y libera memoria
+void Consultorio::borrarPacientes() {
+    for (size_t i = 0; i < pacientes.size(); ++i) {
+        delete pacientes[i];
+    }
+    pacientes.clear();
+    // Vaciar archivo binario de pacientes
+    std::ofstream bin("pacientes.dat", std::ios::binary | std::ios::trunc);
+    bin.close();
+    std::cout << "Archivo de pacientes vaciado correctamente." << std::endl;
+}
+
+// Borra todos los turnos
+void Consultorio::borrarTurnos() {
+    turnos.clear();
+    // Vaciar archivo binario de turnos
+    std::ofstream bin("turnos.dat", std::ios::binary | std::ios::trunc);
+    bin.close();
+    std::cout << "Archivo de turnos vaciado correctamente." << std::endl;
+}
+
+// Borra todos los kinesiologos y libera memoria
+void Consultorio::borrarKinesiologos() {
+    for (size_t i = 0; i < kinesiologos.size(); ++i) {
+        delete kinesiologos[i];
+    }
+    kinesiologos.clear();
+    // Vaciar archivo binario de kinesiologos
+    std::ofstream bin("kinesiologos.dat", std::ios::binary | std::ios::trunc);
+    bin.close();
+    std::cout << "Archivo de kinesiologos vaciado correctamente." << std::endl;
+}

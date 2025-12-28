@@ -78,6 +78,11 @@ public:
     void agregarPaciente(Paciente *paciente);
     vector<Paciente *> getPacientes() const;
 
+    // Métodos para borrar todos los pacientes, turnos y kinesiologos
+    void borrarPacientes();
+    void borrarTurnos();
+    void borrarKinesiologos();
+
     // Métodos para la gestión de los turnos
     vector<Turno> getTurnos() const;
     void agregarTurno(const Turno &turno);
