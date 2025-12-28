@@ -10,13 +10,12 @@ using namespace std;
 // LOGICA PACIENTES
 void registrarPaciente(Consultorio &sistema);
 void listarPacientes(Consultorio &sistema);
-void gestionarPaciente(Paciente *p); // lógica para buscar y gestionar paciente con su sub menu
-
+void gestionarPaciente(Consultorio &sistema, Paciente *p); // lógica para buscar y gestionar paciente con su sub menu
 
 /// LÓGICA PARA KINESIOLOGOS
 void listarKinesiologos(const Consultorio &consultorio);
 void registrarkinesiologo(Consultorio &sistema);
-void gestionarKinesiologo(Kinesiologo *k);
+void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k);
 
 /// LÓGICA PARA TURNOS
 void reservarTurno(Consultorio &sistema);

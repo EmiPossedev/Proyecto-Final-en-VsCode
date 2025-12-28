@@ -7,7 +7,6 @@
 
 /// FUNCIONES AUXILIARES
 
-
 // Prototipos de funciones auxiliares
 int obtenerFechaActual();
 Fecha pedirFecha();
