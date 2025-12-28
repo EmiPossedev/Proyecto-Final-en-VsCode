@@ -28,7 +28,6 @@ void registrarPaciente(Consultorio &sistema)
     getline(cin, textoAux);
     p->setApellido(textoAux);
     cout << "Ingrese dni: ";
-    cin.ignore();
     cin >> textoAux;
     p->setDni(textoAux);
 
