@@ -302,7 +302,7 @@ void Consultorio::guardarPacientes(const string &nombreArchivo)
     ofstream bin(nombreArchivo, ios::binary | ios::trunc); // la banderea trunc nos va a ayudar a que no se dupliquen los pacientes guardados en el vector
     if (!bin.is_open())
     {
-        throw runtime_error("No se pudo abrir el archivo pacientes para para escritura.");
+        throw runtime_error("No se pudo abrir el archivo pacientes para escritura.");
     }
 
     for (size_t i = 0; i < pacientes.size(); i++)
