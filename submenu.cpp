@@ -96,6 +96,7 @@ void listarPacientes(Consultorio &sistema)
 
         // Mostramos su obra social y la cantidad de sesiones que lleva
         cout << "Dni: " << p->getDni() << ". "
+             << "Tel: " << p->getTelefono() << ". "
              << " Obra social: " << p->getObraSocial() << ". "
              << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
         cout << endl;
@@ -308,7 +309,6 @@ void registrarkinesiologo(Consultorio &sistema)
     cout << "Ingrese Apellido: ";
     getline(cin, textoAux);
     k->setApellido(textoAux);
-    cin.ignore(); // Limpiar buffer antes de pedir DNI
 
     // Pido el dni
     cout << "Ingrese dni: ";
