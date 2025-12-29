@@ -75,12 +75,12 @@ void Consultorio::agregarTurno(const Turno &turno)
     turnos.push_back(turno);
 }
 // Cancelar un turno
-void Consultorio::cancelarTurno(const string &nombrePacienteBuscado, const Fecha &fecha, const string &hora)
+void Consultorio::cancelarTurno(const string &dniPacienteBuscado, const Fecha &fecha, const string &hora)
 {
     for (auto it = turnos.begin(); it != turnos.end(); it++)
     {
         // sobrecargamos el operator==
-        if (it->nombrePaciente == nombrePacienteBuscado && it->fecha == fecha && it->hora == hora)
+        if (it->dniPaciente == dniPacienteBuscado && it->fecha == fecha && it->hora == hora)
         {
             turnos.erase(it);
             return;
@@ -89,12 +89,12 @@ void Consultorio::cancelarTurno(const string &nombrePacienteBuscado, const Fecha
 }
 
 // Reprogramar un turno
-void Consultorio::reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva)
+void Consultorio::reprogramarTurno(const string &dniPacienteBuscado, const string &horaVieja, const Fecha &fechaVieja, const Fecha &fechaNueva, const string &horaNueva)
 {
     for (auto &turno : turnos)
     {
         // Buscar el turno original
-        if (turno.nombrePaciente == nombrePaciente && turno.fecha == fechaVieja && turno.hora == horaVieja)
+        if (turno.dniPaciente == dniPacienteBuscado && turno.fecha == fechaVieja && turno.hora == horaVieja)
         {
             if (!verificarDisponibilidadKinesiologo(turno.nombreKinesiologo, fechaNueva, horaNueva))
             {

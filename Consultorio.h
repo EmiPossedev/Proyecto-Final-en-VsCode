@@ -14,6 +14,7 @@ using namespace std;
 struct RegistroTurno
 {
     char dniKine[16];
+    char dniPaciente[16];
     char nombreKinesio[60];
     char nombrePaciente[60];
     Fecha fecha;             // Usamos el struct Fecha definido en Fecha.h
@@ -28,6 +29,7 @@ struct RegistroTurno
 struct Turno
 {
     string dniKinesiologo;
+    string dniPaciente;
     string nombreKinesiologo;
     string nombrePaciente;
     Fecha fecha;
@@ -87,7 +89,7 @@ public:
     vector<Turno> getTurnos() const;
     void agregarTurno(const Turno &turno);
     void cancelarTurno(const string &nombrePaciente, const Fecha &fecha, const string &hora);
-    void reprogramarTurno(const string &nombrePaciente, const Fecha &fechaVieja, const string &horaVieja, const Fecha &fechaNueva, const string &horaNueva);
+    void reprogramarTurno(const string &dniPacienteBuscado, const string &horaVieja, const Fecha &fechaVieja, const Fecha &fechaNueva, const string &horaNueva);
     void ordenarTurnos();
 
     // Función de búsqueda templatizada(funciona paragetTurnosPorFecha, getTurnosPorHora, getTurnosPorKinesiologo)

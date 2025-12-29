@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 /// LÓGICA PARA PACIENTES
@@ -92,16 +93,16 @@ void listarPacientes(Consultorio &sistema)
     {
 
         Paciente *p = pacientes[i];
-        cout << i + 1 << ". " << p->getApellido() << " " << p->getNombre() << ". ";
-
-        // Mostramos su obra social y la cantidad de sesiones que lleva
-        cout << "Dni: " << p->getDni() << ". "
-             << "Tel: " << p->getTelefono() << ". "
-             << " Obra social: " << p->getObraSocial() << ". "
-             << " Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << ".";
+        cout << std::setw(3) << std::right << (i + 1) << ". "
+             << std::setw(25) << std::left << (p->getApellido() + " " + p->getNombre()) << ". "
+             << std::setw(12) << std::left << ("Dni: " + p->getDni()) << ". "
+             << std::setw(12) << std::left << ("Tel: " + p->getTelefono()) << ". "
+             << std::setw(20) << std::left << ("Obra social: " + p->getObraSocial()) << ". "
+             << std::setw(10) << std::left << ("Sesiones: " + std::to_string(p->getCantidadSesionesRealizadas()) + "/" + std::to_string(p->getCantSesionesTotales())) << ".";
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
+    cout << endl;
 }
 
 void gestionarPaciente(Consultorio &sistema, Paciente *p)
@@ -283,10 +284,16 @@ void listarKinesiologos(const Consultorio &sistema)
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << i + 1 << ". " << k->getApellido() << " " << k->getNombre() << ". " << "Tel: " << k->getTelefono() << ". " << "Especialidad: " << k->getEspecialidad() << ". " << endl;
-        cout << endl;
+        cout << std::setw(3) << std::right << i + 1 << ". "
+             << std::setw(25) << std::left << k->getApellido() + " " + k->getNombre() << ". "
+             << std::setw(12) << std::left << "Dni: " + k->getDni() << ". "
+             << std::setw(12) << std::left << "Tel: " + k->getTelefono() << ". "
+             << std::setw(30) << std::left << "Especialidad: " + k->getEspecialidad() << ". "
+             << std::setw(20) << std::left << "Matricula: " + std::to_string(k->getMatricula()) << ". "
+             << endl;
     }
     cout << "-Siguiente-" << endl;
+    cout << endl;
 }
 
 void registrarkinesiologo(Consultorio &sistema)
@@ -358,7 +365,9 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
              << "4. Modificar la especialidad" << endl
              << "5. Modificar la matrícula" << endl
              << "6. Modificar la cantidad de pacientes atendidos" << endl
-             << "7. Borrar este kinesiologo" << endl;
+             << "7. Borrar este kinesiologo"
+             << "0. Regresar al menú principal"
+             << endl;
         cin >> opcion;
         cin.ignore();
 
@@ -498,6 +507,8 @@ void reservarTurno(Consultorio &sistema)
     Turno nuevoT;
     nuevoT.nombrePaciente = nombrePac;
     nuevoT.nombreKinesiologo = nombreKine;
+    nuevoT.dniKinesiologo = dniKine;
+    nuevoT.dniPaciente = dniPaciente;
     cout << "Ingrese la fecha del turno: " << endl;
     cout << "Dia(formato DD): ";
     cin >> nuevoT.fecha.dia;
@@ -573,34 +584,33 @@ void verAgenda(Consultorio &sistema)
     if (lista.empty())
     {
         cout << "No hay turnos registrados en la agenda." << endl;
-        return;
     }
-
-    for (size_t i = 0; i < lista.size(); i++)
+    else
     {
+        for (size_t i = 0; i < lista.size(); i++)
+        {
+            Turno t = lista[i];
 
-        Turno t = lista[i];
-
-        cout << i + 1 << ". ";
-
-        // Formato de fecha [DD/MM/AAAA - HH:MM]
-        cout << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] ";
-
-        // Datos de las personas
-        cout << "Paciente: " << t.nombrePaciente << " Kinesiólogo: " << t.nombreKinesiologo;
-
-        // Estado y Extras
-        cout << " (" << t.estadoDelTurno << ")";
-
-        if (t.requiereCamilla)
-            cout << " [Cam]";
-        if (t.requiereGimnasio)
-            cout << " [Gim]";
-
-        cout << endl;
+            cout << std::setw(3) << std::right << (i + 1) << ". "
+                 // Formato de fecha [DD/MM/AAAA - HH:MM]
+                 << std::setw(20) << std::left << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] "
+                 << std::setw(25) << std::left << "Paciente: " << t.nombrePaciente
+                 << std::setw(25) << std::left << " Kinesiólogo: " << t.nombreKinesiologo
+                 << std::setw(15) << std::left << " (" << t.estadoDelTurno << ")";
+            if (t.requiereCamilla)
+            {
+                cout << " [Cam]";
+            }
+            if (t.requiereGimnasio)
+            {
+                cout << " [Gim]";
+            }
+            cout << "Observaciones: " << t.observaciones << endl;
+        }
     }
     cout << "Siguiente" << endl;
 }
+
 
 void modificarTurno(Consultorio &sistema)
 {
@@ -609,22 +619,22 @@ void modificarTurno(Consultorio &sistema)
     cin.ignore();
 
     // Pedimos los datos para encontrar el turno viejo
-    string nombrePac;
-    cout << "Ingrese el nombre del Paciente: ";
-    getline(cin, nombrePac);
-
+    string dniPaciente;
+    cout << "Ingrese el DNI del Paciente: ";
+    cin >> dniPaciente;
     Fecha fechaVieja;
     string horaVieja;
 
     cout << "Datos del Turno ACTUAL (El que quiere cambiar) " << endl;
+    cout << "Hora del turno a reprogramar(HH:MM): ";
+    cin >> horaVieja;
     cout << "Dia: ";
     cin >> fechaVieja.dia;
     cout << "Mes: ";
     cin >> fechaVieja.mes;
     cout << "Anio: ";
     cin >> fechaVieja.anio;
-    cout << "Hora actual (HH:MM): ";
-    cin >> horaVieja;
+    
 
     // Pedimos los datos para el nuevo horario
     Fecha fechaNueva;
@@ -640,7 +650,7 @@ void modificarTurno(Consultorio &sistema)
     cout << "Nueva Hora (HH:MM): ";
     cin >> horaNueva;
 
-    sistema.reprogramarTurno(nombrePac, fechaVieja, horaVieja, fechaNueva, horaNueva);
+    sistema.reprogramarTurno(dniPaciente, horaVieja, fechaVieja, fechaNueva, horaNueva);
 }
 
 void cancelarTurno(Consultorio &sistema)
