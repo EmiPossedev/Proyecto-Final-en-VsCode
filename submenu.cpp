@@ -30,6 +30,25 @@ void registrarPaciente(Consultorio &sistema)
     p->setApellido(textoAux);
     cout << "Ingrese dni: ";
     cin >> textoAux;
+    
+    // Verificar si el DNI ya existe
+    bool dniValido = false;
+    while (!dniValido) {
+        bool existe = false;
+        for (const auto &pac : sistema.getPacientes()) {
+            if (pac->getDni() == textoAux) {
+                existe = true;
+                break;
+            }
+        }
+        if (existe) {
+            cout << "Error: Ya existe un paciente con ese DNI. Ingrese otro: ";
+            cin >> textoAux;
+        } else {
+            dniValido = true;
+        }
+    }
+    
     p->setDni(textoAux);
 
     // Pedir teléfono
@@ -320,6 +339,25 @@ void registrarkinesiologo(Consultorio &sistema)
     // Pido el dni
     cout << "Ingrese dni: ";
     cin >> textoAux;
+    
+    // Verificar si el DNI ya existe
+    bool dniValido = false;
+    while (!dniValido) {
+        bool existe = false;
+        for (const auto &kin : sistema.getKinesiologos()) {
+            if (kin->getDni() == textoAux) {
+                existe = true;
+                break;
+            }
+        }
+        if (existe) {
+            cout << "Error: Ya existe un kinesiólogo con ese DNI. Ingrese otro: ";
+            cin >> textoAux;
+        } else {
+            dniValido = true;
+        }
+    }
+    
     k->setDni(textoAux);
 
     // Pido el teléfono

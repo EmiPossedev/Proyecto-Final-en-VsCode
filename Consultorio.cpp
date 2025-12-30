@@ -43,16 +43,6 @@ bool coincide(const Turno &turno, const string &valor)
 // Métodos BÁSICOS para KINESIÓLOGOS
 void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
-    // Verifico si ya existe un kinesiólogo con el mismo DNI
-    for (const Kinesiologo *k : kinesiologos)
-    {
-        if (k->getDni() == kinesiologo->getDni())
-        {
-            // Si ya existe, no lo agrego
-            cout << "Error: Ya existe un kinesiólogo con el mismo DNI." << endl;
-            return;
-        }
-    }
     kinesiologos.push_back(kinesiologo);
 }
 
@@ -64,16 +54,6 @@ vector<Kinesiologo *> Consultorio::getKinesiologos() const
 // Métodos BÁSICOS para PACIENTES
 void Consultorio::agregarPaciente(Paciente *paciente)
 {
-    // Verifico si ya existe un paciente con el mismo DNI
-    for (const Paciente *p : pacientes)
-    {
-        if (p->getDni() == paciente->getDni())
-        {
-            // Si ya existe, no lo agrego
-            cout << "Error: Ya existe un paciente con el mismo DNI." << endl;
-            return;
-        }
-    }
     pacientes.push_back(paciente);
 }
 
@@ -92,15 +72,6 @@ vector<Turno> Consultorio::getTurnos() const
 // Agregar un turno
 void Consultorio::agregarTurno(const Turno &turno)
 {
-    // Verifico si ya existe un turno igual
-    for (const Turno &t : turnos)
-    {
-        if (t.fecha == turno.fecha && t.hora == turno.hora && t.nombreKinesiologo == turno.nombreKinesiologo)
-        {
-            // Si ya existe un turno igual, no lo agrego
-            return;
-        }
-    }
     turnos.push_back(turno);
 }
 // Cancelar un turno
