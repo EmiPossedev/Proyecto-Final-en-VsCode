@@ -58,12 +58,28 @@ void registrarPaciente(Consultorio &sistema)
 
     // La Fecha (es un struct, hay que llenarlo parte por parte)
     cout << "Fecha de Inicio " << endl;
-    cout << "Dia(DD): ";
-    cin >> fechaAux.dia;
-    cout << "Mes(MM): ";
-    cin >> fechaAux.mes;
-    cout << "Año(AAAA): ";
-    cin >> fechaAux.anio;
+    
+    bool fechaCorrecta = false;
+    
+    do {
+        cout << "Dia(DD): ";
+        cin >> fechaAux.dia;
+        
+        cout << "Mes(MM): ";
+        cin >> fechaAux.mes;
+        
+        cout << "Año(AAAA): ";
+        cin >> fechaAux.anio;
+
+        // Llamamos a la función de validación
+        if (esFechaValida(fechaAux.dia, fechaAux.mes, fechaAux.anio)) {
+            fechaCorrecta = true; // Salimos del bucle
+        } else {
+            cout << "ERROR: Fecha invalida " << endl;
+            cout << "Por favor, ingrese la fecha nuevamente " << endl;
+        }
+
+    } while (fechaCorrecta == false);
 
     p->setFechaDeInicio(fechaAux);
 
