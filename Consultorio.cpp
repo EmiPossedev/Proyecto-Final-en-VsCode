@@ -43,6 +43,16 @@ bool coincide(const Turno &turno, const string &valor)
 // Métodos BÁSICOS para KINESIÓLOGOS
 void Consultorio::agregarKinesiologo(Kinesiologo *kinesiologo)
 {
+    // Verifico si ya existe un kinesiólogo con el mismo DNI
+    for (const auto &k : kinesiologos)
+    {
+        if (k->getDni() == kinesiologo->getDni())
+        {
+            // Si ya existe, no lo agrego
+            cout << "Error: Ya existe un kinesiólogo con el mismo DNI." << endl;
+            return;
+        }
+    }
     kinesiologos.push_back(kinesiologo);
 }
 
@@ -54,6 +64,16 @@ vector<Kinesiologo *> Consultorio::getKinesiologos() const
 // Métodos BÁSICOS para PACIENTES
 void Consultorio::agregarPaciente(Paciente *paciente)
 {
+    // Verifico si ya existe un paciente con el mismo DNI
+    for (const auto &p : pacientes)
+    {
+        if (p->getDni() == paciente->getDni())
+        {
+            // Si ya existe, no lo agrego
+            cout << "Error: Ya existe un paciente con el mismo DNI." << endl;
+            return;
+        }
+    }
     pacientes.push_back(paciente);
 }
 
@@ -72,6 +92,15 @@ vector<Turno> Consultorio::getTurnos() const
 // Agregar un turno
 void Consultorio::agregarTurno(const Turno &turno)
 {
+    // Verifico si ya existe un turno igual
+    for (const auto &t : turnos)
+    {
+        if (t.fecha == turno.fecha && t.hora == turno.hora && t.nombreKinesiologo == turno.nombreKinesiologo)
+        {
+            // Si ya existe un turno igual, no lo agrego
+            return;
+        }
+    }
     turnos.push_back(turno);
 }
 // Cancelar un turno
@@ -431,21 +460,21 @@ void Consultorio::guardarTurnos(const string &nombreArchivo)
     ofstream bin(nombreArchivo, ios::binary | ios::trunc);
     if (!bin.is_open())
     {
-        throw runtime_error("No se pudo abrir el archivo para escritura.");
+        throw runtime_error("No se pudo abrir el archivo de turnos para escritura.");
     };
 
-    for (const auto &k : turnos)
+    for (const auto &t : turnos)
     {
         RegistroTurno reg;
 
-        strncpy(reg.nombreKinesio, k.nombreKinesiologo.c_str(), 59);
-        strncpy(reg.nombrePaciente, k.nombrePaciente.c_str(), 59);
-        reg.fecha = k.fecha;
-        strncpy(reg.hora, k.hora.c_str(), 9);
-        strncpy(reg.estadoDelTurno, k.estadoDelTurno.c_str(), 19);
-        strncpy(reg.observaciones, k.observaciones.c_str(), 199);
-        reg.requiereCamilla = k.requiereCamilla;
-        reg.requiereGimnasio = k.requiereGimnasio;
+        strncpy(reg.nombreKinesio, t.nombreKinesiologo.c_str(), 59);
+        strncpy(reg.nombrePaciente, t.nombrePaciente.c_str(), 59);
+        reg.fecha = t.fecha;
+        strncpy(reg.hora, t.hora.c_str(), 9);
+        strncpy(reg.estadoDelTurno, t.estadoDelTurno.c_str(), 19);
+        strncpy(reg.observaciones, t.observaciones.c_str(), 199);
+        reg.requiereCamilla = t.requiereCamilla;
+        reg.requiereGimnasio = t.requiereGimnasio;
 
         bin.write(reinterpret_cast<char *>(&reg), sizeof(RegistroTurno));
     }
