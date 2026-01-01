@@ -124,6 +124,10 @@ public:
     Kinesiologo *buscarKinesiologoPorDni(const string &dniBuscado);
     Paciente *buscarPacientePorDni(const string &dniBuscado);
 
+    // Métodos de búsqueda por id (índice en el vector correspondiente)
+    Kinesiologo *buscarKinesiologoPorId(int id);
+    Paciente *buscarPacientePorId(int id);
+
     // Métodos de eliminación
     void eliminarPacientePorDni(const string &dniKine);
     void eliminarKinesiologoPorDni(const string &nombreKinesio);

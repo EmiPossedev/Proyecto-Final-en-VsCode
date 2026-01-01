@@ -228,6 +228,25 @@ Paciente *Consultorio::buscarPacientePorDni(const string &dniBuscado)
     return nullptr; // si no se encontró al paciente devuelvo el nullptr
 }
 
+// MÉTODOS DE BÚSQUEDA POR ID (índice en el vector)
+Kinesiologo *Consultorio::buscarKinesiologoPorId(int id)
+{
+    if (id >= 0 && id < kinesiologos.size())
+    {
+        return kinesiologos[id];
+    }
+    return nullptr;
+}
+
+Paciente *Consultorio::buscarPacientePorId(int id)
+{
+    if (id >= 0 && id < pacientes.size())
+    {
+        return pacientes[id];
+    }
+    return nullptr;
+}
+
 // MÉTODOS PARA KINESIÓLOGOS
 
 /* LOS DEJO COMENTADOS PORQUE EL ÚNICO QUE VAMOS A UTILIZAR ES POR DNI, PERO ESTOS SON LOS MÉTODOS
