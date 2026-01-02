@@ -128,7 +128,7 @@ void listarPacientes(Consultorio &sistema)
     {
 
         Paciente *p = pacientes[i];
-        cout << std::setw(3) << std::right << (i + 1) << ". "
+        cout << std::setw(3) << std::right << (i) << ". "
              << std::setw(25) << std::left << (p->getApellido() + " " + p->getNombre()) << ". "
              << std::setw(12) << std::left << ("Dni: " + p->getDni()) << ". "
              << std::setw(12) << std::left << ("Tel: " + p->getTelefono()) << ". "
@@ -302,6 +302,15 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
     } while (opcion != 0);
 }
 
+void gestionarPacientePorIndice(Consultorio &sistema, const vector<Paciente *> &encontrados, size_t indice) {
+    if (indice < encontrados.size()) {
+        Paciente *p = encontrados[indice];
+        gestionarPaciente(sistema, p);
+    } else {
+        cout << "Índice inválido. Por favor, intente nuevamente." << endl;
+    }
+}
+
 /// LÓGICA PARA KINESIOLOGOS
 void listarKinesiologos(const Consultorio &sistema)
 {
@@ -319,7 +328,7 @@ void listarKinesiologos(const Consultorio &sistema)
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << std::setw(3) << std::right << i + 1 << ". "
+        cout << std::setw(3) << std::right << i << ". "
              << std::setw(25) << std::left << k->getApellido() + " " + k->getNombre() << ". "
              << std::setw(12) << std::left << "Dni: " + k->getDni() << ". "
              << std::setw(12) << std::left << "Tel: " + k->getTelefono() << ". "
@@ -525,6 +534,15 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
         }
         }
     } while (opcion != 0);
+}
+
+void gestionarKinesiologoPorIndice(Consultorio &sistema, const vector<Kinesiologo *> &encontrados, size_t indice) {
+    if (indice < encontrados.size()) {
+        Kinesiologo *k = encontrados[indice];
+        gestionarKinesiologo(sistema, k);
+    } else {
+        cout << "Índice inválido. Por favor, intente nuevamente." << endl;
+    }
 }
 
 /// LÓGICA PARA TURNOS

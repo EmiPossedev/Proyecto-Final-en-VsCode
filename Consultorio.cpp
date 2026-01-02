@@ -200,7 +200,33 @@ bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const stri
     }
 }
 
-// MÉTODOS DE BÚSQUEDA para Kinesios y Pacientes por nombre y apellido
+// MÉTODOS DE BÚSQUEDA Y FILTRADO para Kinesios y Pacientes por nombre y apellido
+
+vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido)
+{
+    vector<Paciente *> encontrados;
+    for (Paciente *p : pacientes)
+    {
+        if(p->getNombre() == nombre && p->getApellido() == apellido)
+        {
+            encontrados.push_back(p);
+        }
+    }
+    return encontrados;
+}
+
+vector<Kinesiologo *> Consultorio::filtrarPorNombreApellidoKinesiologo(const string &nombre, const string &apellido)
+{
+    vector<Kinesiologo *> encontrados;
+    for (Kinesiologo *k : kinesiologos)
+    {
+        if(k->getNombre() == nombre && k->getApellido() == apellido)
+        {
+            encontrados.push_back(k);
+        }
+    }
+    return encontrados;
+}
 
 // MÉTODOS DE BÚSQUEDA POR DNI
 Kinesiologo *Consultorio::buscarKinesiologoPorDni(const string &dniBuscado)
@@ -229,7 +255,7 @@ Paciente *Consultorio::buscarPacientePorDni(const string &dniBuscado)
 }
 
 // MÉTODOS DE BÚSQUEDA POR ID (índice en el vector)
-Kinesiologo *Consultorio::buscarKinesiologoPorId(int id)
+Kinesiologo *Consultorio::buscarKinesiologoPorInd(int ind)
 {
     if (id >= 0 && id < kinesiologos.size())
     {
@@ -238,7 +264,7 @@ Kinesiologo *Consultorio::buscarKinesiologoPorId(int id)
     return nullptr;
 }
 
-Paciente *Consultorio::buscarPacientePorId(int id)
+Paciente *Consultorio::buscarPacientePorInd(int ind)
 {
     if (id >= 0 && id < pacientes.size())
     {

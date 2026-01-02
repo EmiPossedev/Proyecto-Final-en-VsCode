@@ -113,20 +113,15 @@ public:
     bool verificarDisponibilidadCamilla(const Fecha &fecha, const string &hora);
     bool verificarDisponibilidadGimnasio(const Fecha &fecha, const string &hora);
 
-    /// MÉTODOS DE BÚSQUEDA
-    /* Estos no los vamos a utilizar
-    Kinesiologo *buscarKinesiologoPorNombre(const string &nombre);
-    Kinesiologo *buscarKinesiologoPorApellido(const string &apellido);
-    Paciente *buscarPacientePorNombre(const string &nombre);
-    Paciente *buscarPacientePorApellido(const string &apellido);
-    */
+    /// MÉTODOS DE BÚSQUEDA Y FILTRADO
+   vector<Paciente*> filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido);
 
     Kinesiologo *buscarKinesiologoPorDni(const string &dniBuscado);
     Paciente *buscarPacientePorDni(const string &dniBuscado);
 
     // Métodos de búsqueda por id (índice en el vector correspondiente)
-    Kinesiologo *buscarKinesiologoPorId(int id);
-    Paciente *buscarPacientePorId(int id);
+    Kinesiologo *buscarKinesiologoPorInd(int ind);
+    Paciente *buscarPacientePorInd(int ind);
 
     // Métodos de eliminación
     void eliminarPacientePorDni(const string &dniKine);

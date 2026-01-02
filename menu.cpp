@@ -10,11 +10,12 @@ void menuPacientes(Consultorio &sistema)
     int opcion;
     do
     {
-        cout << " GESTIONAR PACIENTES " << endl;
+        cout << " MENÚ PACIENTES " << endl;
         cout << "1. Registrar nuevo paciente" << endl;
         cout << "2. Ver lista de pacientes (Nombres)" << endl;
-        cout << "3. Buscar y gestionar paciente por dni" << endl;
-        cout << "4. Borrar todos los pacientes" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
+        cout << "3. Filtrar y gestionar pacientes por nombre y apellido" << endl;
+        cout << "4. Buscar y gestionar paciente por dni" << endl;
+        cout << "5. Borrar todos los pacientes" << endl; // si encontramos nos vamos a otra funcion para hacer las gestiones especificas por paciente
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
@@ -31,6 +32,36 @@ void menuPacientes(Consultorio &sistema)
             break;
         }
         case 3:
+        {
+            string nombreBuscado, apellidoBuscado;
+            cout << "Nombre del paciente buscado(utilizando mayúsculas donde corresponda): ";
+            cin.ignore();
+            getline(cin, nombreBuscado);
+            cout << "Apellido del paciente buscado(utilizando mayúsculas donde corresponda): ";
+            getline(cin, apellidoBuscado);
+            vector<Paciente *> encontrados = sistema.filtrarPorNombreApellidoPaciente(nombreBuscado, apellidoBuscado);
+            if (encontrados.empty())
+            {
+                cout << "No se encontraron pacientes con ese nombre y apellido." << endl;
+            }
+            else
+            {
+                cout << "Pacientes encontrados:" << endl;
+                for (size_t i = 0; i < encontrados.size(); i++)
+                {
+                    Paciente *p = encontrados[i];
+                    {
+                        cout << i << ". " << p->getApellido() + ", " + p->getNombre() << ", DNI: " << p->getDni() << endl;
+                    }
+                }
+                cout << "Ingrese el número del paciente que desea gestionar: ";
+                size_t indice;
+                cin >> indice;
+                gestionarPacientePorIndice(sistema, encontrados, indice);
+            }
+            break;
+        }
+        case 4:
         {
             string dniBuscado;
             cout << "Dni del paciente buscado: ";
@@ -70,11 +101,12 @@ void menuKinesiologos(Consultorio &sistema)
     int opcion;
     do
     {
-        cout << " GESTIONAR KINESIOLOGOS " << endl;
+        cout << " MENÚ KINESIOLOGOS " << endl;
         cout << "1. Registrar nuevo kinesiologo" << endl;
         cout << "2. Ver lista de kinesiologos (Nombres)" << endl;
-        cout << "3. Buscar y gestionar kinesiologo por dni" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
-        cout << "4. Borrar todos los kinesiologos." << endl;
+        cout << "3. Filtrary gestionar kinesiologos por nombre y apellido" << endl;
+        cout << "4. Buscar y gestionar kinesiologo por dni" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
+        cout << "5. Borrar todos los kinesiologos." << endl;
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion; // leemos la opción del usuario
@@ -93,6 +125,35 @@ void menuKinesiologos(Consultorio &sistema)
         }
         case 3:
         {
+            string nombreBuscado, apellidoBuscado;
+            cout << "Nombre del kinesiologo buscado(utilizando mayúsculas donde corresponda): ";
+            getline(cin, nombreBuscado);
+            cout << "Apellido del kinesiologo buscado(utilizando mayúsculas donde corresponda): ";
+            getline(cin, apellidoBuscado);
+            vector<Kinesiologo *> encontrados = sistema.filtrarPorNombreApellidoKinesiologo(nombreBuscado, apellidoBuscado);
+            if (encontrados.empty())
+            {
+                cout << "No se encontraron kinesiologos con ese nombre y apellido." << endl;
+            }
+            else
+            {
+                cout << "Kinesiologos encontrados:" << endl;
+                for (size_t i = 0; i < encontrados.size(); i++)
+                {
+                    Kinesiologo *k = encontrados[i];
+                    {
+                        cout << i << ". " << k->getApellido() + ", " + k->getNombre() << ", DNI: " << k->getDni() << endl;
+                    }
+                }
+                cout << "Ingrese el número del kinesiologo que desea gestionar: ";
+                size_t indice;
+                cin >> indice;
+                gestionarKinesiologoPorIndice(sistema, encontrados, indice);
+            }
+            break;
+        }
+        case 4:
+        {
             string dniBuscado;
             cout << "Dni del kinesiologo buscado: ";
             cin >> dniBuscado;
@@ -107,7 +168,7 @@ void menuKinesiologos(Consultorio &sistema)
             }
             break;
         }
-        case 4:
+        case 5:
         {
             sistema.borrarKinesiologos();
         }
