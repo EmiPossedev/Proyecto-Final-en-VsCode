@@ -37,6 +37,15 @@ public:
     void setCantPacientesAtendidos(const int &cant);
     int getMatricula() const;
     void setMatricula(int n);
+
+    // Sobrecarga del operator< para que funcione el sort (por apellido, luego nombre)
+    bool operator<(const Kinesiologo& kine2) const {
+        if (getApellido() != kine2.getApellido()) {
+            return getApellido() < kine2.getApellido();
+        }
+        return getNombre() < kine2.getNombre();
+    }
 };
+
 
 #endif

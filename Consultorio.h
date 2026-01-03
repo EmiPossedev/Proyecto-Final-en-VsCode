@@ -115,13 +115,14 @@ public:
 
     /// MÉTODOS DE BÚSQUEDA Y FILTRADO
    vector<Paciente*> filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido);
+   vector<Kinesiologo*> filtrarPorNombreApellidoKinesiologo(const string &nombre, const string &apellido);
 
     Kinesiologo *buscarKinesiologoPorDni(const string &dniBuscado);
     Paciente *buscarPacientePorDni(const string &dniBuscado);
 
     // Métodos de búsqueda por id (índice en el vector correspondiente)
-    Kinesiologo *buscarKinesiologoPorInd(int ind);
-    Paciente *buscarPacientePorInd(int ind);
+    Kinesiologo *buscarKinesiologoPorInd(size_t ind);
+    Paciente *buscarPacientePorInd(size_t ind);
 
     // Métodos de eliminación
     void eliminarPacientePorDni(const string &dniKine);

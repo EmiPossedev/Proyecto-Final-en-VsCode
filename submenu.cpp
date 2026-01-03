@@ -148,7 +148,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL PACIENTE: " << p->getNombre() << " " << p->getApellido() << endl;
         cout << "Dni: " << p->getDni() << endl;
-        cout << "Teléfono: " << p->getTelefono() << endl;
+        cout << "telefono: " << p->getTelefono() << endl;
         cout << "Obra social: " << p->getObraSocial() << endl;
         cout << "Cantidad de Sesiones Totales: " << p->getCantSesionesTotales() << endl;
         cout << "Cantidad de Sesiones Realizadas: " << p->getCantidadSesionesRealizadas() << endl;
@@ -165,14 +165,14 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
              << "1. Modificar el nombre del paciente" << endl
              << "2. Modificar el apellido del paciente" << endl
              << "3. Modificar el dni del paciente" << endl
-             << "4. Modificar el teléfono del paciente" << endl
+             << "4. Modificar el telefono del paciente" << endl
              << "5. Modificar la obra social del paciente" << endl
              << "6. Modificar la cantidad de sesiones totales del paciente" << endl
              << "7. Modificar las observaciones del paciente" << endl
              << "8. Marcar sesiones como pagas" << endl
              << "9. Marcar sesiones como pendientes de pago" << endl
              << "10. Borrar paciente" << endl
-             << "0. Regresar al menú principal" << endl;
+             << "0. Regresar al menu principal" << endl;
 
         cout << "Ingrese una opcion: ";
         cin >> opcion;
@@ -209,7 +209,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
         case 4: // Modificar teléfono
         {
             string nuevoTelefono;
-            cout << "Ingrese el teléfono: ";
+            cout << "Ingrese el telefono: ";
             cin >> nuevoTelefono;
             p->setTelefono(nuevoTelefono);
             sistema.guardarPacientes("pacientes.dat");
@@ -290,7 +290,7 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
         }
         case 0:
         {
-            cout << "Volver al menú principal" << endl;
+            cout << "Volver al menu principal" << endl;
             break;
         }
         default:
@@ -302,9 +302,9 @@ void gestionarPaciente(Consultorio &sistema, Paciente *p)
     } while (opcion != 0);
 }
 
-void gestionarPacientePorIndice(Consultorio &sistema, const vector<Paciente *> &encontrados, size_t indice) {
-    if (indice < encontrados.size()) {
-        Paciente *p = encontrados[indice];
+void gestionarPacientePorIndice(Consultorio &sistema, const vector<Paciente *> &pacientes, size_t indice) {
+    if (indice < pacientes.size()) {
+        Paciente *p = pacientes[indice];
         gestionarPaciente(sistema, p);
     } else {
         cout << "Índice inválido. Por favor, intente nuevamente." << endl;
@@ -316,28 +316,26 @@ void listarKinesiologos(const Consultorio &sistema)
 {
     // Obtenemos la copia de la lista de kinesiologos
     vector<Kinesiologo *> kinesiologos = sistema.getKinesiologos();
+    std::sort(kinesiologos.begin(), kinesiologos.end());
 
-    cout << "LISTADO DE KINESIOLOGOS" << endl;
-
-    if (kinesiologos.empty() == true)
+    if (kinesiologos.empty())
     {
-        cout << "No hay kinesiologos registrados en el sistema." << endl;
+        cout << "No hay kinesiólogos registrados en el sistema." << endl;
         return;
     }
 
     for (size_t i = 0; i < kinesiologos.size(); i++)
     {
         Kinesiologo *k = kinesiologos[i];
-        cout << std::setw(3) << std::right << i << ". "
-             << std::setw(25) << std::left << k->getApellido() + " " + k->getNombre() << ". "
-             << std::setw(12) << std::left << "Dni: " + k->getDni() << ". "
-             << std::setw(12) << std::left << "Tel: " + k->getTelefono() << ". "
-             << std::setw(30) << std::left << "Especialidad: " + k->getEspecialidad() << ". "
-             << std::setw(20) << std::left << "Matricula: " + std::to_string(k->getMatricula()) << ". "
-             << endl;
+        if (k == nullptr) continue; // Evitar punteros nulos
+        cout << std::setw(3) << std::right << (i + 1) << ". "
+             << std::setw(25) << std::left << (k->getApellido() + ", " + k->getNombre()) << " "
+             << std::setw(12) << std::left << k->getDni() << " "
+             << std::setw(12) << std::left << k->getTelefono() << " "
+             << std::setw(30) << std::left << k->getEspecialidad() << " "
+             << std::setw(20) << std::left << std::to_string(k->getMatricula()) << endl;
     }
-    cout << "-Siguiente-" << endl;
-    cout << endl;
+    cout << endl << "-Siguiente-" << endl << endl;
 }
 
 void registrarkinesiologo(Consultorio &sistema)
@@ -389,7 +387,7 @@ void registrarkinesiologo(Consultorio &sistema)
     cout << "Ingrese Telefono (solo numeros): ";
     cin >> textoAux;
     k->setTelefono(textoAux);
-    cin.ignore(); // porque mi última lectura fue con un cin y la prox va a ser un getline
+    cin.ignore(); // porque mi ultima lectura fue con un cin y la prox va a ser un getline
 
     // Pido especialidad
     cout << "Ingrese Especialidad (ej: Traumatologia, Deportiva): ";
@@ -417,7 +415,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
     {
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
-        cout << "Teléfono: " << k->getTelefono() << ". "
+        cout << "Telefono: " << k->getTelefono() << ". "
              << "Especialidad: " << k->getEspecialidad() << ". "
              << "Matrícula: " << k->getMatricula()
              << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
@@ -429,7 +427,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
              << "5. Modificar la matrícula" << endl
              << "6. Modificar la cantidad de pacientes atendidos" << endl
              << "7. Borrar este kinesiologo"
-             << "0. Regresar al menú principal"
+             << "0. Regresar al menu principal"
              << endl;
         cin >> opcion;
         cin.ignore();
@@ -524,7 +522,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
         }
         case 0:
         {
-            cout << "Volver al menú principal" << endl;
+            cout << "Volver al menu principal" << endl;
             break;
         }
         default:
@@ -541,7 +539,7 @@ void gestionarKinesiologoPorIndice(Consultorio &sistema, const vector<Kinesiolog
         Kinesiologo *k = encontrados[indice];
         gestionarKinesiologo(sistema, k);
     } else {
-        cout << "Índice inválido. Por favor, intente nuevamente." << endl;
+        cout << "Indice invalido. Por favor, intente nuevamente." << endl;
     }
 }
 

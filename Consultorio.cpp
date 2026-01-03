@@ -255,20 +255,20 @@ Paciente *Consultorio::buscarPacientePorDni(const string &dniBuscado)
 }
 
 // MÉTODOS DE BÚSQUEDA POR ID (índice en el vector)
-Kinesiologo *Consultorio::buscarKinesiologoPorInd(int ind)
+Kinesiologo *Consultorio::buscarKinesiologoPorInd(size_t ind)
 {
-    if (id >= 0 && id < kinesiologos.size())
+    if (ind < kinesiologos.size())
     {
-        return kinesiologos[id];
+        return kinesiologos[ind];
     }
     return nullptr;
 }
 
-Paciente *Consultorio::buscarPacientePorInd(int ind)
+Paciente *Consultorio::buscarPacientePorInd(size_t ind)
 {
-    if (id >= 0 && id < pacientes.size())
+    if (ind < pacientes.size())
     {
-        return pacientes[id];
+        return pacientes[ind];
     }
     return nullptr;
 }
