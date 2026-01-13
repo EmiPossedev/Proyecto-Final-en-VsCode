@@ -32,13 +32,13 @@ void menuPacientes(Consultorio &sistema)
         }
         case 3:
         {
-            string nombreBuscado, apellidoBuscado;
+            string nombre, apellido;
             cout << "Nombre del paciente buscado(utilizando mayúsculas donde corresponda): ";
             cin.ignore();
-            getline(cin, nombreBuscado);
+            getline(cin, nombre);
             cout << "Apellido del paciente buscado(utilizando mayúsculas donde corresponda): ";
-            getline(cin, apellidoBuscado);
-            vector<Paciente *> encontrados = sistema.filtrarPorNombreApellidoPaciente(nombreBuscado, apellidoBuscado);
+            getline(cin, apellido);
+            vector<Paciente *> encontrados = sistema.filtrarPorNombreApellidoPaciente(nombre, apellido);
             if (encontrados.empty())
             {
                 cout << "No se encontraron pacientes con ese nombre y apellido." << endl;

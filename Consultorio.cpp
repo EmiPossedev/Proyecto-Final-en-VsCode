@@ -207,7 +207,7 @@ vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &n
     vector<Paciente *> encontrados;
     for (Paciente *p : pacientes)
     {
-        if(p->getNombre() == nombre && p->getApellido() == apellido)
+        if(p->getNombre().to == nombre && p->getApellido() == apellido)
         {
             encontrados.push_back(p);
         }
