@@ -11,6 +11,7 @@
 #include <cstring>
 #include <iostream>
 #include <algorithm> // para que funcione el sort
+#include <cctype> // para usar el toupper transformar en mayusculas para filtrar por nombre
 
 // MÉTODO DESTRUCTOR
 Consultorio::~Consultorio()
@@ -204,10 +205,20 @@ bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const stri
 
 vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido)
 {
+    // Transformo el nombre a mayúsculas para poder comparar los nombres sin importar mayúsculas o minúsculas
+    string nombreBuscado = nombre;
+    std::transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper);
+    string apellidoBuscado = apellido;
+    std::transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper);
     vector<Paciente *> encontrados;
+
     for (Paciente *p : pacientes)
     {
-        if(p->getNombre().to == nombre && p->getApellido() == apellido)
+        string nombreActual = p->getNombre();
+        std::transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
+        string apellidoActual = p->getApellido();
+        std::transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
+        if(nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
         {
             encontrados.push_back(p);
         }

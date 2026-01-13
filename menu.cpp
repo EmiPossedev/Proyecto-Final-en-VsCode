@@ -33,10 +33,10 @@ void menuPacientes(Consultorio &sistema)
         case 3:
         {
             string nombre, apellido;
-            cout << "Nombre del paciente buscado(utilizando mayúsculas donde corresponda): ";
+            cout << "NOMBRE completo del paciente buscado: ";
             cin.ignore();
             getline(cin, nombre);
-            cout << "Apellido del paciente buscado(utilizando mayúsculas donde corresponda): ";
+            cout << "APELLIDO completo del paciente buscado: ";
             getline(cin, apellido);
             vector<Paciente *> encontrados = sistema.filtrarPorNombreApellidoPaciente(nombre, apellido);
             if (encontrados.empty())
@@ -53,7 +53,7 @@ void menuPacientes(Consultorio &sistema)
                         cout << i << ". " << p->getApellido() + ", " + p->getNombre() << ". DNI: " << p->getDni() << endl;
                     }
                 }
-                cout << "Ingrese el número del paciente que desea gestionar: ";
+                cout << "Ingrese el numero del paciente que desea gestionar: ";
                 size_t indice;
                 cin >> indice;
                 gestionarPacientePorIndice(sistema, encontrados, indice);
