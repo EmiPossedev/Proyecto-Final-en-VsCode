@@ -68,7 +68,7 @@ void registrarPaciente(Consultorio &sistema)
         cout << "Mes(MM): ";
         cin >> fechaAux.mes;
         
-        cout << "Año(AAAA): ";
+        cout << "Anio(AAAA): ";
         cin >> fechaAux.anio;
 
         // Llamamos a la función de validación
@@ -128,12 +128,12 @@ void listarPacientes(Consultorio &sistema)
     {
 
         Paciente *p = pacientes[i];
-        cout << std::setw(3) << std::right << (i) << ". "
-             << std::setw(25) << std::left << (p->getApellido() + " " + p->getNombre()) << ". "
-             << std::setw(12) << std::left << ("Dni: " + p->getDni()) << ". "
-             << std::setw(12) << std::left << ("Tel: " + p->getTelefono()) << ". "
-             << std::setw(20) << std::left << ("Obra social: " + p->getObraSocial()) << ". "
-             << std::setw(10) << std::left << ("Sesiones: " + std::to_string(p->getCantidadSesionesRealizadas()) + "/" + std::to_string(p->getCantSesionesTotales())) << ".";
+        cout << setw(3) << right << (i) << ". "
+             << setw(25) << left << p->getApellido() + " " + p->getNombre() << ". "
+             << setw(12) << left << "Dni: " + p->getDni() << ". "
+             << setw(12) << left << "Tel: " + p->getTelefono() << ". "
+             << setw(20) << left << "Obra social: " + p->getObraSocial() << ". "
+             << setw(10) << left << "Sesiones: " + to_string(p->getCantidadSesionesRealizadas()) + "/" + to_string(p->getCantSesionesTotales()) << ".";
         cout << endl;
     }
     cout << "-Siguiente-" << endl;
@@ -316,7 +316,7 @@ void listarKinesiologos(const Consultorio &sistema)
 {
     // Obtenemos la copia de la lista de kinesiologos
     vector<Kinesiologo *> kinesiologos = sistema.getKinesiologos();
-    std::sort(kinesiologos.begin(), kinesiologos.end());
+    sort(kinesiologos.begin(), kinesiologos.end());
 
     if (kinesiologos.empty())
     {
@@ -328,12 +328,12 @@ void listarKinesiologos(const Consultorio &sistema)
     {
         Kinesiologo *k = kinesiologos[i];
         if (k == nullptr) continue; // Evitar punteros nulos
-        cout << std::setw(3) << std::right << (i + 1) << ". "
-             << std::setw(25) << std::left << (k->getApellido() + ", " + k->getNombre()) << " "
-             << std::setw(12) << std::left << k->getDni() << " "
-             << std::setw(12) << std::left << k->getTelefono() << " "
-             << std::setw(30) << std::left << k->getEspecialidad() << " "
-             << std::setw(20) << std::left << std::to_string(k->getMatricula()) << endl;
+        cout << setw(3) << right << (i + 1) << ". "
+             << setw(25) << left << (k->getApellido() + ", " + k->getNombre()) << ". "
+             << setw(12) << left << "Dni: " << k->getDni() << " "
+             << setw(12) << left << "Telefono: " << k->getTelefono() << " "
+             << setw(30) << left << "Especialidad: " << k->getEspecialidad() << " "
+             << setw(20) << left << "Matricula: " << to_string(k->getMatricula()) << endl;
     }
     cout << endl << "-Siguiente-" << endl << endl;
 }
@@ -415,18 +415,21 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
     {
         // Muestro los datos primero, y luego ofrezco modificarlos o utilizarlos para otra cosa
         cout << "GESTION DEL KINESIOLOGO: " << k->getNombre() << " " << k->getApellido() << endl;
-        cout << "Telefono: " << k->getTelefono() << ". "
+        cout << "Dni: " << k->getDni() << ". "
+             << "Telefono: " << k->getTelefono() << ". "
              << "Especialidad: " << k->getEspecialidad() << ". "
              << "Matrícula: " << k->getMatricula()
              << "Cantidad de pacientes atendidos: " << k->getCantidadPacientesAtendidos() << endl;
+
         cout << "¿ QUE MODIFICACIONES DESEA REALIZAR ?" << endl
              << "1. Modificar el nombre del kinesiologo" << endl
              << "2. Modificar el apellido del kinesiolgo" << endl
-             << "3. Modificar el telefono" << endl
-             << "4. Modificar la especialidad" << endl
-             << "5. Modificar la matrícula" << endl
-             << "6. Modificar la cantidad de pacientes atendidos" << endl
-             << "7. Borrar este kinesiologo"
+             << "3. Modificar el DNI" << endl
+             << "4. Modificar el telefono" << endl
+             << "5. Modificar la especialidad" << endl
+             << "6. Modificar la matrícula" << endl
+             << "7. Modificar la cantidad de pacientes atendidos" << endl
+             << "8. Borrar este kinesiologo" << endl
              << "0. Regresar al menu principal"
              << endl;
         cin >> opcion;
@@ -454,6 +457,15 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
         }
         case 3:
         {
+            string nuevoDni;
+            cout << "Ingrese el nuevo DNI: ";
+            cin >> nuevoDni;
+            k->setDni(nuevoDni);
+            sistema.guardarKinesiologos("kinesiologos.dat");
+            break;
+        }
+        case 4:
+        {
             string nuevoTel;
             cout << "Ingrese el telefono: ";
             cin >> nuevoTel;
@@ -461,7 +473,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
             sistema.guardarPacientes("pacientes.dat");
             break;
         }
-        case 4:
+        case 5:
         {
             int subOpcionEspecialidad;
             cout << "1. Agregar una especialidad nueva" << endl;
@@ -494,7 +506,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
             } while (subOpcionEspecialidad != 1 && subOpcionEspecialidad != 2);
             break;
         }
-        case 5:
+        case 6:
         {
             int nuevaMatricula;
             cout << "Ingrese la nueva matrícula: ";
@@ -503,7 +515,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
-        case 6:
+        case 7:
         {
             int nuevaCant;
             cout << "Ingrese la nueva cantidad de pacientes atendidos: ";
@@ -512,7 +524,7 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
             sistema.guardarKinesiologos("kinesiologos.dat");
             break;
         }
-        case 7:
+        case 8:
         {
             string dniKine;
             cout << "Ingrese el dni del kinesiologo a eliminar: ";
@@ -565,6 +577,7 @@ void reservarTurno(Consultorio &sistema)
 
     string nombreKine, apellidoKine, dniKine;
     cout << "Ingrese el nombre del kinesiologo: ";
+    cin.ignore();
     getline(cin, nombreKine);
     cout << "Ingrese el dni del kinesiólogo: ";
     cin >> dniKine;
@@ -661,12 +674,12 @@ void verAgenda(Consultorio &sistema)
         {
             Turno t = lista[i];
 
-            cout << std::setw(3) << std::right << (i + 1) << ". "
+            cout << setw(3) << right << (i + 1) << ". "
                  // Formato de fecha [DD/MM/AAAA - HH:MM]
-                 << std::setw(20) << std::left << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] "
-                 << std::setw(25) << std::left << "Paciente: " << t.nombrePaciente
-                 << std::setw(25) << std::left << " Kinesiólogo: " << t.nombreKinesiologo
-                 << std::setw(15) << std::left << " (" << t.estadoDelTurno << ")";
+                 << setw(20) << left << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] "
+                 << setw(25) << left << "Paciente: " << t.nombrePaciente
+                 << setw(25) << left << " Kinesiólogo: " << t.nombreKinesiologo
+                 << setw(15) << left << " (" << t.estadoDelTurno << ")";
             if (t.requiereCamilla)
             {
                 cout << " [Cam]";
