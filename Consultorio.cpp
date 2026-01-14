@@ -11,8 +11,8 @@
 #include <cstring>
 #include <iostream>
 #include <algorithm> // para que funcione el sort
-#include <cctype> // para usar el toupper transformar en mayusculas para filtrar por nombre
-
+#include <cctype>    // para usar el toupper transformar en mayusculas para filtrar por nombre
+using namespace std;
 // MÉTODO DESTRUCTOR
 Consultorio::~Consultorio()
 {
@@ -206,19 +206,15 @@ bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const stri
 vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido)
 {
     // Transformo el nombre a mayúsculas para poder comparar los nombres sin importar mayúsculas o minúsculas
-    string nombreBuscado = nombre;
-    std::transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper);
-    string apellidoBuscado = apellido;
-    std::transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper);
+    string nombreBuscado = toupper(nombre);
+    string apellidoBuscado = toupper(apellido);
     vector<Paciente *> encontrados;
 
     for (Paciente *p : pacientes)
     {
-        string nombreActual = p->getNombre();
-        std::transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
-        string apellidoActual = p->getApellido();
-        std::transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
-        if(nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
+        string nombreActual = toupper(p->getNombre());
+        string apellidoActual = toupper(p->getApellido());
+        if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
         {
             encontrados.push_back(p);
         }
@@ -229,9 +225,13 @@ vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &n
 vector<Kinesiologo *> Consultorio::filtrarPorNombreApellidoKinesiologo(const string &nombre, const string &apellido)
 {
     vector<Kinesiologo *> encontrados;
+    string nombreBuscado = toupper(nombre);
+    string apellidoBuscado = toupper(apellido);
     for (Kinesiologo *k : kinesiologos)
     {
-        if(k->getNombre() == nombre && k->getApellido() == apellido)
+        string nombreActual = toupper(k->getNombre());
+        string apellidoActual = toupper(k->getApellido());
+        if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
         {
             encontrados.push_back(k);
         }

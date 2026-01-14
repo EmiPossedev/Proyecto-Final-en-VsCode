@@ -99,7 +99,7 @@ void menuKinesiologos(Consultorio &sistema)
         cout << " MENU KINESIOLOGOS " << endl;
         cout << "1. Registrar nuevo kinesiologo" << endl;
         cout << "2. Ver lista de kinesiologos (Nombres)" << endl;
-        cout << "3. Filtrary gestionar kinesiologos por nombre y apellido" << endl;
+        cout << "3. Filtrar y gestionar kinesiologos por nombre y apellido" << endl;
         cout << "4. Buscar y gestionar kinesiologo por dni" << endl; // nuevamente fucniones aux para manejar todo por kinesiologo
         cout << "0. Volver al menu principal" << endl;
         cout << "Ingrese una opcion: ";
@@ -120,9 +120,9 @@ void menuKinesiologos(Consultorio &sistema)
         case 3:
         {
             string nombreBuscado, apellidoBuscado;
-            cout << "Nombre del kinesiologo buscado(utilizando mayusculas donde corresponda): ";
+            cout << "Nombre del kinesiologo buscado: ";
             getline(cin, nombreBuscado);
-            cout << "Apellido del kinesiologo buscado(utilizando mayusculas donde corresponda): ";
+            cout << "Apellido del kinesiologo buscado: ";
             getline(cin, apellidoBuscado);
             vector<Kinesiologo *> encontrados = sistema.filtrarPorNombreApellidoKinesiologo(nombreBuscado, apellidoBuscado);
             if (encontrados.empty())
