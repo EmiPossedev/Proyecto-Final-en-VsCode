@@ -128,13 +128,12 @@ void listarPacientes(Consultorio &sistema)
     {
 
         Paciente *p = pacientes[i];
-        cout << setw(3) << right << (i) << ". "
-             << setw(25) << left << p->getApellido() + " " + p->getNombre() << ". "
-             << setw(12) << left << "Dni: " + p->getDni() << ". "
-             << setw(12) << left << "Tel: " + p->getTelefono() << ". "
-             << setw(20) << left << "Obra social: " + p->getObraSocial() << ". "
-             << setw(10) << left << "Sesiones: " + to_string(p->getCantidadSesionesRealizadas()) + "/" + to_string(p->getCantSesionesTotales()) << ".";
-        cout << endl;
+           cout << setw(3) << right << (i + 1) << ". "
+               << setw(20) << left << (p->getApellido() + " " + p->getNombre())
+               << "Dni: " << setw(10) << left << p->getDni()
+               << "Tel: " << setw(12) << left << p->getTelefono()
+               << "Obra social: " << setw(15) << left << p->getObraSocial()
+               << "Sesiones: " << p->getCantidadSesionesRealizadas() << "/" << p->getCantSesionesTotales() << endl;
     }
     cout << "-Siguiente-" << endl;
     cout << endl;
@@ -320,7 +319,7 @@ void listarKinesiologos(const Consultorio &sistema)
 
     if (kinesiologos.empty())
     {
-        cout << "No hay kinesiólogos registrados en el sistema." << endl;
+        cout << "No hay kinesiologos registrados en el sistema." << endl;
         return;
     }
 
@@ -328,12 +327,12 @@ void listarKinesiologos(const Consultorio &sistema)
     {
         Kinesiologo *k = kinesiologos[i];
         if (k == nullptr) continue; // Evitar punteros nulos
-        cout << setw(3) << right << (i + 1) << ". "
-             << setw(25) << left << (k->getApellido() + ", " + k->getNombre()) << ". "
-             << setw(12) << left << "Dni: " << k->getDni() << " "
-             << setw(12) << left << "Telefono: " << k->getTelefono() << " "
-             << setw(30) << left << "Especialidad: " << k->getEspecialidad() << " "
-             << setw(20) << left << "Matricula: " << to_string(k->getMatricula()) << endl;
+        cout << setw(3)  << right << (i + 1) << ". "
+             << setw(20) << left << (k->getApellido() + " " + k->getNombre())
+             << "Dni: " << setw(10) << left << k->getDni()
+             << "Tel: " << setw(12) << left << k->getTelefono()
+             << "Especialidad: " << setw(15) << left << k->getEspecialidad()
+             << "Matricula: " << k->getMatricula() << endl;  
     }
     cout << endl << "-Siguiente-" << endl << endl;
 }
@@ -526,11 +525,10 @@ void gestionarKinesiologo(Consultorio &sistema, Kinesiologo *k)
         }
         case 8:
         {
-            string dniKine;
-            cout << "Ingrese el dni del kinesiologo a eliminar: ";
-            cin >> dniKine;
+            string dniKine = k->getDni();
             sistema.eliminarKinesiologoPorDni(dniKine);
-            break;
+            cout << "Kinesiologo eliminado." << endl;
+            return; // Salir de la función para evitar acceder a memoria liberada
         }
         case 0:
         {

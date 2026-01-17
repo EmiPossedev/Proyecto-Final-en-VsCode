@@ -139,7 +139,7 @@ void menuKinesiologos(Consultorio &sistema)
                         cout << i << ". " << k->getApellido() + ", " + k->getNombre() << ", DNI: " << k->getDni() << endl;
                     }
                 }
-                cout << "Ingrese el número del kinesiologo que desea gestionar: ";
+                cout << "Ingrese el numero del kinesiologo que desea gestionar: ";
                 size_t indice;
                 cin >> indice;
                 gestionarKinesiologoPorIndice(sistema, encontrados, indice);
@@ -154,7 +154,7 @@ void menuKinesiologos(Consultorio &sistema)
             Kinesiologo *k = sistema.buscarKinesiologoPorDni(dniBuscado);
             if (k == nullptr)
             {
-                cout << "No se encontró un kinesiologo con ese dni." << endl;
+                cout << "No se encontro un kinesiologo con ese dni." << endl;
             }
             else
             {

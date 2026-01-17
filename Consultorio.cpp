@@ -206,14 +206,19 @@ bool Consultorio::verificarDisponibilidadGimnasio(const Fecha &fecha, const stri
 vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &nombre, const string &apellido)
 {
     // Transformo el nombre a mayúsculas para poder comparar los nombres sin importar mayúsculas o minúsculas
-    string nombreBuscado = toupper(nombre);
-    string apellidoBuscado = toupper(apellido);
+    string nombreBuscado = nombre;                                                           // tuve que hacer una copia porque sino me modificaba el string original
+    transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper); // tuve que ver un video de youtube de un loco para entender como hacer esto
+    string apellidoBuscado = apellido;
+    transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper); // lo mismo para el apellido
+
     vector<Paciente *> encontrados;
 
     for (Paciente *p : pacientes)
     {
-        string nombreActual = toupper(p->getNombre());
-        string apellidoActual = toupper(p->getApellido());
+        string nombreActual = p->getNombre();
+        transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
+        string apellidoActual = p->getApellido();
+        transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
         if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
         {
             encontrados.push_back(p);
@@ -224,13 +229,19 @@ vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &n
 
 vector<Kinesiologo *> Consultorio::filtrarPorNombreApellidoKinesiologo(const string &nombre, const string &apellido)
 {
+    // Transformo el nombre a mayúsculas para poder comparar los nombres sin importar mayúsculas o minúsculas
+    string nombreBuscado = nombre;                                                           // tuve que hacer una copia porque sino me modificaba el string original
+    transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper); // tuve que ver un video de youtube de un loco para entender como hacer esto
+    string apellidoBuscado = apellido;
+    transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper); // lo mismo para el apellido
+
     vector<Kinesiologo *> encontrados;
-    string nombreBuscado = toupper(nombre);
-    string apellidoBuscado = toupper(apellido);
     for (Kinesiologo *k : kinesiologos)
     {
-        string nombreActual = toupper(k->getNombre());
-        string apellidoActual = toupper(k->getApellido());
+        string nombreActual = k->getNombre();
+        transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
+        string apellidoActual = k->getApellido();
+        transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
         if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
         {
             encontrados.push_back(k);
@@ -443,7 +454,6 @@ void Consultorio::guardarKinesiologos(const string &nombreArchivo)
         bin.write(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo));
     }
     bin.close();
-    cout << "Kinesiologos guardados." << endl;
 }
 
 void Consultorio::cargarKinesiologos(const string &nombreArchivo)
@@ -469,7 +479,7 @@ void Consultorio::cargarKinesiologos(const string &nombreArchivo)
         k->setNombre(string(RegKinesio.nombre));
         k->setApellido(string(RegKinesio.apellido));
         k->setTelefono(RegKinesio.telefono);
-
+        k->setDni(string(RegKinesio.dni));
         k->setEspecialidad(string(RegKinesio.especialidad));
         k->setMatricula(RegKinesio.matricula);
         k->setCantPacientesAtendidos(RegKinesio.cantidadPacientesAtendidos);
@@ -593,7 +603,6 @@ void Consultorio::eliminarKinesiologoPorDni(const string &dniKine)
             delete *it;
             kinesiologos.erase(it);
             guardarKinesiologos("kinesiologos.dat");
-            cout << "Kinesiologo eliminado y archivo actualizado." << endl;
             return;
         }
     }
