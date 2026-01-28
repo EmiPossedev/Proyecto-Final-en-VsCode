@@ -6,7 +6,7 @@
 #include <iomanip>
 using namespace std;
 
-/// LÓGICA PARA PACIENTES
+/// LOGICA PARA PACIENTES
 void registrarPaciente(Consultorio &sistema)
 {
 
