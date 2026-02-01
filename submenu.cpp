@@ -129,7 +129,7 @@ void listarPacientes(Consultorio &sistema)
 
         Paciente *p = pacientes[i];
            cout << setw(3) << right << (i + 1) << ". "
-               << setw(20) << left << (p->getApellido() + " " + p->getNombre())
+               << setw(25) << left << (p->getApellido() + " " + p->getNombre())
                << "Dni: " << setw(10) << left << p->getDni()
                << "Tel: " << setw(12) << left << p->getTelefono()
                << "Obra social: " << setw(15) << left << p->getObraSocial()
@@ -328,7 +328,7 @@ void listarKinesiologos(const Consultorio &sistema)
         Kinesiologo *k = kinesiologos[i];
         if (k == nullptr) continue; // Evitar punteros nulos
         cout << setw(3)  << right << (i + 1) << ". "
-             << setw(20) << left << (k->getApellido() + " " + k->getNombre())
+             << setw(25) << left << (k->getApellido() + " " + k->getNombre())
              << "Dni: " << setw(10) << left << k->getDni()
              << "Tel: " << setw(12) << left << k->getTelefono()
              << "Especialidad: " << setw(15) << left << k->getEspecialidad()
