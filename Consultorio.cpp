@@ -210,7 +210,7 @@ vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &n
     transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper); // tuve que ver un video de youtube de un loco para entender como hacer esto
     string apellidoBuscado = apellido;
     transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper); // lo mismo para el apellido
-
+    string nombreYapellidoBuscado = nombreBuscado + " " + apellidoBuscado;
     vector<Paciente *> encontrados;
 
     for (Paciente *p : pacientes)
@@ -219,7 +219,8 @@ vector<Paciente *> Consultorio::filtrarPorNombreApellidoPaciente(const string &n
         transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
         string apellidoActual = p->getApellido();
         transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
-        if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
+        string nombreYapellidoActual = nombreActual + " " + apellidoActual;
+        if (nombreYapellidoBuscado == nombreYapellidoActual)
         {
             encontrados.push_back(p);
         }
@@ -234,7 +235,7 @@ vector<Kinesiologo *> Consultorio::filtrarPorNombreApellidoKinesiologo(const str
     transform(nombreBuscado.begin(), nombreBuscado.end(), nombreBuscado.begin(), ::toupper); // tuve que ver un video de youtube de un loco para entender como hacer esto
     string apellidoBuscado = apellido;
     transform(apellidoBuscado.begin(), apellidoBuscado.end(), apellidoBuscado.begin(), ::toupper); // lo mismo para el apellido
-
+    string nombreYapellidoBuscado = nombreBuscado + " " + apellidoBuscado;
     vector<Kinesiologo *> encontrados;
     for (Kinesiologo *k : kinesiologos)
     {
@@ -242,7 +243,8 @@ vector<Kinesiologo *> Consultorio::filtrarPorNombreApellidoKinesiologo(const str
         transform(nombreActual.begin(), nombreActual.end(), nombreActual.begin(), ::toupper);
         string apellidoActual = k->getApellido();
         transform(apellidoActual.begin(), apellidoActual.end(), apellidoActual.begin(), ::toupper);
-        if (nombreBuscado == nombreActual && apellidoBuscado == apellidoActual)
+        string nombreYapellidoActual = nombreActual + " " + apellidoActual;
+        if (nombreYapellidoBuscado == nombreYapellidoActual)
         {
             encontrados.push_back(k);
         }
@@ -396,7 +398,7 @@ void Consultorio::guardarPacientes(const string &nombreArchivo)
 
 void Consultorio::cargarPacientes(const string &nombreArchivo)
 {
-    ifstream bin(nombreArchivo, ios::binary); // <--- Usamos ifstream es más seguro
+    ifstream bin(nombreArchivo, ios::binary); //Usamos ifstream es más seguro
     if (!bin.is_open())
         return; // Si no existe, no es error critico, solo no carga nada
 
@@ -406,7 +408,6 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
     pacientes.clear();
 
     RegistroPaciente RegPaciente;
-    // <--- CORREGIDO: Quité los paréntesis extra del while
     while (bin.read(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente)))
     {
         Paciente *p = new Paciente();
