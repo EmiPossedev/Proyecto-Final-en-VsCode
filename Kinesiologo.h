@@ -29,6 +29,10 @@ private:
     int cantidadPacientesAtendidos;
 
 public:
+    // Métodos constructores
+    Kinesiologo(){};
+    Kinesiologo(string nom, string ape, string tel, string dniNuevo, int mat, string esp, int cantPac)
+        : Persona(nom, ape, tel, dniNuevo), matricula(mat), especialidad(esp), cantidadPacientesAtendidos(cantPac) {}
     // Métodos para obtener los datos del kinesiologo y/o modificarlos
     string getEspecialidad() const;
     void setEspecialidad(const string &modificacion);

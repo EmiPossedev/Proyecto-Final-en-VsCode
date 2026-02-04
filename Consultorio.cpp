@@ -13,6 +13,7 @@
 #include <algorithm> // para que funcione el sort
 #include <cctype>    // para usar el toupper transformar en mayusculas para filtrar por nombre
 using namespace std;
+
 // MÉTODO DESTRUCTOR
 Consultorio::~Consultorio()
 {
@@ -410,21 +411,20 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
     RegistroPaciente RegPaciente;
     while (bin.read(reinterpret_cast<char *>(&RegPaciente), sizeof(RegistroPaciente)))
     {
-        Paciente *p = new Paciente();
-        p->setNombre(string(RegPaciente.nombre));
-        p->setApellido(string(RegPaciente.apellido));
-        p->setTelefono(RegPaciente.telefono);
-        p->setDni(string(RegPaciente.dni));
-        p->setFechaDeInicio(RegPaciente.fechaDeInicio);
-        p->setDiagnostico(string(RegPaciente.diagnostico));
-        p->setObraSocial(string(RegPaciente.obraSocial));
-        p->setCantSesionesTotales(RegPaciente.cantSesionesTotales);
-        p->setCantidadSesionesRealizadas(RegPaciente.cantSesionesRealizadas);
-        p->setObservaciones(string(RegPaciente.observaciones));
-        if (RegPaciente.sesionesPagas)
-            p->marcarComoPagado();
-        else
-            p->marcarComoPendiente();
+        // Implementé las modificaciones que me dió el profe Cesar
+        Paciente *p = new Paciente(
+            string(RegPaciente.nombre),
+            string(RegPaciente.apellido),
+            string(RegPaciente.telefono),
+            string(RegPaciente.dni),
+            RegPaciente.fechaDeInicio,
+            string(RegPaciente.diagnostico),
+            string(RegPaciente.obraSocial),
+            RegPaciente.cantSesionesTotales,
+            RegPaciente.cantSesionesRealizadas,
+            string(RegPaciente.observaciones),
+            RegPaciente.sesionesPagas
+        );
         pacientes.push_back(p);
     }
     bin.close();
@@ -475,16 +475,16 @@ void Consultorio::cargarKinesiologos(const string &nombreArchivo)
     RegistroKinesiologo RegKinesio;
     while (bin.read(reinterpret_cast<char *>(&RegKinesio), sizeof(RegistroKinesiologo)))
     {
-        Kinesiologo *k = new Kinesiologo();
-
-        k->setNombre(string(RegKinesio.nombre));
-        k->setApellido(string(RegKinesio.apellido));
-        k->setTelefono(RegKinesio.telefono);
-        k->setDni(string(RegKinesio.dni));
-        k->setEspecialidad(string(RegKinesio.especialidad));
-        k->setMatricula(RegKinesio.matricula);
-        k->setCantPacientesAtendidos(RegKinesio.cantidadPacientesAtendidos);
-
+        // Implementé las modificaciones que me dió el profe Cesar
+        Kinesiologo *k = new Kinesiologo(
+            string(RegKinesio.nombre),
+            string(RegKinesio.apellido),
+            string(RegKinesio.telefono),
+            string(RegKinesio.dni),
+            RegKinesio.matricula,
+            string(RegKinesio.especialidad),
+            RegKinesio.cantidadPacientesAtendidos
+        );
         kinesiologos.push_back(k);
     }
     bin.close();

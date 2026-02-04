@@ -23,6 +23,8 @@ private:
     string dni;
 
 public:
+    Persona (){}
+    Persona (string nom, string ape, string tel, string dniNuevo): nombre(nom), apellido(ape), telefono(tel), dni(dniNuevo) {}
     void setNombre(const string &nombre);
     string getNombre() const;
     void setApellido(const string &apellido);
