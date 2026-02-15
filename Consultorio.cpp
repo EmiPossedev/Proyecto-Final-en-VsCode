@@ -403,7 +403,7 @@ void Consultorio::cargarPacientes(const string &nombreArchivo)
     if (!bin.is_open())
         return; // Si no existe, no es error critico, solo no carga nada
 
-    // 1. LIMPIEZA DE MEMORIA (IMPORTANTE)
+    // 1. Primero hacemos una limpieza de memoria por las dudas
     for (auto p : pacientes)
         delete p;
     pacientes.clear();
