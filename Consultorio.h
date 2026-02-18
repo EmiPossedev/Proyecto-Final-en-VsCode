@@ -13,7 +13,6 @@ using namespace std;
 // Este struct sirve para guardar en archivo binario (usando char)
 struct RegistroTurno
 {
-    char dniKine[16];
     char dniPaciente[16];
     char nombreKinesio[60];
     char nombrePaciente[60];
@@ -28,7 +27,6 @@ struct RegistroTurno
 // Y este struct Turno me deja trabajar los datos en memoria
 struct Turno
 {
-    string dniKinesiologo;
     string dniPaciente;
     string nombreKinesiologo;
     string nombrePaciente;
@@ -72,13 +70,17 @@ public:
     // Método constructor y método destructor
     Consultorio() {}
     ~Consultorio();
-    // Métodos para agregar/obtener pacientes
+
+    // Métodos para agregar/obtener kinesiologos
     void agregarKinesiologo(Kinesiologo *kinesiologo);
     vector<Kinesiologo *> getKinesiologos() const;
+    size_t getCantidadKinesiologos() const;
 
-    // Métodos para agregar/obtener kinesiólogos
+    // Métodos para agregar/obtener pacientes
     void agregarPaciente(Paciente *paciente);
     vector<Paciente *> getPacientes() const;
+    size_t getCantidadPacientes() const;
+
 
     // Métodos para borrar todos los pacientes, turnos y kinesiologos
     void borrarPacientes();

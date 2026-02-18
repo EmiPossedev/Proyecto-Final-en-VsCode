@@ -53,6 +53,11 @@ vector<Kinesiologo *> Consultorio::getKinesiologos() const
     return kinesiologos;
 }
 
+size_t Consultorio::getCantidadKinesiologos() const
+{
+    return kinesiologos.size();
+}
+
 // Métodos BÁSICOS para PACIENTES
 void Consultorio::agregarPaciente(Paciente *paciente)
 {
@@ -64,11 +69,21 @@ vector<Paciente *> Consultorio::getPacientes() const
     return pacientes;
 }
 
+size_t Consultorio::getCantidadPacientes() const
+{
+    return pacientes.size();
+}
+
 // MÉTODOS PARA LOS TURNOS(buscar, consultar, agregar, cancelar, reprogramar, ordenar)
 // Método para obtener los turnos
 vector<Turno> Consultorio::getTurnos() const
 {
     return turnos;
+}
+
+size_t getCantTurnos() const
+{
+    return turnos.size();
 }
 
 // Agregar un turno
