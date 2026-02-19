@@ -587,7 +587,6 @@ void reservarTurno(Consultorio &sistema)
 
     Turno nuevoT;
     nuevoT.nombrePaciente = nombrePac;
-    nuevoT.nombreKinesiologo = nombreKine;
     nuevoT.dniKinesiologo = dniKine;
     nuevoT.dniPaciente = dniPaciente;
     cout << "Ingrese la fecha del turno: " << endl;
@@ -676,7 +675,7 @@ void verAgenda(Consultorio &sistema)
                  // Formato de fecha [DD/MM/AAAA - HH:MM]
                  << setw(20) << left << "[" << t.fecha.dia << "/" << t.fecha.mes << "/" << t.fecha.anio << " - " << t.hora << "] "
                  << setw(25) << left << "Paciente: " << t.nombrePaciente
-                 << setw(25) << left << " Kinesiólogo: " << t.nombreKinesiologo
+                 << setw(25) << left << " Kinesiólogo: " << t.dniKinesiologo
                  << setw(15) << left << " (" << t.estadoDelTurno << ")";
             if (t.requiereCamilla)
             {

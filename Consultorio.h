@@ -14,7 +14,7 @@ using namespace std;
 struct RegistroTurno
 {
     char dniPaciente[16];
-    char nombreKinesio[60];
+    char dniKinesio[16];
     char nombrePaciente[60];
     Fecha fecha;             // Usamos el struct Fecha definido en Fecha.h
     char hora[10];           // Formato HH:MM
@@ -28,7 +28,7 @@ struct RegistroTurno
 struct Turno
 {
     string dniPaciente;
-    string nombreKinesiologo;
+    string dniKinesiologo;
     string nombrePaciente;
     Fecha fecha;
     string hora; // Formato HH:MM
@@ -89,6 +89,7 @@ public:
 
     // Métodos para la gestión de los turnos
     vector<Turno> getTurnos() const;
+    size_t getCantTurnos() const;
     void agregarTurno(const Turno &turno);
     void cancelarTurno(const string &nombrePaciente, const Fecha &fecha, const string &hora);
     void reprogramarTurno(const string &dniPacienteBuscado, const string &horaVieja, const Fecha &fechaVieja, const Fecha &fechaNueva, const string &horaNueva);

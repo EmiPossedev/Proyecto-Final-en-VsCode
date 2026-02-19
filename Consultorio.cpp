@@ -34,10 +34,10 @@ bool coincide(const Turno &turno, const Fecha &fecha)
 {
     return turno.fecha == fecha;
 }
-// Compara si coincide un turno con el string que puede ser el nombre del kinesiologo o la hora
+// Compara si coincide un turno con el string que puede ser el dni del kinesiologo o la hora
 bool coincide(const Turno &turno, const string &valor)
 {
-    return turno.hora == valor || turno.nombreKinesiologo == valor;
+    return turno.hora == valor || turno.dniKinesiologo == valor;
 }
 
 /// MÉTODOS BÁSICOS PARA AGREGAR/MODIFICAR DATOS
@@ -81,7 +81,7 @@ vector<Turno> Consultorio::getTurnos() const
     return turnos;
 }
 
-size_t getCantTurnos() const
+size_t Consultorio::getCantTurnos() const
 {
     return turnos.size();
 }
@@ -113,9 +113,9 @@ void Consultorio::reprogramarTurno(const string &dniPacienteBuscado, const strin
         // Buscar el turno original
         if (turno.dniPaciente == dniPacienteBuscado && turno.fecha == fechaVieja && turno.hora == horaVieja)
         {
-            if (!verificarDisponibilidadKinesiologo(turno.nombreKinesiologo, fechaNueva, horaNueva))
+            if (!verificarDisponibilidadKinesiologo(turno.dniKinesiologo, fechaNueva, horaNueva))
             {
-                cout << "Error: El kinesiologo " << turno.nombreKinesiologo << " ya tiene un turno a esa hora nueva." << endl;
+                cout << "Error: El kinesiologo " << turno.dniKinesiologo << " ya tiene un turno a esa hora nueva." << endl;
                 return;
             }
 
@@ -520,7 +520,8 @@ void Consultorio::guardarTurnos(const string &nombreArchivo)
     {
         RegistroTurno reg;
 
-        strncpy(reg.nombreKinesio, t.nombreKinesiologo.c_str(), 59);
+        strncpy(reg.dniPaciente, t.dniPaciente.c_str(), 15);
+        strncpy(reg.dniKinesio, t.dniKinesiologo.c_str(), 15);
         strncpy(reg.nombrePaciente, t.nombrePaciente.c_str(), 59);
         reg.fecha = t.fecha;
         strncpy(reg.hora, t.hora.c_str(), 9);
@@ -548,7 +549,8 @@ void Consultorio::cargarTurnos(const string &nombreArchivo)
     while (bin.read(reinterpret_cast<char *>(&reg), sizeof(RegistroTurno)))
     {
         Turno t;
-        t.nombreKinesiologo = reg.nombreKinesio;
+        t.dniPaciente = reg.dniPaciente;
+        t.dniKinesiologo = reg.dniKinesio;
         t.nombrePaciente = reg.nombrePaciente;
         t.fecha = reg.fecha;
         t.hora = reg.hora;
